@@ -750,6 +750,298 @@
       }
     }
 
+
+    /* FINAL FIXED MENU DOCK PATCH */
+    :root {
+      --dock-top: 72px;
+      --dock-height: 0px;
+    }
+
+    .menuDock {
+      position: relative !important;
+      top: auto !important;
+      z-index: 46;
+      transition: box-shadow .18s ease, background .18s ease, border-color .18s ease;
+    }
+
+    .menuDock.is-fixed {
+      position: fixed !important;
+      left: 50% !important;
+      top: var(--dock-top) !important;
+      width: min(100%, 980px) !important;
+      max-width: 100vw !important;
+      transform: translateX(-50%) !important;
+      margin: 0 !important;
+      z-index: 49 !important;
+      padding-left: 14px !important;
+      padding-right: 14px !important;
+      box-shadow: 0 16px 34px rgba(0,0,0,.10);
+      border-bottom: 1px solid color-mix(in srgb, var(--line) 86%, transparent);
+    }
+
+    .menuDockSpacer {
+      display: none;
+      height: 0;
+    }
+
+    .menuDockSpacer.active {
+      display: block;
+      height: var(--dock-height);
+    }
+
+    .section {
+      scroll-margin-top: calc(var(--dock-top) + var(--dock-height) + 18px) !important;
+    }
+
+    @media (min-width: 720px) {
+      .menuDock.is-fixed {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+      }
+    }
+
+    @media (max-width: 500px) {
+      :root {
+        --dock-top: 66px;
+      }
+
+      .menuDock.is-fixed {
+        padding-left: 14px !important;
+        padding-right: 14px !important;
+      }
+    }
+
+    @media (max-width: 380px) {
+      :root {
+        --dock-top: 62px;
+      }
+    }
+
+
+    /* FINAL SLIM FOLLOWING SWITCHER PATCH */
+    .menuTools {
+      margin: 12px 0 8px;
+      max-width: 100%;
+      min-width: 0;
+    }
+
+    .menuTools .search,
+    .menuTools .catnav,
+    .menuTools .filters {
+      position: relative !important;
+      top: auto !important;
+      z-index: auto !important;
+      background: transparent !important;
+      max-width: 100% !important;
+      min-width: 0 !important;
+    }
+
+    .menuTools .search {
+      margin: 0 0 9px !important;
+      padding: 0 !important;
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 8px;
+      align-items: center;
+    }
+
+    .searchToggle {
+      min-height: 44px;
+      padding: 0 13px;
+      border-radius: 17px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: linear-gradient(135deg, var(--p), var(--p2));
+      color: var(--bg2);
+      font-weight: 900;
+      box-shadow: 0 10px 22px color-mix(in srgb, var(--p) 18%, transparent);
+      white-space: nowrap;
+    }
+
+    .menuTools .searchbox {
+      min-width: 0;
+      min-height: 46px;
+      border-radius: 18px;
+      transition: opacity .18s ease, transform .18s ease, max-width .18s ease, padding .18s ease, border-color .18s ease;
+    }
+
+    .search.is-collapsed .searchbox {
+      max-width: 0;
+      opacity: 0;
+      transform: scaleX(.92);
+      padding-left: 0;
+      padding-right: 0;
+      border-color: transparent;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .search.is-open .searchbox,
+    .search.has-query .searchbox {
+      max-width: 100%;
+      opacity: 1;
+      transform: scaleX(1);
+      pointer-events: auto;
+    }
+
+    .search.is-open,
+    .search.has-query {
+      grid-template-columns: auto minmax(0, 1fr);
+    }
+
+    .menuTools .catnav {
+      margin: 0 -14px !important;
+      padding: 0 14px 8px !important;
+      overflow-x: auto !important;
+      overflow-y: hidden !important;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-inline: contain;
+      scrollbar-width: none;
+      mask-image: linear-gradient(to right, transparent 0, #000 18px, #000 calc(100% - 18px), transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0, #000 18px, #000 calc(100% - 18px), transparent 100%);
+    }
+
+    .menuTools .catnav::-webkit-scrollbar,
+    .menuTools .filters::-webkit-scrollbar {
+      display: none;
+    }
+
+    .menuTools .catlist {
+      display: flex !important;
+      flex-wrap: nowrap !important;
+      width: max-content;
+      min-width: max-content;
+      gap: 10px;
+    }
+
+    .menuTools .cat {
+      flex: 0 0 auto;
+      scroll-snap-align: center;
+    }
+
+    .menuTools .filters {
+      display: flex !important;
+      flex-wrap: nowrap !important;
+      gap: 8px !important;
+      margin: 0 -14px !important;
+      padding: 0 14px 2px !important;
+      overflow-x: auto !important;
+      overflow-y: hidden !important;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-inline: contain;
+      scrollbar-width: none;
+      touch-action: pan-x;
+      mask-image: linear-gradient(to right, transparent 0, #000 18px, #000 calc(100% - 18px), transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0, #000 18px, #000 calc(100% - 18px), transparent 100%);
+    }
+
+    .menuTools .fchip {
+      flex: 0 0 auto;
+      white-space: nowrap;
+      scroll-snap-align: center;
+    }
+
+    .menuDock {
+      position: relative !important;
+      top: auto !important;
+      z-index: 46;
+      margin: 8px 0 10px !important;
+      padding: 0 !important;
+      background: transparent !important;
+      border: 0 !important;
+      box-shadow: none !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      max-width: 100% !important;
+    }
+
+    .menuDock.is-fixed {
+      position: fixed !important;
+      left: 50% !important;
+      top: var(--dock-top) !important;
+      width: min(calc(100% - 20px), 540px) !important;
+      max-width: calc(100vw - 20px) !important;
+      transform: translateX(-50%) !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      z-index: 49 !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      border: 0 !important;
+    }
+
+    .menuDock.is-fixed .catSwitchInner {
+      box-shadow: 0 16px 34px rgba(0,0,0,.16);
+      background: color-mix(in srgb, var(--solid) 88%, transparent);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .menuDockSpacer.active {
+      display: block;
+      height: var(--dock-height);
+    }
+
+    .section {
+      scroll-margin-top: calc(var(--dock-top) + var(--dock-height) + 18px) !important;
+    }
+
+    @media (min-width: 720px) {
+      .menuTools .catnav,
+      .menuTools .filters {
+        margin-inline: -20px !important;
+        padding-inline: 20px !important;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .menuTools {
+        margin-top: 10px;
+      }
+      .searchToggle {
+        min-height: 42px;
+        padding: 0 12px;
+        border-radius: 16px;
+      }
+      .searchToggle span {
+        display: inline;
+      }
+      .menuTools .searchbox {
+        min-height: 42px;
+      }
+      .menuTools .cat {
+        min-height: 40px;
+        padding: 0 13px;
+        font-size: 0.84rem;
+      }
+      .menuTools .fchip {
+        min-height: 34px;
+        padding: 0 11px;
+        font-size: 0.78rem;
+      }
+      .menuDock.is-fixed {
+        width: min(calc(100% - 18px), 500px) !important;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .menuTools .search {
+        grid-template-columns: 42px minmax(0, 1fr);
+      }
+      .searchToggle {
+        width: 42px;
+        padding: 0;
+      }
+      .searchToggle span {
+        display: none;
+      }
+      .menuDock.is-fixed {
+        width: calc(100% - 14px) !important;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -774,12 +1066,25 @@
       </div>
     </header>
 
-    <div class="menuDock" id="menuDock">
-      <section class="search"><div class="searchbox"><i class="fa-solid fa-magnifying-glass"></i><input id="searchInput" type="search" autocomplete="off"><button class="clear" id="clearBtn"><i class="fa-solid fa-xmark"></i></button></div></section>
+    <div class="menuTools" id="menuTools">
+      <section class="search is-collapsed" id="searchPanel">
+        <button class="searchToggle" id="searchToggle" type="button" aria-expanded="false" aria-controls="searchInput">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <span id="searchToggleText">Ara</span>
+        </button>
+        <div class="searchbox">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input id="searchInput" type="search" autocomplete="off">
+          <button class="clear" id="clearBtn"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+      </section>
       <nav class="catnav"><div class="catlist" id="catList"></div></nav>
-      <section class="catSwitch" id="catSwitch" aria-label="Kategori geçişi"></section>
       <section class="filters" id="filters"></section>
     </div>
+    <div class="menuDock" id="menuDock">
+      <section class="catSwitch" id="catSwitch" aria-label="Kategori geçişi"></section>
+    </div>
+    <div class="menuDockSpacer" id="menuDockSpacer" aria-hidden="true"></div>
 
     <section class="featuredSec">
       <div class="head"><div><h2 id="featuredTitle">Öne Çıkanlar</h2><p id="featuredDesc">İşletmenin vitrin ürünleri için hızlı gösterim alanı.</p></div></div>
@@ -1012,9 +1317,9 @@
     applyProductTranslations();
 
     const i18n={
-      tr:{code:"TR",brandSub:"QR Menü",heroKicker:"QR Menü Deneyimi",heroDesc:"Butik kahve, seçili atıştırmalıklar ve modern bar atmosferini birleştiren premium QR menü deneyimi.",todayLabel:"Bugünün önerisi",todayText:"Lotus Cold Brew & San Sebastian",featuredTitle:"Öne Çıkanlar",featuredDesc:"İşletmenin vitrin ürünleri için hızlı gösterim alanı.",featuredBadge:"Öne çıkan",search:"Ürün, açıklama veya etiket ara...",theme:"Demo Tema",list:"Listem",add:"Ekle",sold:"Tükendi",products:"ürün",lines:"kalem",all:"Tümü",popular:"Popüler",signature:"İmza",cold:"Soğuk",vegetarian:"Vejetaryen",spicy:"Baharatlı",emptyTitle:"Sonuç bulunamadı",emptyText:"Aradığın ürün menümüzde görünmüyor. Daha genel bir kelimeyle tekrar deneyebilirsin.",tax:"Fiyatlarımıza KDV dahildir.",wifi:"Wi-Fi: QUPPA Guest / Şifre: quppa2025",floatTitle:"{count} ürün listende",floatSub:"Listeyi aç ve garsona göster",sheetTitle:"Sipariş Özeti",sheetDesc:"Bu ekranı garsona gösterebilirsin. Ürünler kategoriye göre gruplanır.",emptyCartTitle:"Listen henüz boş",emptyCartText:"Menüden ürün eklediğinde burada sade bir sipariş özeti oluşacak.",note:"Garsona Not",notePh:"Örn: Az buz, şekersiz, soğansız...",clear:"Listeyi Temizle",copy:"Özeti Kopyala",copied:"Sipariş özeti kopyalandı.",copiedText:"İstersen WhatsApp veya mesaj olarak paylaşabilirsin.",added:"{name} listeye eklendi.",addedText:"Sipariş listeni alttaki bardan açabilirsin.",removed:"Ürün listeden çıkarıldı.",removedText:"{name} sipariş listenden kaldırıldı.",cleared:"Liste temizlendi.",clearedText:"Sipariş listendeki tüm ürünler kaldırıldı.",detailTitle:"Ürün Detayı",detailSub:"Ürün bilgisi ve hızlı ekleme.",pickTitle:"Menü dilini seç",pickText:"Devam etmek için bir dil seç.",favorites:"Favoriler",favorite:"Favori",favorited:"Favorilere eklendi.",favoritedText:"Bu ürün artık bu cihazda favori olarak saklanacak.",unfavorited:"Favorilerden kaldırıldı.",unfavoritedText:"Bu ürün artık favori listenizde görünmeyecek.",shareable:"Paylaşmalık",sweet:"Tatlı",cheesy:"Peynirli",protein:"Protein",fresh:"Ferah",creamy:"Kremalı",coffeePair:"Kahve eşlikçisi",hearty:"Doyurucu",currentCategory:"Şu an",previousCategory:"Önceki kategori",nextCategory:"Sonraki kategori"},
-      en:{code:"EN",brandSub:"QR Menu",heroKicker:"QR Menu Experience",heroDesc:"A premium QR menu experience combining boutique coffee, selected snacks and a modern bar atmosphere.",todayLabel:"Today’s pick",todayText:"Lotus Cold Brew & San Sebastian",featuredTitle:"Featured",featuredDesc:"A quick showcase area for the venue’s highlight products.",featuredBadge:"Featured",search:"Search product, description or tag...",theme:"Demo Theme",list:"List",add:"Add",sold:"Sold Out",products:"items",lines:"lines",all:"All",popular:"Popular",signature:"Signature",cold:"Cold",vegetarian:"Vegetarian",spicy:"Spicy",emptyTitle:"No results found",emptyText:"This item does not appear on the menu. Try a broader keyword.",tax:"VAT is included in our prices.",wifi:"Wi-Fi: QUPPA Guest / Password: quppa2025",floatTitle:"{count} items in your list",floatSub:"Open and show the waiter",sheetTitle:"Order Summary",sheetDesc:"You can show this screen to the waiter. Items are grouped by category.",emptyCartTitle:"Your list is empty",emptyCartText:"When you add items, a compact order summary will appear here.",note:"Note to Waiter",notePh:"E.g. less ice, no sugar, no onion...",clear:"Clear List",copy:"Copy Summary",copied:"Order summary copied.",copiedText:"You can share it via message or WhatsApp.",added:"{name} added to list.",addedText:"Open your order list from the bottom bar.",removed:"Item removed.",removedText:"{name} was removed from your order list.",cleared:"List cleared.",clearedText:"All items were removed from your order list.",detailTitle:"Product Detail",detailSub:"Product info and quick add.",pickTitle:"Choose menu language",pickText:"Choose a language to continue.",favorites:"Favorites",favorite:"Favorite",favorited:"Added to favorites.",favoritedText:"This product will be saved on this device.",unfavorited:"Removed from favorites.",unfavoritedText:"This product will no longer appear in your favorites.",shareable:"Shareable",sweet:"Sweet",cheesy:"Cheesy",protein:"Protein",fresh:"Fresh",creamy:"Creamy",coffeePair:"Coffee Pairing",hearty:"Hearty",currentCategory:"Current",previousCategory:"Previous category",nextCategory:"Next category"},
-      ru:{code:"RU",brandSub:"QR-меню",heroKicker:"QR-меню",heroDesc:"Премиальное QR-меню: кофе, закуски и атмосфера современного бара.",todayLabel:"Рекомендация дня",todayText:"Lotus Cold Brew & San Sebastian",featuredTitle:"Избранное",featuredDesc:"Быстрый блок для витринных позиций заведения.",featuredBadge:"Избранное",search:"Искать блюдо, описание или тег...",theme:"Демо тема",list:"Список",add:"Добавить",sold:"Нет",products:"шт.",lines:"поз.",all:"Все",popular:"Популярно",signature:"Фирменное",cold:"Холодное",vegetarian:"Вегетарианское",spicy:"Острое",emptyTitle:"Ничего не найдено",emptyText:"Такого пункта нет в меню. Попробуйте более общий запрос.",tax:"НДС включён в цены.",wifi:"Wi-Fi: QUPPA Guest / Пароль: quppa2025",floatTitle:"{count} поз. в списке",floatSub:"Открыть и показать официанту",sheetTitle:"Итог заказа",sheetDesc:"Покажите этот экран официанту. Позиции сгруппированы по категориям.",emptyCartTitle:"Список пуст",emptyCartText:"Добавьте позиции из меню, и здесь появится краткий итог заказа.",note:"Примечание",notePh:"Напр.: меньше льда, без сахара...",clear:"Очистить список",copy:"Копировать",copied:"Итог заказа скопирован.",copiedText:"Можно отправить сообщением или в WhatsApp.",added:"{name} добавлено.",addedText:"Откройте список заказа в нижней панели.",removed:"Позиция удалена.",removedText:"{name} удалено из списка заказа.",cleared:"Список очищен.",clearedText:"Все позиции удалены из списка заказа.",detailTitle:"Детали",detailSub:"Информация и быстрое добавление.",pickTitle:"Выберите язык меню",pickText:"Выберите язык, чтобы продолжить.",favorites:"Избранное",favorite:"Избранное",favorited:"Добавлено в избранное.",favoritedText:"Этот продукт будет сохранён на этом устройстве.",unfavorited:"Удалено из избранного.",unfavoritedText:"Этот продукт больше не будет в избранном.",shareable:"Для компании",sweet:"Сладкое",cheesy:"Сырное",protein:"Белковое",fresh:"Свежий",creamy:"Кремовый",coffeePair:"К кофе",hearty:"Сытное",currentCategory:"Сейчас",previousCategory:"Предыдущая категория",nextCategory:"Следующая категория"},
+      tr:{code:"TR",brandSub:"QR Menü",heroKicker:"QR Menü Deneyimi",heroDesc:"Butik kahve, seçili atıştırmalıklar ve modern bar atmosferini birleştiren premium QR menü deneyimi.",todayLabel:"Bugünün önerisi",todayText:"Lotus Cold Brew & San Sebastian",featuredTitle:"Öne Çıkanlar",featuredDesc:"İşletmenin vitrin ürünleri için hızlı gösterim alanı.",featuredBadge:"Öne çıkan",search:"Ürün, açıklama veya etiket ara...",theme:"Demo Tema",list:"Listem",add:"Ekle",sold:"Tükendi",products:"ürün",lines:"kalem",all:"Tümü",popular:"Popüler",signature:"İmza",cold:"Soğuk",vegetarian:"Vejetaryen",spicy:"Baharatlı",emptyTitle:"Sonuç bulunamadı",emptyText:"Aradığın ürün menümüzde görünmüyor. Daha genel bir kelimeyle tekrar deneyebilirsin.",tax:"Fiyatlarımıza KDV dahildir.",wifi:"Wi-Fi: QUPPA Guest / Şifre: quppa2025",floatTitle:"{count} ürün listende",floatSub:"Listeyi aç ve garsona göster",sheetTitle:"Sipariş Özeti",sheetDesc:"Bu ekranı garsona gösterebilirsin. Ürünler kategoriye göre gruplanır.",emptyCartTitle:"Listen henüz boş",emptyCartText:"Menüden ürün eklediğinde burada sade bir sipariş özeti oluşacak.",note:"Garsona Not",notePh:"Örn: Az buz, şekersiz, soğansız...",clear:"Listeyi Temizle",copy:"Özeti Kopyala",copied:"Sipariş özeti kopyalandı.",copiedText:"İstersen WhatsApp veya mesaj olarak paylaşabilirsin.",added:"{name} listeye eklendi.",addedText:"Sipariş listeni alttaki bardan açabilirsin.",removed:"Ürün listeden çıkarıldı.",removedText:"{name} sipariş listenden kaldırıldı.",cleared:"Liste temizlendi.",clearedText:"Sipariş listendeki tüm ürünler kaldırıldı.",detailTitle:"Ürün Detayı",detailSub:"Ürün bilgisi ve hızlı ekleme.",pickTitle:"Menü dilini seç",pickText:"Devam etmek için bir dil seç.",favorites:"Favoriler",favorite:"Favori",favorited:"Favorilere eklendi.",favoritedText:"Bu ürün artık bu cihazda favori olarak saklanacak.",unfavorited:"Favorilerden kaldırıldı.",unfavoritedText:"Bu ürün artık favori listenizde görünmeyecek.",shareable:"Paylaşmalık",sweet:"Tatlı",cheesy:"Peynirli",protein:"Protein",fresh:"Ferah",creamy:"Kremalı",coffeePair:"Kahve eşlikçisi",hearty:"Doyurucu",currentCategory:"Şu an",previousCategory:"Önceki kategori",nextCategory:"Sonraki kategori",searchToggle:"Ara"},
+      en:{code:"EN",brandSub:"QR Menu",heroKicker:"QR Menu Experience",heroDesc:"A premium QR menu experience combining boutique coffee, selected snacks and a modern bar atmosphere.",todayLabel:"Today’s pick",todayText:"Lotus Cold Brew & San Sebastian",featuredTitle:"Featured",featuredDesc:"A quick showcase area for the venue’s highlight products.",featuredBadge:"Featured",search:"Search product, description or tag...",theme:"Demo Theme",list:"List",add:"Add",sold:"Sold Out",products:"items",lines:"lines",all:"All",popular:"Popular",signature:"Signature",cold:"Cold",vegetarian:"Vegetarian",spicy:"Spicy",emptyTitle:"No results found",emptyText:"This item does not appear on the menu. Try a broader keyword.",tax:"VAT is included in our prices.",wifi:"Wi-Fi: QUPPA Guest / Password: quppa2025",floatTitle:"{count} items in your list",floatSub:"Open and show the waiter",sheetTitle:"Order Summary",sheetDesc:"You can show this screen to the waiter. Items are grouped by category.",emptyCartTitle:"Your list is empty",emptyCartText:"When you add items, a compact order summary will appear here.",note:"Note to Waiter",notePh:"E.g. less ice, no sugar, no onion...",clear:"Clear List",copy:"Copy Summary",copied:"Order summary copied.",copiedText:"You can share it via message or WhatsApp.",added:"{name} added to list.",addedText:"Open your order list from the bottom bar.",removed:"Item removed.",removedText:"{name} was removed from your order list.",cleared:"List cleared.",clearedText:"All items were removed from your order list.",detailTitle:"Product Detail",detailSub:"Product info and quick add.",pickTitle:"Choose menu language",pickText:"Choose a language to continue.",favorites:"Favorites",favorite:"Favorite",favorited:"Added to favorites.",favoritedText:"This product will be saved on this device.",unfavorited:"Removed from favorites.",unfavoritedText:"This product will no longer appear in your favorites.",shareable:"Shareable",sweet:"Sweet",cheesy:"Cheesy",protein:"Protein",fresh:"Fresh",creamy:"Creamy",coffeePair:"Coffee Pairing",hearty:"Hearty",currentCategory:"Current",previousCategory:"Previous category",nextCategory:"Next category",searchToggle:"Search"},
+      ru:{code:"RU",brandSub:"QR-меню",heroKicker:"QR-меню",heroDesc:"Премиальное QR-меню: кофе, закуски и атмосфера современного бара.",todayLabel:"Рекомендация дня",todayText:"Lotus Cold Brew & San Sebastian",featuredTitle:"Избранное",featuredDesc:"Быстрый блок для витринных позиций заведения.",featuredBadge:"Избранное",search:"Искать блюдо, описание или тег...",theme:"Демо тема",list:"Список",add:"Добавить",sold:"Нет",products:"шт.",lines:"поз.",all:"Все",popular:"Популярно",signature:"Фирменное",cold:"Холодное",vegetarian:"Вегетарианское",spicy:"Острое",emptyTitle:"Ничего не найдено",emptyText:"Такого пункта нет в меню. Попробуйте более общий запрос.",tax:"НДС включён в цены.",wifi:"Wi-Fi: QUPPA Guest / Пароль: quppa2025",floatTitle:"{count} поз. в списке",floatSub:"Открыть и показать официанту",sheetTitle:"Итог заказа",sheetDesc:"Покажите этот экран официанту. Позиции сгруппированы по категориям.",emptyCartTitle:"Список пуст",emptyCartText:"Добавьте позиции из меню, и здесь появится краткий итог заказа.",note:"Примечание",notePh:"Напр.: меньше льда, без сахара...",clear:"Очистить список",copy:"Копировать",copied:"Итог заказа скопирован.",copiedText:"Можно отправить сообщением или в WhatsApp.",added:"{name} добавлено.",addedText:"Откройте список заказа в нижней панели.",removed:"Позиция удалена.",removedText:"{name} удалено из списка заказа.",cleared:"Список очищен.",clearedText:"Все позиции удалены из списка заказа.",detailTitle:"Детали",detailSub:"Информация и быстрое добавление.",pickTitle:"Выберите язык меню",pickText:"Выберите язык, чтобы продолжить.",favorites:"Избранное",favorite:"Избранное",favorited:"Добавлено в избранное.",favoritedText:"Этот продукт будет сохранён на этом устройстве.",unfavorited:"Удалено из избранного.",unfavoritedText:"Этот продукт больше не будет в избранном.",shareable:"Для компании",sweet:"Сладкое",cheesy:"Сырное",protein:"Белковое",fresh:"Свежий",creamy:"Кремовый",coffeePair:"К кофе",hearty:"Сытное",currentCategory:"Сейчас",previousCategory:"Предыдущая категория",nextCategory:"Следующая категория",searchToggle:"Поиск"},
       ar:{code:"AR",brandSub:"قائمة QR",heroKicker:"تجربة قائمة QR",heroDesc:"تجربة قائمة QR راقية تجمع بين القهوة المختصة والوجبات المختارة وأجواء البار العصري.",todayLabel:"اقتراح اليوم",todayText:"لوتس كولد برو وسان سيباستيان",featuredTitle:"الأبرز",featuredDesc:"مساحة عرض سريعة للمنتجات المميزة في المكان.",featuredBadge:"مميز",search:"ابحث عن منتج أو وصف أو وسم...",theme:"مظهر تجريبي",list:"قائمتي",add:"أضف",sold:"نفد",products:"منتج",lines:"أصناف",all:"الكل",popular:"شائع",signature:"مميز",cold:"بارد",vegetarian:"نباتي",spicy:"حار",emptyTitle:"لا توجد نتائج",emptyText:"هذا المنتج غير ظاهر في القائمة. جرّب كلمة بحث أوسع.",tax:"الأسعار تشمل ضريبة القيمة المضافة.",wifi:"Wi-Fi: QUPPA Guest / كلمة المرور: quppa2025",floatTitle:"{count} منتجات في قائمتك",floatSub:"افتح القائمة واعرضها على النادل",sheetTitle:"ملخص الطلب",sheetDesc:"يمكنك عرض هذه الشاشة على النادل. المنتجات مقسمة حسب الفئة.",emptyCartTitle:"قائمتك فارغة",emptyCartText:"عند إضافة المنتجات سيظهر هنا ملخص طلب مختصر.",note:"ملاحظة للنادل",notePh:"مثال: ثلج قليل، بدون سكر...",clear:"مسح القائمة",copy:"نسخ الملخص",copied:"تم نسخ ملخص الطلب.",copiedText:"يمكنك مشاركته عبر الرسائل أو واتساب.",added:"تمت إضافة {name}.",addedText:"افتح قائمة الطلب من الشريط السفلي.",removed:"تم حذف المنتج.",removedText:"تم حذف {name} من قائمة طلبك.",cleared:"تم مسح القائمة.",clearedText:"تم حذف جميع المنتجات من قائمة الطلب.",detailTitle:"تفاصيل المنتج",detailSub:"معلومات المنتج وإضافة سريعة.",pickTitle:"اختر لغة القائمة",pickText:"اختر لغة للمتابعة."}
     };
     const themes=[["light","Modern Light","Aydınlık butik kafe","fa-sun"],["dark","Dark Mode","Şık bar atmosferi","fa-moon"],["espresso","Espresso","Sıcak kahve tonları","fa-mug-saucer"],["cyber","Neon Cyberpunk","Genç ve enerjik konsept","fa-bolt"],["retro","Retro","Nostaljik kafe ruhu","fa-record-vinyl"],["minimal","Minimalist","Sade premium görünüm","fa-circle-half-stroke"]];
@@ -1120,8 +1425,19 @@
     function cartItems(){return Object.entries(S.cart).map(([id,q])=>({product:find(id),q})).filter(x=>x.product&&x.q>0)}function summary(){return cartItems().reduce((s,x)=>(s.q+=x.q,s.total+=x.q*x.product.price,s.lines++,s),{q:0,total:0,lines:0})}
     function groups(){let items=cartItems();return menuData.map(c=>{let gi=items.filter(x=>x.product.catId===c.id),total=gi.reduce((a,x)=>a+x.product.price*x.q,0),q=gi.reduce((a,x)=>a+x.q,0);return{id:c.id,name:loc(c.name),icon:c.icon,items:gi,total,q}}).filter(g=>g.items.length)}
     function setLang(l,close=false){S.lang=i18n[l]?l:"tr";localStorage.setItem("quppa-language",S.lang);document.documentElement.lang=S.lang;document.documentElement.dir=S.lang==="ar"?"rtl":"ltr";applyTexts();renderAll();if(close)closeLang()}
-    function applyTexts(){["brandSub","heroKicker","featuredTitle"].forEach(id=>$(id).textContent=T(id));$("heroDesc").textContent=T("heroDesc");$("todayLabel").textContent=T("todayLabel");$("todayText").textContent=T("todayText");$("featuredDesc").textContent=T("featuredDesc");$("searchInput").placeholder=T("search");$("themeText").textContent=T("theme");$("listText").textContent=T("list");$("emptyTitle").textContent=T("emptyTitle");$("emptyText").textContent=T("emptyText");$("taxText").textContent=T("tax");$("wifiText").textContent=T("wifi");$("sheetTitle").textContent=T("sheetTitle");$("sheetDesc").textContent=T("sheetDesc");$("cartEmptyTitle").textContent=T("emptyCartTitle");$("cartEmptyText").textContent=T("emptyCartText");$("noteLabel").textContent=T("note");$("note").placeholder=T("notePh");$("copyText").textContent=T("copy");$("clearText").textContent=T("clear");$("detailTitle").textContent=T("detailTitle");$("detailSub").textContent=T("detailSub");$("pickTitle").textContent=T("pickTitle");$("pickText").textContent=T("pickText");$("langCode").textContent=T("code")}
-    function renderAll(){renderThemes();renderLangs();renderFilters();renderFeatured();renderMenu();renderCart();if(S.detail)renderDetail(S.detail)}
+    function applyTexts(){["brandSub","heroKicker","featuredTitle"].forEach(id=>$(id).textContent=T(id));$("heroDesc").textContent=T("heroDesc");$("todayLabel").textContent=T("todayLabel");$("todayText").textContent=T("todayText");$("featuredDesc").textContent=T("featuredDesc");$("searchInput").placeholder=T("search");if($("searchToggleText"))$("searchToggleText").textContent=T("searchToggle");$("themeText").textContent=T("theme");$("listText").textContent=T("list");$("emptyTitle").textContent=T("emptyTitle");$("emptyText").textContent=T("emptyText");$("taxText").textContent=T("tax");$("wifiText").textContent=T("wifi");$("sheetTitle").textContent=T("sheetTitle");$("sheetDesc").textContent=T("sheetDesc");$("cartEmptyTitle").textContent=T("emptyCartTitle");$("cartEmptyText").textContent=T("emptyCartText");$("noteLabel").textContent=T("note");$("note").placeholder=T("notePh");$("copyText").textContent=T("copy");$("clearText").textContent=T("clear");$("detailTitle").textContent=T("detailTitle");$("detailSub").textContent=T("detailSub");$("pickTitle").textContent=T("pickTitle");$("pickText").textContent=T("pickText");$("langCode").textContent=T("code")}
+    
+    function refreshDockSoon(){
+      if(typeof setupFixedMenuDock === "function"){
+        clearTimeout(window.__dockRefreshTimer);
+        window.__dockRefreshTimer=setTimeout(()=>{
+          const event=new Event("resize");
+          window.dispatchEvent(event);
+        },80);
+      }
+    }
+
+    function renderAll(){renderThemes();renderLangs();renderFilters();renderFeatured();renderMenu();renderCart();if(S.detail)renderDetail(S.detail);refreshDockSoon()}
     function renderThemes(){$("themeMenu").innerHTML=themes.map(t=>`<button class="themeopt ${S.theme===t[0]?"active":""}" data-theme="${t[0]}"><span class="themeico"><i class="fa-solid ${t[3]}"></i></span><span><b>${t[1]}</b><small>${t[2]}</small></span><span class="dot"></span></button>`).join("");document.querySelectorAll("[data-theme]").forEach(b=>b.onclick=()=>{S.theme=b.dataset.theme;document.documentElement.dataset.theme=S.theme;localStorage.setItem("quppa-theme",S.theme);$("themeMenu").classList.remove("open");renderThemes()})}
     function renderLangs(){$("langs").innerHTML=langs.map(l=>`<button class="lang ${S.lang===l[0]?"active":""}" data-lang="${l[0]}"><span class="flag">${l[1]}</span><span><b>${l[2]}</b><small>${l[3]}</small></span><i class="fa-solid fa-check"></i></button>`).join("");document.querySelectorAll("[data-lang]").forEach(b=>b.onclick=()=>setLang(b.dataset.lang,true))}
     function renderFilters(){$("filters").innerHTML=filters.map(f=>`<button class="fchip ${S.filter===f[0]?"active":""}" data-filter="${f[0]}"><i class="fa-solid ${f[1]}"></i><span>${T(f[0])}</span></button>`).join("");document.querySelectorAll("[data-filter]").forEach(b=>b.onclick=()=>{S.filter=b.dataset.filter;renderFilters();renderMenu();requestAnimationFrame(()=>centerInScroll(document.querySelector(`[data-filter="${S.filter}"]`)))});requestAnimationFrame(()=>centerInScroll(document.querySelector(`[data-filter="${S.filter}"]`)))}
@@ -1149,12 +1465,93 @@
     function spy(){if(S.obs)S.obs.disconnect();let ratios=new Map;S.obs=new IntersectionObserver(es=>{es.forEach(e=>ratios.set(e.target.dataset.sec,e.intersectionRatio));let m=[...ratios.entries()].filter(x=>x[1]>0).sort((a,b)=>b[1]-a[1])[0];if(m&&m[0]!==S.active){S.active=m[0];renderCats(getFilteredCats());renderSwitcher();requestAnimationFrame(()=>centerInScroll(document.querySelector(`[data-cat="${S.active}"]`)))}}, {threshold:[.12,.22,.36,.52,.68],rootMargin:"-190px 0px -45% 0px"});document.querySelectorAll(".section").forEach(s=>S.obs.observe(s))}
     function getFilteredCats(){return menuData.map(c=>({...c,products:c.products.filter(match)})).filter(c=>c.products.length)}
     $("themeBtn").onclick=e=>{e.stopPropagation();$("themeMenu").classList.toggle("open")};document.addEventListener("click",e=>{if(!e.target.closest(".themebox"))$("themeMenu").classList.remove("open")});
-    $("searchInput").oninput=e=>{S.q=e.target.value.trim();$("clearBtn").classList.toggle("show",!!S.q);renderMenu()};$("clearBtn").onclick=()=>{S.q="";$("searchInput").value="";$("clearBtn").classList.remove("show");renderMenu();$("searchInput").focus()};
+    $("searchInput").oninput=e=>{S.q=e.target.value.trim();$("clearBtn").classList.toggle("show",!!S.q);$("searchPanel")?.classList.toggle("has-query",!!S.q);renderMenu()};$("clearBtn").onclick=()=>{S.q="";$("searchInput").value="";$("clearBtn").classList.remove("show");$("searchPanel")?.classList.remove("has-query");$("searchPanel")?.classList.remove("is-open");$("searchPanel")?.classList.add("is-collapsed");renderMenu()};
     $("topCart").onclick=openSheet;$("floatBtn").onclick=openSheet;$("closeSheet").onclick=closeSheet;$("sheetBack").onclick=closeSheet;$("clearCart").onclick=clearCart;$("copyBtn").onclick=copySummary;
     $("closeDetail").onclick=closeDetail;$("detailBack").onclick=closeDetail;$("langBtn").onclick=()=>openLang(false);$("closeLang").onclick=closeLang;$("langBack").onclick=()=>{if(S.lang)closeLang()};
     $("note").value=S.note;$("noteBox").classList.toggle("open",!!S.note.trim());$("noteBox").querySelector("label").onclick=()=>{$("noteBox").classList.add("open");setTimeout(()=>$("note").focus(),0)};$("note").oninput=e=>{S.note=e.target.value;localStorage.setItem("quppa-note",S.note);$("noteBox").classList.toggle("open",!!S.note.trim()||document.activeElement===$("note"))};$("copyWifi").onclick=()=>copyWifi();
     document.onkeydown=e=>{if(e.key==="Escape"){$("themeMenu").classList.remove("open");closeSheet();closeDetail();if(S.lang)closeLang();$("toast").classList.remove("show")}};
+    
+    
+    function setupSearchToggle(){
+      const panel=$("searchPanel"), btn=$("searchToggle"), input=$("searchInput"), clear=$("clearBtn");
+      if(!panel||!btn||!input) return;
+
+      function sync(){
+        const hasQuery=!!input.value.trim();
+        panel.classList.toggle("has-query", hasQuery);
+        if(clear) clear.classList.toggle("show", hasQuery);
+        btn.setAttribute("aria-expanded", String(panel.classList.contains("is-open") || hasQuery));
+      }
+
+      btn.addEventListener("click",()=>{
+        const open=!panel.classList.contains("is-open");
+        panel.classList.toggle("is-open", open);
+        panel.classList.toggle("is-collapsed", !open && !input.value.trim());
+        btn.setAttribute("aria-expanded", String(open));
+        if(open) setTimeout(()=>input.focus(),80);
+      });
+
+      input.addEventListener("blur",()=>{
+        if(!input.value.trim()){
+          panel.classList.remove("is-open");
+          panel.classList.add("is-collapsed");
+          sync();
+        }
+      });
+
+      sync();
+    }
+
+    function setupFixedMenuDock(){
+      const dock=$("menuDock");
+      const spacer=$("menuDockSpacer");
+      const topbar=document.querySelector(".top");
+      if(!dock||!spacer) return;
+
+      let startY=0;
+      let ticking=false;
+
+      function measure(){
+        dock.classList.remove("is-fixed");
+        spacer.classList.remove("active");
+        document.documentElement.style.setProperty("--dock-height", dock.offsetHeight+"px");
+
+        const topHeight = topbar ? Math.ceil(topbar.getBoundingClientRect().height) : 64;
+        const top = Math.max(58, topHeight + 4);
+        document.documentElement.style.setProperty("--dock-top", top+"px");
+
+        const rect=dock.getBoundingClientRect();
+        startY=window.scrollY + rect.top - top;
+        update(true);
+      }
+
+      function update(force=false){
+        if(!force && ticking) return;
+        ticking=true;
+        requestAnimationFrame(()=>{
+          const shouldFix=window.scrollY >= startY;
+          dock.classList.toggle("is-fixed", shouldFix);
+          spacer.classList.toggle("active", shouldFix);
+          ticking=false;
+        });
+      }
+
+      window.addEventListener("scroll",()=>update(false),{passive:true});
+      window.addEventListener("resize",measure,{passive:true});
+      window.addEventListener("orientationchange",()=>setTimeout(measure,250),{passive:true});
+
+      if(document.fonts && document.fonts.ready){
+        document.fonts.ready.then(()=>setTimeout(measure,50));
+      }
+
+      setTimeout(measure,50);
+      setTimeout(measure,450);
+      setTimeout(measure,1200);
+    }
+
     document.documentElement.dataset.theme=S.theme;if(!S.lang){S.lang="tr";setLang("tr");openLang(true)}else setLang(S.lang);
+    setupSearchToggle();
+    setupFixedMenuDock();
   </script>
 </body>
 </html>
