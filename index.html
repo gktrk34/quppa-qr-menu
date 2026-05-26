@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="tr" data-theme="modern-light">
+<html lang="tr" dir="ltr" data-theme="modern-light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
@@ -38,7 +38,6 @@
       --image-fallback: linear-gradient(135deg, rgba(168,110,55,0.88), rgba(47,114,95,0.76));
       --radius-xl: 28px;
       --radius-lg: 22px;
-      --radius-md: 16px;
       --max-width: 980px;
       --font-body: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       --font-display: "Playfair Display", Georgia, serif;
@@ -192,7 +191,12 @@
       padding-bottom: 98px;
     }
 
-    body.sheet-open {
+    html[dir="rtl"] body {
+      text-align: right;
+    }
+
+    body.sheet-open,
+    body.lang-open {
       overflow: hidden;
     }
 
@@ -231,7 +235,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
+      gap: 10px;
       padding: 10px;
       border: 1px solid var(--border);
       border-radius: 999px;
@@ -282,7 +286,7 @@
     .top-actions {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 7px;
       flex: 0 0 auto;
     }
 
@@ -291,9 +295,10 @@
     }
 
     .theme-button,
-    .mini-cart-button {
+    .mini-cart-button,
+    .language-button {
       min-height: 42px;
-      padding: 0 13px;
+      padding: 0 12px;
       border-radius: 999px;
       background: var(--surface-soft);
       border: 1px solid var(--border);
@@ -304,6 +309,7 @@
       color: var(--text);
       transition: transform var(--transition), background var(--transition), border-color var(--transition);
       white-space: nowrap;
+      font-weight: 800;
     }
 
     .mini-cart-button {
@@ -328,12 +334,14 @@
 
     .theme-button:active,
     .mini-cart-button:active,
+    .language-button:active,
     .add-button:active,
     .category-pill:active,
     .cart-control:active,
-    .primary-action:active,
     .secondary-action:active,
-    .floating-cart-button:active {
+    .floating-cart-button:active,
+    .lang-choice:active,
+    .accordion-trigger:active {
       transform: scale(0.97);
     }
 
@@ -352,6 +360,11 @@
       transform: translateY(-8px) scale(0.98);
       transition: opacity var(--transition), visibility var(--transition), transform var(--transition), background var(--transition);
       z-index: 60;
+    }
+
+    html[dir="rtl"] .theme-menu {
+      right: auto;
+      left: 0;
     }
 
     .theme-menu.open {
@@ -487,6 +500,10 @@
       gap: 12px;
     }
 
+    html[dir="rtl"] .suggestion-card {
+      grid-template-columns: auto 1fr 42px;
+    }
+
     .suggestion-icon {
       width: 42px;
       height: 42px;
@@ -545,6 +562,10 @@
       transition: background var(--transition), border-color var(--transition), box-shadow var(--transition);
     }
 
+    html[dir="rtl"] .search-box {
+      grid-template-columns: auto 1fr 22px;
+    }
+
     .search-box i {
       color: var(--primary);
     }
@@ -557,6 +578,7 @@
       background: transparent;
       color: var(--text);
       font-size: 0.98rem;
+      text-align: inherit;
     }
 
     .search-box input::placeholder {
@@ -711,6 +733,10 @@
       animation: cardIn 360ms ease both;
     }
 
+    html[dir="rtl"] .product-card {
+      grid-template-columns: 1fr 112px;
+    }
+
     .product-card:hover {
       transform: translateY(-2px);
       box-shadow: var(--shadow);
@@ -729,6 +755,10 @@
       overflow: hidden;
       background: var(--image-fallback);
       align-self: stretch;
+    }
+
+    html[dir="rtl"] .product-image-wrap {
+      grid-column: 2;
     }
 
     .product-image-wrap img {
@@ -779,12 +809,22 @@
       -webkit-backdrop-filter: blur(12px);
     }
 
+    html[dir="rtl"] .signature-mark {
+      left: auto;
+      right: 8px;
+    }
+
     .product-content {
       min-width: 0;
       display: flex;
       flex-direction: column;
       gap: 8px;
       padding: 2px 0 0;
+    }
+
+    html[dir="rtl"] .product-content {
+      grid-column: 1;
+      grid-row: 1;
     }
 
     .product-title {
@@ -985,7 +1025,7 @@
     .floating-cart-button {
       width: 100%;
       min-height: 64px;
-      padding: 10px 12px 10px 12px;
+      padding: 10px 12px;
       display: grid;
       grid-template-columns: 44px minmax(0, 1fr) auto;
       align-items: center;
@@ -1001,6 +1041,10 @@
       transition: transform var(--transition), background var(--transition);
     }
 
+    html[dir="rtl"] .floating-cart-button {
+      grid-template-columns: auto minmax(0, 1fr) 44px;
+    }
+
     .floating-icon {
       width: 44px;
       height: 44px;
@@ -1012,9 +1056,18 @@
       flex: 0 0 auto;
     }
 
+    html[dir="rtl"] .floating-icon {
+      grid-column: 3;
+    }
+
     .floating-cart-text {
       min-width: 0;
       text-align: left;
+    }
+
+    html[dir="rtl"] .floating-cart-text {
+      text-align: right;
+      grid-column: 2;
     }
 
     .floating-cart-text strong,
@@ -1044,17 +1097,31 @@
       font-size: 0.95rem;
     }
 
-    .sheet-backdrop {
+    html[dir="rtl"] .floating-total {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    .sheet-backdrop,
+    .lang-backdrop {
       position: fixed;
       inset: 0;
-      z-index: 80;
       background: rgba(0,0,0,0.42);
       opacity: 0;
       visibility: hidden;
       transition: opacity var(--transition), visibility var(--transition);
     }
 
-    .sheet-backdrop.open {
+    .sheet-backdrop {
+      z-index: 80;
+    }
+
+    .lang-backdrop {
+      z-index: 140;
+    }
+
+    .sheet-backdrop.open,
+    .lang-backdrop.open {
       opacity: 1;
       visibility: visible;
     }
@@ -1065,7 +1132,7 @@
       bottom: 0;
       z-index: 90;
       width: min(100%, 620px);
-      max-height: min(88vh, 780px);
+      max-height: min(90vh, 820px);
       transform: translate(-50%, 105%);
       border-radius: 30px 30px 0 0;
       background: var(--surface-solid);
@@ -1166,9 +1233,10 @@
 
     .sheet-body {
       overflow: auto;
-      padding: 12px 12px;
+      padding: 10px 12px;
       overscroll-behavior: contain;
       min-height: 0;
+      background: color-mix(in srgb, var(--surface-soft) 28%, transparent);
     }
 
     .cart-empty {
@@ -1207,40 +1275,114 @@
       font-size: 0.88rem;
     }
 
-    .cart-list {
+    .cart-accordion {
       display: grid;
       gap: 8px;
     }
 
-    .cart-item {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr);
-      gap: 8px;
-      padding: 10px;
+    .accordion-group {
       border-radius: 18px;
-      background: var(--surface);
+      border: 1px solid var(--border);
+      background: var(--surface-solid);
+      overflow: hidden;
+      box-shadow: 0 8px 22px rgba(0,0,0,0.035);
+    }
+
+    .accordion-trigger {
+      width: 100%;
+      min-height: 50px;
+      padding: 10px 12px;
+      display: grid;
+      grid-template-columns: auto 1fr auto auto;
+      align-items: center;
+      gap: 9px;
+      background: var(--surface-solid);
+      color: var(--text);
+      text-align: inherit;
+      transition: background var(--transition);
+    }
+
+    html[dir="rtl"] .accordion-trigger {
+      grid-template-columns: auto auto 1fr auto;
+    }
+
+    .accordion-trigger:hover {
+      background: var(--surface-soft);
+    }
+
+    .accordion-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 13px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      color: var(--bg-2);
+      font-size: 0.82rem;
+    }
+
+    .accordion-name {
+      min-width: 0;
+      font-weight: 900;
+      font-size: 0.92rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .accordion-count,
+    .accordion-sum {
+      color: var(--muted);
+      font-weight: 900;
+      font-size: 0.76rem;
+      white-space: nowrap;
+    }
+
+    .accordion-chevron {
+      color: var(--muted);
+      transition: transform var(--transition);
+    }
+
+    .accordion-group.collapsed .accordion-chevron {
+      transform: rotate(-90deg);
+    }
+
+    html[dir="rtl"] .accordion-group.collapsed .accordion-chevron {
+      transform: rotate(90deg);
+    }
+
+    .accordion-content {
+      display: grid;
+      gap: 6px;
+      padding: 0 8px 8px;
+    }
+
+    .accordion-group.collapsed .accordion-content {
+      display: none;
+    }
+
+    .cart-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 8px;
+      padding: 8px;
+      border-radius: 14px;
+      background: color-mix(in srgb, var(--surface-soft) 62%, transparent);
       border: 1px solid var(--border);
     }
 
-    .cart-item-main {
+    .cart-row-main {
       min-width: 0;
     }
 
-    .cart-item-head {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      align-items: start;
-      gap: 10px;
-    }
-
-    .cart-item-title-row {
+    .cart-row-title {
       display: flex;
       align-items: center;
       gap: 8px;
       min-width: 0;
     }
 
-    .cart-item-qty-pill {
+    .cart-qty-badge {
       min-width: 34px;
       height: 28px;
       padding: 0 8px;
@@ -1248,82 +1390,84 @@
       display: inline-grid;
       place-items: center;
       flex: 0 0 auto;
-      background: linear-gradient(135deg, var(--primary), var(--primary-2));
-      color: var(--bg-2);
+      background: var(--surface-solid);
+      color: var(--primary);
+      border: 1px solid var(--border);
       font-size: 0.78rem;
       font-weight: 900;
     }
 
-    .cart-item-title {
-      margin: 0;
-      font-size: 0.96rem;
+    .cart-row-title strong {
+      min-width: 0;
+      font-size: 0.92rem;
       letter-spacing: -0.02em;
-      line-height: 1.22;
+      line-height: 1.2;
       overflow-wrap: anywhere;
     }
 
-    .remove-item {
-      width: 36px;
-      height: 36px;
-      border-radius: 14px;
-      display: grid;
-      place-items: center;
-      background: color-mix(in srgb, var(--danger) 12%, var(--surface-soft));
-      color: var(--danger);
-      flex: 0 0 auto;
-    }
-
-    .cart-item-sub {
-      margin: 6px 0 0 42px;
+    .cart-row-meta {
+      margin: 5px 0 0 42px;
       color: var(--muted);
-      font-size: 0.76rem;
-      line-height: 1.35;
+      font-size: 0.75rem;
+      line-height: 1.25;
     }
 
-    .cart-item-bottom {
+    html[dir="rtl"] .cart-row-meta {
+      margin: 5px 42px 0 0;
+    }
+
+    .cart-row-actions {
       display: grid;
-      grid-template-columns: auto 1fr auto;
-      align-items: center;
-      gap: 10px;
-      margin-left: 42px;
+      justify-items: end;
+      gap: 6px;
+      min-width: 116px;
+    }
+
+    html[dir="rtl"] .cart-row-actions {
+      justify-items: start;
+    }
+
+    .cart-row-total {
+      color: var(--primary);
+      font-weight: 900;
+      font-size: 0.88rem;
+      white-space: nowrap;
     }
 
     .qty-control {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      padding: 4px;
+      gap: 5px;
+      padding: 3px;
       border-radius: 999px;
-      background: var(--surface-soft);
+      background: var(--surface-solid);
       border: 1px solid var(--border);
       width: max-content;
     }
 
     .cart-control {
-      width: 34px;
-      height: 34px;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
       display: grid;
       place-items: center;
-      background: var(--surface-solid);
+      background: var(--surface-soft);
       color: var(--text);
       border: 1px solid var(--border);
       transition: transform var(--transition), background var(--transition);
+      font-size: 0.74rem;
+    }
+
+    .remove-control {
+      color: var(--danger);
+      background: color-mix(in srgb, var(--danger) 12%, var(--surface-solid));
     }
 
     .qty-value {
-      min-width: 24px;
+      min-width: 22px;
       text-align: center;
       font-weight: 900;
-      font-size: 0.9rem;
-    }
-
-    .cart-line-total {
-      font-weight: 900;
-      color: var(--primary);
-      white-space: nowrap;
-      font-size: 0.93rem;
-      justify-self: end;
+      font-size: 0.86rem;
     }
 
     .sheet-footer {
@@ -1433,6 +1577,145 @@
       font-size: 0.78rem;
     }
 
+    .language-modal {
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      z-index: 150;
+      width: min(calc(100% - 28px), 460px);
+      transform: translate(-50%, -44%) scale(0.96);
+      opacity: 0;
+      visibility: hidden;
+      border-radius: 32px;
+      background: var(--surface-solid);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      padding: 18px;
+      transition: opacity var(--transition), visibility var(--transition), transform var(--transition);
+    }
+
+    .language-modal.open {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .language-modal-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .language-modal h2 {
+      margin: 0;
+      font-size: 1.35rem;
+      letter-spacing: -0.04em;
+    }
+
+    .language-modal p {
+      margin: 7px 0 0;
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: 0.9rem;
+    }
+
+    .close-lang {
+      width: 42px;
+      height: 42px;
+      border-radius: 16px;
+      display: none;
+      place-items: center;
+      background: var(--surface-soft);
+      color: var(--text);
+      flex: 0 0 auto;
+    }
+
+    .close-lang.visible {
+      display: grid;
+    }
+
+    .language-grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    .lang-choice {
+      min-height: 64px;
+      border-radius: 20px;
+      padding: 12px;
+      background: var(--surface-soft);
+      border: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 44px 1fr auto;
+      align-items: center;
+      gap: 12px;
+      color: var(--text);
+      text-align: left;
+      transition: transform var(--transition), background var(--transition), border-color var(--transition);
+    }
+
+    html[dir="rtl"] .lang-choice {
+      grid-template-columns: auto 1fr 44px;
+      text-align: right;
+    }
+
+    .lang-choice.active {
+      border-color: color-mix(in srgb, var(--primary) 46%, var(--border));
+      background: color-mix(in srgb, var(--primary) 12%, var(--surface-soft));
+    }
+
+    .lang-flag {
+      width: 44px;
+      height: 44px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: var(--surface-solid);
+      border: 1px solid var(--border);
+      font-weight: 900;
+      color: var(--primary);
+    }
+
+    html[dir="rtl"] .lang-flag {
+      grid-column: 3;
+    }
+
+    .lang-copy {
+      min-width: 0;
+    }
+
+    html[dir="rtl"] .lang-copy {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    .lang-copy strong,
+    .lang-copy span {
+      display: block;
+    }
+
+    .lang-copy strong {
+      font-size: 0.95rem;
+      letter-spacing: -0.02em;
+    }
+
+    .lang-copy span {
+      color: var(--muted);
+      font-size: 0.78rem;
+      margin-top: 2px;
+    }
+
+    .lang-check {
+      color: var(--primary);
+      opacity: 0;
+    }
+
+    .lang-choice.active .lang-check {
+      opacity: 1;
+    }
+
     @keyframes cardIn {
       from {
         opacity: 0;
@@ -1491,6 +1774,10 @@
         grid-template-columns: 126px 1fr;
       }
 
+      html[dir="rtl"] .product-card {
+        grid-template-columns: 1fr 126px;
+      }
+
       .product-image-wrap {
         width: 126px;
       }
@@ -1503,23 +1790,22 @@
         border-radius: 34px 34px 0 0;
       }
 
-      .cart-list {
-        gap: 10px;
+      .language-grid {
+        grid-template-columns: repeat(2, 1fr);
       }
     }
 
-    @media (max-width: 460px) {
-      .theme-button span {
+    @media (max-width: 500px) {
+      .theme-button span,
+      .language-button span,
+      .mini-cart-button > span:not(.cart-count-badge) {
         display: none;
       }
 
       .theme-button,
-      .mini-cart-button {
-        padding-inline: 12px;
-      }
-
-      .mini-cart-button > span:not(.cart-count-badge) {
-        display: none;
+      .mini-cart-button,
+      .language-button {
+        padding-inline: 11px;
       }
 
       .hero h1 {
@@ -1530,8 +1816,16 @@
         grid-template-columns: 42px 1fr;
       }
 
+      html[dir="rtl"] .suggestion-card {
+        grid-template-columns: 1fr 42px;
+      }
+
       .suggestion-card b {
         grid-column: 2;
+      }
+
+      html[dir="rtl"] .suggestion-card b {
+        grid-column: 1;
       }
 
       .sheet-meta {
@@ -1542,9 +1836,23 @@
         grid-column: 1 / -1;
       }
 
-      .floating-cart-button {
-        grid-template-columns: 42px minmax(0, 1fr) auto;
-        gap: 10px;
+      .cart-row {
+        grid-template-columns: 1fr;
+      }
+
+      .cart-row-actions {
+        grid-template-columns: auto 1fr;
+        align-items: center;
+        justify-items: stretch;
+        min-width: 0;
+      }
+
+      .cart-row-total {
+        justify-self: end;
+      }
+
+      html[dir="rtl"] .cart-row-total {
+        justify-self: start;
       }
     }
 
@@ -1552,6 +1860,10 @@
       .product-card {
         grid-template-columns: 98px 1fr;
         gap: 10px;
+      }
+
+      html[dir="rtl"] .product-card {
+        grid-template-columns: 1fr 98px;
       }
 
       .product-image-wrap {
@@ -1568,14 +1880,6 @@
 
       .tag {
         display: none;
-      }
-
-      .cart-item-bottom {
-        grid-template-columns: 1fr auto;
-      }
-
-      .cart-line-total {
-        grid-column: 2;
       }
     }
 
@@ -1601,22 +1905,27 @@
           <div class="brand-mark" aria-hidden="true">Q</div>
           <div>
             <strong>QUPPA</strong>
-            <span>QR Menü</span>
+            <span id="brandSub">QR Menü</span>
           </div>
         </div>
 
 ```
     <div class="top-actions">
+      <button class="language-button" id="languageButton" type="button" aria-label="Dil seç">
+        <i class="fa-solid fa-globe"></i>
+        <span id="languageButtonText">TR</span>
+      </button>
+
       <button class="mini-cart-button" id="topCartButton" type="button" aria-label="Sipariş listemi aç">
         <i class="fa-solid fa-clipboard-list"></i>
-        <span>Listem</span>
+        <span id="topCartLabel">Listem</span>
         <span class="cart-count-badge" id="topCartCount">0</span>
       </button>
 
       <div class="theme-control">
         <button class="theme-button" id="themeButton" type="button" aria-expanded="false" aria-controls="themeMenu">
           <i class="fa-solid fa-palette"></i>
-          <span>Tema</span>
+          <span id="themeButtonText">Tema</span>
           <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
         </button>
         <div class="theme-menu" id="themeMenu" role="menu" aria-label="Tema seçenekleri"></div>
@@ -1630,24 +1939,24 @@
     <div class="hero-status-row">
       <div class="status-chip">
         <i class="fa-solid fa-circle"></i>
-        Şu an servis açık
+        <span id="serviceStatus">Şu an servis açık</span>
       </div>
       <div class="table-chip">
         <i class="fa-solid fa-chair"></i>
-        Masa No: 12
+        <span id="tableLabel">Masa No: 12</span>
       </div>
     </div>
 
     <h1>QUPPA</h1>
-    <p>Butik kahve, seçili atıştırmalıklar ve modern bar atmosferini birleştiren premium QR menü deneyimi.</p>
+    <p id="heroDescription">Butik kahve, seçili atıştırmalıklar ve modern bar atmosferini birleştiren premium QR menü deneyimi.</p>
 
     <div class="suggestion-card">
       <div class="suggestion-icon">
         <i class="fa-solid fa-wand-magic-sparkles"></i>
       </div>
       <div>
-        <small>Bugünün önerisi</small>
-        <strong>Lotus Cold Brew & San Sebastian</strong>
+        <small id="todaySuggestionLabel">Bugünün önerisi</small>
+        <strong id="todaySuggestionText">Lotus Cold Brew & San Sebastian</strong>
       </div>
       <b>₺285</b>
     </div>
@@ -1670,8 +1979,8 @@
 
 <section class="empty-state" id="emptyState">
   <i class="fa-solid fa-magnifying-glass"></i>
-  <h3>Sonuç bulunamadı</h3>
-  <p>Aradığın ürün menümüzde görünmüyor. Daha genel bir kelimeyle tekrar deneyebilirsin.</p>
+  <h3 id="emptyTitle">Sonuç bulunamadı</h3>
+  <p id="emptyText">Aradığın ürün menümüzde görünmüyor. Daha genel bir kelimeyle tekrar deneyebilirsin.</p>
 </section>
 
 <section class="menu-area" id="menuArea" aria-label="Menü ürünleri"></section>
@@ -1680,7 +1989,7 @@
   <div class="footer-grid">
     <div class="footer-item">
       <i class="fa-solid fa-receipt"></i>
-      <span>Fiyatlarımıza KDV dahildir.</span>
+      <span id="footerTax">Fiyatlarımıza KDV dahildir.</span>
     </div>
     <div class="footer-item">
       <i class="fa-brands fa-instagram"></i>
@@ -1688,7 +1997,7 @@
     </div>
     <div class="footer-item">
       <i class="fa-solid fa-wifi"></i>
-      <span>Wi-Fi: QUPPA Guest / Şifre: quppa2025</span>
+      <span id="footerWifi">Wi-Fi: QUPPA Guest / Şifre: quppa2025</span>
     </div>
   </div>
 </footer>
@@ -1723,8 +2032,8 @@
   <header class="sheet-header">
     <div class="sheet-title-row">
       <div>
-        <h2>Sipariş Listem</h2>
-        <p>Bu ekranı garsona gösterebilirsin. Ürünleri buradan hızlıca artırabilir, azaltabilir veya silebilirsin.</p>
+        <h2 id="sheetTitle">Sipariş Listem</h2>
+        <p id="sheetDescription">Bu ekranı garsona gösterebilirsin. Ürünler kategoriye göre gruplanır; uzun listelerde başlıkları açıp kapatabilirsin.</p>
       </div>
       <button class="close-sheet" id="closeSheet" type="button" aria-label="Listeyi kapat">
         <i class="fa-solid fa-xmark"></i>
@@ -1733,16 +2042,16 @@
 
     <div class="sheet-meta">
       <div class="meta-card">
-        <small>Masa</small>
+        <small id="metaTableLabel">Masa</small>
         <strong>12</strong>
       </div>
       <div class="meta-card">
-        <small>İşletme</small>
+        <small id="metaBusinessLabel">İşletme</small>
         <strong>QUPPA</strong>
       </div>
       <div class="meta-card">
-        <small>Durum</small>
-        <strong>Garsona Göster</strong>
+        <small id="metaModeLabel">Kullanım</small>
+        <strong id="metaModeValue">Garsona Göster</strong>
       </div>
     </div>
   </header>
@@ -1751,11 +2060,11 @@
 <section class="sheet-body">
   <div class="cart-empty" id="cartEmpty">
     <i class="fa-solid fa-clipboard-list"></i>
-    <h3>Listen henüz boş</h3>
-    <p>Menüden ürün eklediğinde burada garsona kolayca gösterebileceğin sade bir sipariş listesi oluşacak.</p>
+    <h3 id="cartEmptyTitle">Listen henüz boş</h3>
+    <p id="cartEmptyText">Menüden ürün eklediğinde burada garsona kolayca gösterebileceğin sade bir sipariş listesi oluşacak.</p>
   </div>
 
-  <div class="cart-list" id="cartList"></div>
+  <div class="cart-accordion" id="cartAccordion"></div>
 </section>
 
 <footer class="sheet-footer">
@@ -1766,7 +2075,7 @@
   <div class="sheet-actions">
     <button class="secondary-action" id="clearCartButton" type="button" disabled>
       <i class="fa-solid fa-trash-can"></i>
-      Listeyi Temizle
+      <span id="clearCartText">Listeyi Temizle</span>
     </button>
   </div>
 </footer>
@@ -1778,59 +2087,123 @@
     <i class="fa-solid fa-check"></i>
     <div>
       <strong id="toastTitle">Ürün listeye eklendi.</strong>
-      <span id="toastMessage">Garsona göstermek için alttaki listeyi açabilirsin.</span>
+      <span id="toastMessage">Sipariş listeni alttaki bardan açabilirsin.</span>
     </div>
   </div>
+
+  <div class="lang-backdrop" id="langBackdrop"></div>
+
+  <section class="language-modal" id="languageModal" aria-label="Dil seçimi" aria-hidden="true">
+    <div class="language-modal-header">
+      <div>
+        <h2 id="languageModalTitle">Menü dilini seç</h2>
+        <p id="languageModalText">Menüyü incelemek istediğin dili seç. Daha sonra üst menüden değiştirebilirsin.</p>
+      </div>
+      <button class="close-lang" id="closeLanguageModal" type="button" aria-label="Dil seçimini kapat">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+```
+<div class="language-grid" id="languageGrid"></div>
+```
+
+  </section>
 
   <script>
     const menuData = [
       {
         id: "kahveler",
-        name: "Kahveler",
         icon: "fa-mug-hot",
-        description: "Taze çekilmiş kahve, dengeli aromalar ve imza soğuk demlemeler.",
+        name: { tr: "Kahveler", en: "Coffee", ru: "Кофе", ar: "القهوة" },
+        description: {
+          tr: "Taze çekilmiş kahve, dengeli aromalar ve imza soğuk demlemeler.",
+          en: "Freshly ground coffee, balanced aromas and signature cold brews.",
+          ru: "Свежемолотый кофе, сбалансированные ароматы и фирменные холодные напитки.",
+          ar: "قهوة مطحونة طازجاً ونكهات متوازنة ومشروبات باردة مميزة."
+        },
         products: [
           {
             id: "espresso-tonic",
-            name: "Espresso Tonic",
-            description: "Yoğun espresso, ferah tonic ve narenciye dokunuşu.",
+            name: { tr: "Espresso Tonic", en: "Espresso Tonic", ru: "Эспрессо-тоник", ar: "إسبريسو تونيك" },
+            description: {
+              tr: "Yoğun espresso, ferah tonic ve narenciye dokunuşu.",
+              en: "Bold espresso, refreshing tonic and a citrus touch.",
+              ru: "Насыщенный эспрессо, освежающий тоник и цитрусовая нотка.",
+              ar: "إسبريسو قوي مع تونيك منعش ولمسة حمضيات."
+            },
             price: 165,
             image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=600&q=80",
-            badge: "Ferahlık",
-            tags: ["espresso", "soğuk", "narenciye"],
+            badge: { tr: "Ferahlık", en: "Fresh", ru: "Свежий", ar: "منعش" },
+            tags: {
+              tr: ["espresso", "soğuk", "narenciye"],
+              en: ["espresso", "cold", "citrus"],
+              ru: ["эспрессо", "холодный", "цитрус"],
+              ar: ["إسبريسو", "بارد", "حمضيات"]
+            },
             isAvailable: true,
             isSignature: true
           },
           {
             id: "lotus-cold-brew",
-            name: "Lotus Cold Brew",
-            description: "18 saat demlenmiş kahve, lotus kreması ve kadifemsi bitiş.",
+            name: { tr: "Lotus Cold Brew", en: "Lotus Cold Brew", ru: "Лотус колд брю", ar: "لوتس كولد برو" },
+            description: {
+              tr: "18 saat demlenmiş kahve, lotus kreması ve kadifemsi bitiş.",
+              en: "18-hour cold brew, lotus cream and a velvety finish.",
+              ru: "Кофе холодного заваривания 18 часов, крем лотус и бархатное послевкусие.",
+              ar: "قهوة باردة منقوعة 18 ساعة مع كريمة اللوتس ولمسة مخملية."
+            },
             price: 185,
             image: "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=600&q=80",
-            badge: "İmza",
-            tags: ["cold brew", "tatlı", "kremalı"],
+            badge: { tr: "İmza", en: "Signature", ru: "Фирменный", ar: "مميز" },
+            tags: {
+              tr: ["cold brew", "tatlı", "kremalı"],
+              en: ["cold brew", "sweet", "creamy"],
+              ru: ["колд брю", "сладкий", "кремовый"],
+              ar: ["كولد برو", "حلو", "كريمي"]
+            },
             isAvailable: true,
             isSignature: true
           },
           {
             id: "flat-white",
-            name: "Flat White",
-            description: "Çift espresso ve mikro köpükle yumuşak, güçlü içim.",
+            name: { tr: "Flat White", en: "Flat White", ru: "Флэт уайт", ar: "فلات وايت" },
+            description: {
+              tr: "Çift espresso ve mikro köpükle yumuşak, güçlü içim.",
+              en: "Double espresso with silky microfoam for a smooth strong cup.",
+              ru: "Двойной эспрессо и микропена для мягкого, но насыщенного вкуса.",
+              ar: "دبل إسبريسو مع رغوة ناعمة لطعم قوي وسلس."
+            },
             price: 145,
             image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=600&q=80",
-            badge: "Klasik",
-            tags: ["sıcak", "sütlü", "espresso"],
+            badge: { tr: "Klasik", en: "Classic", ru: "Классика", ar: "كلاسيكي" },
+            tags: {
+              tr: ["sıcak", "sütlü", "espresso"],
+              en: ["hot", "milk", "espresso"],
+              ru: ["горячий", "молочный", "эспрессо"],
+              ar: ["ساخن", "حليب", "إسبريسو"]
+            },
             isAvailable: true,
             isSignature: false
           },
           {
             id: "iced-latte",
-            name: "Iced Latte",
-            description: "Buzlu süt, espresso ve hafif vanilya aroması.",
+            name: { tr: "Iced Latte", en: "Iced Latte", ru: "Айс латте", ar: "آيس لاتيه" },
+            description: {
+              tr: "Buzlu süt, espresso ve hafif vanilya aroması.",
+              en: "Cold milk, espresso and a light vanilla aroma.",
+              ru: "Холодное молоко, эспрессо и лёгкий аромат ванили.",
+              ar: "حليب بارد مع إسبريسو ونكهة فانيليا خفيفة."
+            },
             price: 155,
             image: "https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=600&q=80",
-            badge: "Popüler",
-            tags: ["soğuk", "sütlü", "vanilya"],
+            badge: { tr: "Popüler", en: "Popular", ru: "Популярно", ar: "شائع" },
+            tags: {
+              tr: ["soğuk", "sütlü", "vanilya"],
+              en: ["cold", "milk", "vanilla"],
+              ru: ["холодный", "молочный", "ваниль"],
+              ar: ["بارد", "حليب", "فانيليا"]
+            },
             isAvailable: true,
             isSignature: false
           }
@@ -1838,51 +2211,96 @@
       },
       {
         id: "baslangiclar",
-        name: "Başlangıçlar",
         icon: "fa-seedling",
-        description: "Masayı açan hafif, paylaşmalık ve taze tabaklar.",
+        name: { tr: "Başlangıçlar", en: "Starters", ru: "Закуски", ar: "المقبلات" },
+        description: {
+          tr: "Masayı açan hafif, paylaşmalık ve taze tabaklar.",
+          en: "Light, fresh and shareable plates to start the table.",
+          ru: "Лёгкие свежие блюда для начала и совместного заказа.",
+          ar: "أطباق خفيفة وطازجة للمشاركة وبداية الطلب."
+        },
         products: [
           {
             id: "bruschetta",
-            name: "Domates Bruschetta",
-            description: "Ekşi maya üzerinde fesleğenli domates ve zeytinyağı.",
+            name: { tr: "Domates Bruschetta", en: "Tomato Bruschetta", ru: "Брускетта с томатом", ar: "بروشيتا بالطماطم" },
+            description: {
+              tr: "Ekşi maya üzerinde fesleğenli domates ve zeytinyağı.",
+              en: "Basil tomato and olive oil on sourdough bread.",
+              ru: "Томаты с базиликом и оливковым маслом на хлебе на закваске.",
+              ar: "طماطم بالريحان وزيت الزيتون على خبز ساوردو."
+            },
             price: 175,
             image: "https://images.unsplash.com/photo-1572695157366-5e585ab2b69f?auto=format&fit=crop&w=600&q=80",
-            badge: "Taze",
-            tags: ["ekşi maya", "vejetaryen", "domates"],
+            badge: { tr: "Taze", en: "Fresh", ru: "Свежий", ar: "طازج" },
+            tags: {
+              tr: ["ekşi maya", "vejetaryen", "domates"],
+              en: ["sourdough", "vegetarian", "tomato"],
+              ru: ["закваска", "вегетарианский", "томат"],
+              ar: ["ساوردو", "نباتي", "طماطم"]
+            },
             isAvailable: true,
             isSignature: false
           },
           {
             id: "humus",
-            name: "Füme Paprikalı Humus",
-            description: "Kremamsı humus, çıtır pita ve zeytinyağı gezdirmesi.",
+            name: { tr: "Füme Paprikalı Humus", en: "Smoked Paprika Hummus", ru: "Хумус с копчёной паприкой", ar: "حمص بالبابريكا المدخنة" },
+            description: {
+              tr: "Kremamsı humus, çıtır pita ve zeytinyağı gezdirmesi.",
+              en: "Creamy hummus with crispy pita and olive oil.",
+              ru: "Кремовый хумус, хрустящая пита и оливковое масло.",
+              ar: "حمص كريمي مع خبز بيتا مقرمش وزيت زيتون."
+            },
             price: 165,
             image: "https://images.unsplash.com/photo-1637949385162-e416fb15b2ce?auto=format&fit=crop&w=600&q=80",
-            badge: "Vegan",
-            tags: ["humus", "vegan", "paylaşmalık"],
+            badge: { tr: "Vegan", en: "Vegan", ru: "Веган", ar: "نباتي" },
+            tags: {
+              tr: ["humus", "vegan", "paylaşmalık"],
+              en: ["hummus", "vegan", "share"],
+              ru: ["хумус", "веган", "для компании"],
+              ar: ["حمص", "نباتي", "مشاركة"]
+            },
             isAvailable: true,
             isSignature: false
           },
           {
             id: "peynir-tabagi",
-            name: "Mini Peynir Tabağı",
-            description: "Seçilmiş peynirler, kuru meyve ve çıtır grissini.",
+            name: { tr: "Mini Peynir Tabağı", en: "Mini Cheese Plate", ru: "Мини сырная тарелка", ar: "طبق أجبان صغير" },
+            description: {
+              tr: "Seçilmiş peynirler, kuru meyve ve çıtır grissini.",
+              en: "Selected cheeses, dried fruits and crispy grissini.",
+              ru: "Ассорти сыров, сухофрукты и хрустящие гриссини.",
+              ar: "أجبان مختارة مع فواكه مجففة وغريسيني مقرمش."
+            },
             price: 245,
             image: "https://images.unsplash.com/photo-1452195100486-9cc805987862?auto=format&fit=crop&w=600&q=80",
-            badge: "Bar Eşlikçisi",
-            tags: ["peynir", "şarap", "paylaşmalık"],
+            badge: { tr: "Bar Eşlikçisi", en: "Bar Pairing", ru: "К бару", ar: "مناسب للمشروبات" },
+            tags: {
+              tr: ["peynir", "şarap", "paylaşmalık"],
+              en: ["cheese", "wine", "share"],
+              ru: ["сыр", "вино", "для компании"],
+              ar: ["جبن", "مشروبات", "مشاركة"]
+            },
             isAvailable: true,
             isSignature: true
           },
           {
             id: "avokado-lokmalari",
-            name: "Avokado Lokmaları",
-            description: "Misket limonlu avokado, labne ve baharatlı kraker.",
+            name: { tr: "Avokado Lokmaları", en: "Avocado Bites", ru: "Авокадо bites", ar: "لقيمات الأفوكادو" },
+            description: {
+              tr: "Misket limonlu avokado, labne ve baharatlı kraker.",
+              en: "Lime avocado, labneh and spiced crackers.",
+              ru: "Авокадо с лаймом, лабне и пряные крекеры.",
+              ar: "أفوكادو بالليمون مع لبنة وكرات مقرمشة متبلة."
+            },
             price: 195,
             image: "https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=600&q=80",
-            badge: "Tükendi",
-            tags: ["avokado", "hafif", "labne"],
+            badge: { tr: "Tükendi", en: "Sold Out", ru: "Нет в наличии", ar: "نفد" },
+            tags: {
+              tr: ["avokado", "hafif", "labne"],
+              en: ["avocado", "light", "labneh"],
+              ru: ["авокадо", "лёгкий", "лабне"],
+              ar: ["أفوكادو", "خفيف", "لبنة"]
+            },
             isAvailable: false,
             isSignature: false
           }
@@ -1890,51 +2308,96 @@
       },
       {
         id: "tostlar",
-        name: "Tostlar",
         icon: "fa-bread-slice",
-        description: "Bol malzemeli, çıtır ekmekli ve doyurucu tost seçkisi.",
+        name: { tr: "Tostlar", en: "Toasts", ru: "Тосты", ar: "التوست" },
+        description: {
+          tr: "Bol malzemeli, çıtır ekmekli ve doyurucu tost seçkisi.",
+          en: "Crispy, filling toasts with generous ingredients.",
+          ru: "Сытные тосты с хрустящим хлебом и щедрой начинкой.",
+          ar: "توست مشبع ومقرمش بحشوات غنية."
+        },
         products: [
           {
             id: "quppa-tost",
-            name: "QUPPA Tost",
-            description: "Dana jambon, eski kaşar, domates reçeli ve tereyağı.",
+            name: { tr: "QUPPA Tost", en: "QUPPA Toast", ru: "Тост QUPPA", ar: "توست QUPPA" },
+            description: {
+              tr: "Dana jambon, eski kaşar, domates reçeli ve tereyağı.",
+              en: "Beef ham, aged kashar, tomato jam and butter.",
+              ru: "Говяжья ветчина, выдержанный кашар, томатный джем и масло.",
+              ar: "لحم بقري، جبن كاشار معتق، مربى طماطم وزبدة."
+            },
             price: 235,
             image: "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=600&q=80",
-            badge: "İmza",
-            tags: ["jambon", "eski kaşar", "doyurucu"],
+            badge: { tr: "İmza", en: "Signature", ru: "Фирменный", ar: "مميز" },
+            tags: {
+              tr: ["jambon", "eski kaşar", "doyurucu"],
+              en: ["ham", "aged cheese", "filling"],
+              ru: ["ветчина", "сыр", "сытный"],
+              ar: ["لحم", "جبن", "مشبع"]
+            },
             isAvailable: true,
             isSignature: true
           },
           {
             id: "uc-peynirli",
-            name: "Üç Peynirli Tost",
-            description: "Mozzarella, cheddar ve eski kaşarla eriyen lezzet.",
+            name: { tr: "Üç Peynirli Tost", en: "Three Cheese Toast", ru: "Тост с тремя сырами", ar: "توست بثلاثة أجبان" },
+            description: {
+              tr: "Mozzarella, cheddar ve eski kaşarla eriyen lezzet.",
+              en: "Mozzarella, cheddar and aged kashar melted together.",
+              ru: "Моцарелла, чеддер и выдержанный кашар.",
+              ar: "موزاريلا وشيدر وكاشار معتق بطعم ذائب."
+            },
             price: 205,
             image: "https://images.unsplash.com/photo-1528736235302-52922df5c122?auto=format&fit=crop&w=600&q=80",
-            badge: "Bol Peynir",
-            tags: ["peynir", "vejetaryen", "sıcak"],
+            badge: { tr: "Bol Peynir", en: "Cheesy", ru: "Много сыра", ar: "جبنة كثيرة" },
+            tags: {
+              tr: ["peynir", "vejetaryen", "sıcak"],
+              en: ["cheese", "vegetarian", "hot"],
+              ru: ["сыр", "вегетарианский", "горячий"],
+              ar: ["جبن", "نباتي", "ساخن"]
+            },
             isAvailable: true,
             isSignature: false
           },
           {
             id: "feslegenli-tavuk",
-            name: "Fesleğenli Tavuk Tost",
-            description: "Izgara tavuk, pesto sos, köz biber ve kaşar.",
+            name: { tr: "Fesleğenli Tavuk Tost", en: "Basil Chicken Toast", ru: "Тост с курицей и базиликом", ar: "توست دجاج بالريحان" },
+            description: {
+              tr: "Izgara tavuk, pesto sos, köz biber ve kaşar.",
+              en: "Grilled chicken, pesto, roasted pepper and kashar cheese.",
+              ru: "Курица гриль, песто, печёный перец и сыр кашар.",
+              ar: "دجاج مشوي، صلصة بيستو، فلفل مشوي وجبن كاشار."
+            },
             price: 225,
             image: "https://images.unsplash.com/photo-1553909489-cd47e0907980?auto=format&fit=crop&w=600&q=80",
-            badge: "Protein",
-            tags: ["tavuk", "pesto", "doyurucu"],
+            badge: { tr: "Protein", en: "Protein", ru: "Белок", ar: "بروتين" },
+            tags: {
+              tr: ["tavuk", "pesto", "doyurucu"],
+              en: ["chicken", "pesto", "filling"],
+              ru: ["курица", "песто", "сытный"],
+              ar: ["دجاج", "بيستو", "مشبع"]
+            },
             isAvailable: true,
             isSignature: false
           },
           {
             id: "sucuklu-kasarli",
-            name: "Sucuklu Kaşarlı Tost",
-            description: "Baharatlı sucuk, bol kaşar ve çıtır ekmek.",
+            name: { tr: "Sucuklu Kaşarlı Tost", en: "Sucuk & Cheese Toast", ru: "Тост с суджуком и сыром", ar: "توست سجق وجبن" },
+            description: {
+              tr: "Baharatlı sucuk, bol kaşar ve çıtır ekmek.",
+              en: "Spiced sucuk, plenty of kashar cheese and crispy bread.",
+              ru: "Пряный суджук, много сыра кашар и хрустящий хлеб.",
+              ar: "سجق متبل مع جبن كاشار وخبز مقرمش."
+            },
             price: 215,
             image: "https://images.unsplash.com/photo-1606755962773-d324e2d533a6?auto=format&fit=crop&w=600&q=80",
-            badge: "Klasik",
-            tags: ["sucuk", "kaşar", "klasik"],
+            badge: { tr: "Klasik", en: "Classic", ru: "Классика", ar: "كلاسيكي" },
+            tags: {
+              tr: ["sucuk", "kaşar", "klasik"],
+              en: ["sucuk", "cheese", "classic"],
+              ru: ["суджук", "сыр", "классика"],
+              ar: ["سجق", "جبن", "كلاسيكي"]
+            },
             isAvailable: true,
             isSignature: false
           }
@@ -1942,51 +2405,96 @@
       },
       {
         id: "atistirmaliklar",
-        name: "Atıştırmalıklar",
         icon: "fa-bowl-food",
-        description: "Kahveye, kokteyle ve sohbetlere eşlik eden küçük tabaklar.",
+        name: { tr: "Atıştırmalıklar", en: "Snacks", ru: "Снеки", ar: "الوجبات الخفيفة" },
+        description: {
+          tr: "Kahveye, kokteyle ve sohbetlere eşlik eden küçük tabaklar.",
+          en: "Small plates for coffee, cocktails and long conversations.",
+          ru: "Небольшие блюда к кофе, коктейлям и беседам.",
+          ar: "أطباق صغيرة تناسب القهوة والمشروبات والجلسات."
+        },
         products: [
           {
             id: "truflu-patates",
-            name: "Trüflü Patates",
-            description: "İnce patates, parmesan, trüf yağı ve aioli sos.",
+            name: { tr: "Trüflü Patates", en: "Truffle Fries", ru: "Картофель с трюфелем", ar: "بطاطس بالترافل" },
+            description: {
+              tr: "İnce patates, parmesan, trüf yağı ve aioli sos.",
+              en: "Thin fries, parmesan, truffle oil and aioli sauce.",
+              ru: "Тонкий картофель, пармезан, трюфельное масло и айоли.",
+              ar: "بطاطس رفيعة مع بارميزان وزيت ترافل وصلصة أيولي."
+            },
             price: 195,
             image: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=600&q=80",
-            badge: "Popüler",
-            tags: ["patates", "trüf", "paylaşmalık"],
+            badge: { tr: "Popüler", en: "Popular", ru: "Популярно", ar: "شائع" },
+            tags: {
+              tr: ["patates", "trüf", "paylaşmalık"],
+              en: ["fries", "truffle", "share"],
+              ru: ["картофель", "трюфель", "для компании"],
+              ar: ["بطاطس", "ترافل", "مشاركة"]
+            },
             isAvailable: true,
             isSignature: true
           },
           {
             id: "chicken-bites",
-            name: "Çıtır Tavuk Lokmaları",
-            description: "Baharatlı paneli tavuk, ballı hardal sosla servis edilir.",
+            name: { tr: "Çıtır Tavuk Lokmaları", en: "Crispy Chicken Bites", ru: "Хрустящие куриные кусочки", ar: "لقيمات دجاج مقرمشة" },
+            description: {
+              tr: "Baharatlı paneli tavuk, ballı hardal sosla servis edilir.",
+              en: "Spiced breaded chicken served with honey mustard.",
+              ru: "Курица в пряной панировке с медово-горчичным соусом.",
+              ar: "دجاج متبل ومقرمش يقدم مع صلصة الخردل بالعسل."
+            },
             price: 225,
             image: "https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&w=600&q=80",
-            badge: "Çıtır",
-            tags: ["tavuk", "soslu", "sıcak"],
+            badge: { tr: "Çıtır", en: "Crispy", ru: "Хрустящий", ar: "مقرمش" },
+            tags: {
+              tr: ["tavuk", "soslu", "sıcak"],
+              en: ["chicken", "sauce", "hot"],
+              ru: ["курица", "соус", "горячий"],
+              ar: ["دجاج", "صلصة", "ساخن"]
+            },
             isAvailable: true,
             isSignature: false
           },
           {
             id: "nachos",
-            name: "Bar Nachos",
-            description: "Tortilla cips, cheddar sos, jalapeno ve salsa.",
+            name: { tr: "Bar Nachos", en: "Bar Nachos", ru: "Начос бар", ar: "ناتشوز بار" },
+            description: {
+              tr: "Tortilla cips, cheddar sos, jalapeno ve salsa.",
+              en: "Tortilla chips, cheddar sauce, jalapeno and salsa.",
+              ru: "Чипсы тортилья, соус чеддер, халапеньо и сальса.",
+              ar: "رقائق تورتيلا مع صلصة شيدر وهالابينو وسالسا."
+            },
             price: 215,
             image: "https://images.unsplash.com/photo-1513456852971-30b0c8199d4d?auto=format&fit=crop&w=600&q=80",
-            badge: "Baharatlı",
-            tags: ["nachos", "cheddar", "paylaşmalık"],
+            badge: { tr: "Baharatlı", en: "Spicy", ru: "Острый", ar: "حار" },
+            tags: {
+              tr: ["nachos", "cheddar", "paylaşmalık"],
+              en: ["nachos", "cheddar", "share"],
+              ru: ["начос", "чеддер", "для компании"],
+              ar: ["ناتشوز", "شيدر", "مشاركة"]
+            },
             isAvailable: true,
             isSignature: false
           },
           {
             id: "mini-burger",
-            name: "Mini Burger Trio",
-            description: "Üç mini burger, karamelize soğan ve özel sos.",
+            name: { tr: "Mini Burger Trio", en: "Mini Burger Trio", ru: "Три мини-бургера", ar: "ثلاثة ميني برجر" },
+            description: {
+              tr: "Üç mini burger, karamelize soğan ve özel sos.",
+              en: "Three mini burgers with caramelized onion and house sauce.",
+              ru: "Три мини-бургера с карамелизированным луком и фирменным соусом.",
+              ar: "ثلاثة ميني برجر مع بصل مكرمل وصلصة خاصة."
+            },
             price: 285,
             image: "https://images.unsplash.com/photo-1550317138-10000687a72b?auto=format&fit=crop&w=600&q=80",
-            badge: "Tükendi",
-            tags: ["burger", "et", "paylaşmalık"],
+            badge: { tr: "Tükendi", en: "Sold Out", ru: "Нет в наличии", ar: "نفد" },
+            tags: {
+              tr: ["burger", "et", "paylaşmalık"],
+              en: ["burger", "meat", "share"],
+              ru: ["бургер", "мясо", "для компании"],
+              ar: ["برجر", "لحم", "مشاركة"]
+            },
             isAvailable: false,
             isSignature: false
           }
@@ -1994,57 +2502,269 @@
       },
       {
         id: "tatlilar",
-        name: "Tatlılar",
         icon: "fa-cake-candles",
-        description: "Kahveyle dengelenen, rafine ve tatlı kapanışlar.",
+        name: { tr: "Tatlılar", en: "Desserts", ru: "Десерты", ar: "الحلويات" },
+        description: {
+          tr: "Kahveyle dengelenen, rafine ve tatlı kapanışlar.",
+          en: "Refined sweet finishes that pair beautifully with coffee.",
+          ru: "Изысканные десерты, идеально подходящие к кофе.",
+          ar: "نهايات حلوة راقية تناسب القهوة."
+        },
         products: [
           {
             id: "san-sebastian",
-            name: "San Sebastian",
-            description: "Akışkan dokulu cheesecake, hafif yanık üst katman.",
+            name: { tr: "San Sebastian", en: "San Sebastian", ru: "Сан-Себастьян", ar: "سان سيباستيان" },
+            description: {
+              tr: "Akışkan dokulu cheesecake, hafif yanık üst katman.",
+              en: "Creamy cheesecake with a gently caramelized top.",
+              ru: "Кремовый чизкейк с лёгкой карамелизированной корочкой.",
+              ar: "تشيزكيك كريمي بطبقة علوية محمصة بلطف."
+            },
             price: 195,
             image: "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&w=600&q=80",
-            badge: "En Sevilen",
-            tags: ["cheesecake", "kremalı", "kahve eşlikçisi"],
+            badge: { tr: "En Sevilen", en: "Favorite", ru: "Любимый", ar: "الأكثر طلباً" },
+            tags: {
+              tr: ["cheesecake", "kremalı", "kahve eşlikçisi"],
+              en: ["cheesecake", "creamy", "coffee pair"],
+              ru: ["чизкейк", "кремовый", "к кофе"],
+              ar: ["تشيزكيك", "كريمي", "مع القهوة"]
+            },
             isAvailable: true,
             isSignature: true
           },
           {
             id: "tiramisu",
-            name: "Kadehte Tiramisu",
-            description: "Mascarpone kreması, espresso ve kakao dengesi.",
+            name: { tr: "Kadehte Tiramisu", en: "Tiramisu Cup", ru: "Тирамису в бокале", ar: "تيراميسو بالكأس" },
+            description: {
+              tr: "Mascarpone kreması, espresso ve kakao dengesi.",
+              en: "Mascarpone cream, espresso and cocoa in balance.",
+              ru: "Крем маскарпоне, эспрессо и какао в идеальном балансе.",
+              ar: "كريمة ماسكاربوني وإسبريسو وكاكاو بتوازن ناعم."
+            },
             price: 185,
             image: "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=600&q=80",
-            badge: "İtalyan",
-            tags: ["espresso", "mascarpone", "soğuk"],
+            badge: { tr: "İtalyan", en: "Italian", ru: "Итальянский", ar: "إيطالي" },
+            tags: {
+              tr: ["espresso", "mascarpone", "soğuk"],
+              en: ["espresso", "mascarpone", "cold"],
+              ru: ["эспрессо", "маскарпоне", "холодный"],
+              ar: ["إسبريسو", "ماسكاربوني", "بارد"]
+            },
             isAvailable: true,
             isSignature: false
           },
           {
             id: "brownie",
-            name: "Fındıklı Brownie",
-            description: "Yoğun çikolata, kavrulmuş fındık ve deniz tuzu.",
+            name: { tr: "Fındıklı Brownie", en: "Hazelnut Brownie", ru: "Брауни с фундуком", ar: "براوني بالبندق" },
+            description: {
+              tr: "Yoğun çikolata, kavrulmuş fındık ve deniz tuzu.",
+              en: "Rich chocolate, roasted hazelnut and sea salt.",
+              ru: "Насыщенный шоколад, жареный фундук и морская соль.",
+              ar: "شوكولاتة غنية مع بندق محمص وملح بحري."
+            },
             price: 175,
             image: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=600&q=80",
-            badge: "Çikolatalı",
-            tags: ["brownie", "çikolata", "fındık"],
+            badge: { tr: "Çikolatalı", en: "Chocolate", ru: "Шоколадный", ar: "شوكولاتة" },
+            tags: {
+              tr: ["brownie", "çikolata", "fındık"],
+              en: ["brownie", "chocolate", "hazelnut"],
+              ru: ["брауни", "шоколад", "фундук"],
+              ar: ["براوني", "شوكولاتة", "بندق"]
+            },
             isAvailable: true,
             isSignature: false
           },
           {
             id: "limon-tart",
-            name: "Limon Tart",
-            description: "Tereyağlı tart tabanı, limon kreması ve mereng.",
+            name: { tr: "Limon Tart", en: "Lemon Tart", ru: "Лимонный тарт", ar: "تارت الليمون" },
+            description: {
+              tr: "Tereyağlı tart tabanı, limon kreması ve mereng.",
+              en: "Buttery tart base, lemon cream and meringue.",
+              ru: "Масляная основа, лимонный крем и меренга.",
+              ar: "قاعدة تارت بالزبدة مع كريمة الليمون والميرينغ."
+            },
             price: 165,
             image: "https://images.unsplash.com/photo-1519915028121-7d3463d20b13?auto=format&fit=crop&w=600&q=80",
-            badge: "Ferah",
-            tags: ["limon", "tart", "hafif"],
+            badge: { tr: "Ferah", en: "Light", ru: "Свежий", ar: "خفيف" },
+            tags: {
+              tr: ["limon", "tart", "hafif"],
+              en: ["lemon", "tart", "light"],
+              ru: ["лимон", "тарт", "лёгкий"],
+              ar: ["ليمون", "تارت", "خفيف"]
+            },
             isAvailable: true,
             isSignature: false
           }
         ]
       }
     ];
+
+    const i18n = {
+      tr: {
+        code: "TR",
+        name: "Türkçe",
+        native: "Türkçe",
+        pickTitle: "Menü dilini seç",
+        pickText: "Menüyü incelemek istediğin dili seç. Daha sonra üst menüden değiştirebilirsin.",
+        brandSub: "QR Menü",
+        serviceStatus: "Şu an servis açık",
+        tableLabel: "Masa No: 12",
+        heroDescription: "Butik kahve, seçili atıştırmalıklar ve modern bar atmosferini birleştiren premium QR menü deneyimi.",
+        todaySuggestionLabel: "Bugünün önerisi",
+        todaySuggestionText: "Lotus Cold Brew & San Sebastian",
+        searchPlaceholder: "Ürün, açıklama veya etiket ara...",
+        theme: "Tema",
+        list: "Listem",
+        add: "Ekle",
+        soldOut: "Tükendi",
+        products: "ürün",
+        itemTypes: "kalem",
+        emptyTitle: "Sonuç bulunamadı",
+        emptyText: "Aradığın ürün menümüzde görünmüyor. Daha genel bir kelimeyle tekrar deneyebilirsin.",
+        footerTax: "Fiyatlarımıza KDV dahildir.",
+        footerWifi: "Wi-Fi: QUPPA Guest / Şifre: quppa2025",
+        floatingTitle: "{count} ürün listende",
+        floatingSub: "Garsona göstermek için dokun",
+        sheetTitle: "Sipariş Listem",
+        sheetDescription: "Bu ekranı garsona gösterebilirsin. Ürünler kategoriye göre gruplanır; uzun listelerde başlıkları açıp kapatabilirsin.",
+        metaTable: "Masa",
+        metaBusiness: "İşletme",
+        metaMode: "Kullanım",
+        metaModeValue: "Garsona Göster",
+        emptyCartTitle: "Listen henüz boş",
+        emptyCartText: "Menüden ürün eklediğinde burada garsona kolayca gösterebileceğin sade bir sipariş listesi oluşacak.",
+        clearCart: "Listeyi Temizle",
+        addedTitle: "{name} listeye eklendi.",
+        addedText: "Sipariş listeni alttaki bardan açabilirsin.",
+        removedTitle: "Ürün listeden çıkarıldı.",
+        removedText: "{name} sipariş listenden kaldırıldı.",
+        clearedTitle: "Liste temizlendi.",
+        clearedText: "Sipariş listendeki tüm ürünler kaldırıldı."
+      },
+      en: {
+        code: "EN",
+        name: "English",
+        native: "English",
+        pickTitle: "Choose menu language",
+        pickText: "Select the language you want to browse the menu in. You can change it later from the top bar.",
+        brandSub: "QR Menu",
+        serviceStatus: "Service is open",
+        tableLabel: "Table No: 12",
+        heroDescription: "A premium QR menu experience combining boutique coffee, selected snacks and a modern bar atmosphere.",
+        todaySuggestionLabel: "Today’s pick",
+        todaySuggestionText: "Lotus Cold Brew & San Sebastian",
+        searchPlaceholder: "Search product, description or tag...",
+        theme: "Theme",
+        list: "List",
+        add: "Add",
+        soldOut: "Sold Out",
+        products: "items",
+        itemTypes: "lines",
+        emptyTitle: "No results found",
+        emptyText: "This item does not appear on the menu. Try a broader keyword.",
+        footerTax: "VAT is included in our prices.",
+        footerWifi: "Wi-Fi: QUPPA Guest / Password: quppa2025",
+        floatingTitle: "{count} items in your list",
+        floatingSub: "Tap to show the waiter",
+        sheetTitle: "My Order List",
+        sheetDescription: "You can show this screen to the waiter. Items are grouped by category; collapse sections for long lists.",
+        metaTable: "Table",
+        metaBusiness: "Venue",
+        metaMode: "Use",
+        metaModeValue: "Show Waiter",
+        emptyCartTitle: "Your list is empty",
+        emptyCartText: "When you add items, a compact order list will appear here for the waiter.",
+        clearCart: "Clear List",
+        addedTitle: "{name} added to list.",
+        addedText: "Open your order list from the bottom bar.",
+        removedTitle: "Item removed.",
+        removedText: "{name} was removed from your order list.",
+        clearedTitle: "List cleared.",
+        clearedText: "All items were removed from your order list."
+      },
+      ru: {
+        code: "RU",
+        name: "Русский",
+        native: "Русский",
+        pickTitle: "Выберите язык меню",
+        pickText: "Выберите язык для просмотра меню. Его можно изменить позже в верхней панели.",
+        brandSub: "QR-меню",
+        serviceStatus: "Обслуживание открыто",
+        tableLabel: "Стол № 12",
+        heroDescription: "Премиальное QR-меню: кофе, закуски и атмосфера современного бара.",
+        todaySuggestionLabel: "Рекомендация дня",
+        todaySuggestionText: "Lotus Cold Brew & San Sebastian",
+        searchPlaceholder: "Искать блюдо, описание или тег...",
+        theme: "Тема",
+        list: "Список",
+        add: "Добавить",
+        soldOut: "Нет",
+        products: "шт.",
+        itemTypes: "поз.",
+        emptyTitle: "Ничего не найдено",
+        emptyText: "Такого пункта нет в меню. Попробуйте более общий запрос.",
+        footerTax: "НДС включён в цены.",
+        footerWifi: "Wi-Fi: QUPPA Guest / Пароль: quppa2025",
+        floatingTitle: "{count} поз. в списке",
+        floatingSub: "Нажмите, чтобы показать официанту",
+        sheetTitle: "Мой заказ",
+        sheetDescription: "Покажите этот экран официанту. Позиции сгруппированы по категориям; разделы можно сворачивать.",
+        metaTable: "Стол",
+        metaBusiness: "Заведение",
+        metaMode: "Режим",
+        metaModeValue: "Показать официанту",
+        emptyCartTitle: "Список пуст",
+        emptyCartText: "Добавьте позиции из меню, и здесь появится компактный список заказа.",
+        clearCart: "Очистить список",
+        addedTitle: "{name} добавлено.",
+        addedText: "Откройте список заказа в нижней панели.",
+        removedTitle: "Позиция удалена.",
+        removedText: "{name} удалено из списка заказа.",
+        clearedTitle: "Список очищен.",
+        clearedText: "Все позиции удалены из списка заказа."
+      },
+      ar: {
+        code: "AR",
+        name: "العربية",
+        native: "العربية",
+        pickTitle: "اختر لغة القائمة",
+        pickText: "اختر اللغة التي تريد تصفح القائمة بها. يمكنك تغييرها لاحقاً من الشريط العلوي.",
+        brandSub: "قائمة QR",
+        serviceStatus: "الخدمة متاحة الآن",
+        tableLabel: "رقم الطاولة: 12",
+        heroDescription: "تجربة قائمة QR راقية تجمع بين القهوة المختصة والوجبات المختارة وأجواء البار العصري.",
+        todaySuggestionLabel: "اقتراح اليوم",
+        todaySuggestionText: "لوتس كولد برو وسان سيباستيان",
+        searchPlaceholder: "ابحث عن منتج أو وصف أو وسم...",
+        theme: "المظهر",
+        list: "قائمتي",
+        add: "أضف",
+        soldOut: "نفد",
+        products: "منتج",
+        itemTypes: "أصناف",
+        emptyTitle: "لا توجد نتائج",
+        emptyText: "هذا المنتج غير ظاهر في القائمة. جرّب كلمة بحث أوسع.",
+        footerTax: "الأسعار تشمل ضريبة القيمة المضافة.",
+        footerWifi: "Wi-Fi: QUPPA Guest / كلمة المرور: quppa2025",
+        floatingTitle: "{count} منتجات في قائمتك",
+        floatingSub: "اضغط لعرضها على النادل",
+        sheetTitle: "قائمة طلبي",
+        sheetDescription: "يمكنك عرض هذه الشاشة على النادل. المنتجات مقسمة حسب الفئة ويمكن طي الأقسام في الطلبات الطويلة.",
+        metaTable: "الطاولة",
+        metaBusiness: "المكان",
+        metaMode: "الاستخدام",
+        metaModeValue: "اعرض للنادل",
+        emptyCartTitle: "قائمتك فارغة",
+        emptyCartText: "عند إضافة المنتجات ستظهر هنا قائمة طلب مختصرة وسهلة العرض على النادل.",
+        clearCart: "مسح القائمة",
+        addedTitle: "تمت إضافة {name}.",
+        addedText: "افتح قائمة الطلب من الشريط السفلي.",
+        removedTitle: "تم حذف المنتج.",
+        removedText: "تم حذف {name} من قائمة طلبك.",
+        clearedTitle: "تم مسح القائمة.",
+        clearedText: "تم حذف جميع المنتجات من قائمة الطلب."
+      }
+    };
 
     const themes = [
       { id: "modern-light", label: "Modern Light", icon: "fa-sun" },
@@ -2055,12 +2775,21 @@
       { id: "minimalist", label: "Minimalist", icon: "fa-circle-half-stroke" }
     ];
 
+    const languages = [
+      { id: "tr", flag: "TR", label: "Türkçe", sub: "Menüyü Türkçe görüntüle" },
+      { id: "en", flag: "EN", label: "English", sub: "Browse menu in English" },
+      { id: "ru", flag: "RU", label: "Русский", sub: "Смотреть меню на русском" },
+      { id: "ar", flag: "AR", label: "AR", sub: "عرض القائمة بالعربية" }
+    ];
+
     const state = {
+      lang: localStorage.getItem("quppa-language") || "",
       searchTerm: "",
       activeCategory: menuData[0].id,
       observer: null,
       toastTimer: null,
-      cart: loadCart()
+      cart: loadCart(),
+      collapsedGroups: {}
     };
 
     const menuArea = document.getElementById("menuArea");
@@ -2084,10 +2813,26 @@
     const orderSheet = document.getElementById("orderSheet");
     const closeSheet = document.getElementById("closeSheet");
     const cartEmpty = document.getElementById("cartEmpty");
-    const cartList = document.getElementById("cartList");
+    const cartAccordion = document.getElementById("cartAccordion");
     const summaryText = document.getElementById("summaryText");
     const summaryTotal = document.getElementById("summaryTotal");
     const clearCartButton = document.getElementById("clearCartButton");
+    const languageButton = document.getElementById("languageButton");
+    const languageButtonText = document.getElementById("languageButtonText");
+    const langBackdrop = document.getElementById("langBackdrop");
+    const languageModal = document.getElementById("languageModal");
+    const languageGrid = document.getElementById("languageGrid");
+    const closeLanguageModal = document.getElementById("closeLanguageModal");
+
+    function t(key, values = {}) {
+      const text = (i18n[state.lang] || i18n.tr)[key] || i18n.tr[key] || key;
+      return Object.entries(values).reduce((acc, [name, value]) => acc.replaceAll(`{${name}}`, value), text);
+    }
+
+    function localize(value) {
+      if (!value || typeof value !== "object") return value || "";
+      return value[state.lang] || value.tr || Object.values(value)[0] || "";
+    }
 
     function formatPrice(price) {
       return new Intl.NumberFormat("tr-TR", {
@@ -2099,7 +2844,7 @@
 
     function normalizeText(value) {
       return String(value || "")
-        .toLocaleLowerCase("tr-TR")
+        .toLocaleLowerCase(state.lang === "tr" ? "tr-TR" : undefined)
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "");
     }
@@ -2108,7 +2853,7 @@
       return menuData.flatMap(category => category.products.map(product => ({
         ...product,
         categoryId: category.id,
-        categoryName: category.name,
+        categoryName: localize(category.name),
         categoryIcon: category.icon
       })));
     }
@@ -2121,10 +2866,10 @@
       if (!term) return true;
 
       const searchableText = [
-        product.name,
-        product.description,
-        product.badge,
-        ...(product.tags || [])
+        localize(product.name),
+        localize(product.description),
+        localize(product.badge),
+        ...(localize(product.tags) || [])
       ].join(" ");
 
       return normalizeText(searchableText).includes(normalizeText(term));
@@ -2172,16 +2917,36 @@
       }, { quantity: 0, total: 0, lineCount: items.length });
     }
 
+    function getCartGroups() {
+      const items = getCartItems();
+      return menuData
+        .map(category => {
+          const groupItems = items.filter(item => item.product.categoryId === category.id);
+          const total = groupItems.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
+          const quantity = groupItems.reduce((sum, item) => sum + item.quantity, 0);
+
+          return {
+            id: category.id,
+            name: localize(category.name),
+            icon: category.icon,
+            items: groupItems,
+            total,
+            quantity
+          };
+        })
+        .filter(group => group.items.length > 0);
+    }
+
     function renderCategories(categories = menuData) {
       categoryList.innerHTML = categories.map(category => `
         <button
           class="category-pill ${category.id === state.activeCategory ? "active" : ""}"
           type="button"
           data-category-target="${category.id}"
-          aria-label="${category.name} kategorisine git"
+          aria-label="${localize(category.name)}"
         >
           <i class="fa-solid ${category.icon}" aria-hidden="true"></i>
-          <span>${category.name}</span>
+          <span>${localize(category.name)}</span>
         </button>
       `).join("");
     }
@@ -2208,12 +2973,12 @@
             <div>
               <div class="section-kicker">
                 <i class="fa-solid ${category.icon}" aria-hidden="true"></i>
-                ${category.name}
+                ${localize(category.name)}
               </div>
-              <h2>${category.name}</h2>
-              <p>${category.description}</p>
+              <h2>${localize(category.name)}</h2>
+              <p>${localize(category.description)}</p>
             </div>
-            <div class="count-pill">${category.products.length} ürün</div>
+            <div class="count-pill">${category.products.length} ${t("products")}</div>
           </div>
 
           <div class="product-grid">
@@ -2230,6 +2995,7 @@
 
     function createProductCard(product, categoryIcon, index) {
       const quantity = state.cart[product.id] || 0;
+      const tags = localize(product.tags) || [];
 
       return `
         <article
@@ -2239,7 +3005,7 @@
           <div class="product-image-wrap">
             <img
               src="${product.image}"
-              alt="${product.name}"
+              alt="${localize(product.name)}"
               loading="lazy"
               decoding="async"
             />
@@ -2247,7 +3013,7 @@
               <i class="fa-solid ${categoryIcon}"></i>
             </div>
             ${product.isSignature ? `
-              <div class="signature-mark" title="İmza ürün">
+              <div class="signature-mark" title="Signature">
                 <i class="fa-solid fa-star"></i>
               </div>
             ` : ""}
@@ -2255,17 +3021,17 @@
 
           <div class="product-content">
             <div>
-              <h3 class="product-title">${product.name}</h3>
+              <h3 class="product-title">${localize(product.name)}</h3>
               <div class="badge-row">
-                ${product.isAvailable ? `<span class="badge"><i class="fa-solid fa-sparkles"></i>${product.badge}</span>` : ""}
-                ${!product.isAvailable ? `<span class="soldout-label"><i class="fa-solid fa-circle-xmark"></i>Tükendi</span>` : ""}
+                ${product.isAvailable ? `<span class="badge"><i class="fa-solid fa-sparkles"></i>${localize(product.badge)}</span>` : ""}
+                ${!product.isAvailable ? `<span class="soldout-label"><i class="fa-solid fa-circle-xmark"></i>${t("soldOut")}</span>` : ""}
               </div>
             </div>
 
-            <p class="product-description">${product.description}</p>
+            <p class="product-description">${localize(product.description)}</p>
 
             <div class="tag-list">
-              ${product.tags.map(tag => `<span class="tag">#${tag}</span>`).join("")}
+              ${tags.map(tag => `<span class="tag">#${tag}</span>`).join("")}
             </div>
 
             <div class="product-bottom">
@@ -2275,7 +3041,7 @@
                 type="button"
                 data-add-product="${product.id}"
                 ${product.isAvailable ? "" : "disabled"}
-                aria-label="${product.name} listeye ekle"
+                aria-label="${t("add")} ${localize(product.name)}"
               >
                 <i class="fa-solid fa-plus"></i>
                 ${quantity > 0 ? `<span>${quantity}</span>` : ""}
@@ -2310,7 +3076,7 @@
       saveCart();
       renderCart();
       renderProducts();
-      showToast(`${product.name} listeye eklendi.`, "Sipariş listeni alttaki bardan açabilirsin.");
+      showToast(t("addedTitle", { name: localize(product.name) }), t("addedText"));
     }
 
     function setCartQuantity(productId, quantity) {
@@ -2341,7 +3107,7 @@
       saveCart();
       renderCart();
       renderProducts();
-      showToast("Ürün listeden çıkarıldı.", product ? `${product.name} sipariş listenden kaldırıldı.` : "Sipariş listesi güncellendi.");
+      showToast(t("removedTitle"), product ? t("removedText", { name: localize(product.name) }) : "");
     }
 
     function clearCart() {
@@ -2349,66 +3115,84 @@
       saveCart();
       renderCart();
       renderProducts();
-      showToast("Liste temizlendi.", "Sipariş listendeki tüm ürünler kaldırıldı.");
+      showToast(t("clearedTitle"), t("clearedText"));
+    }
+
+    function toggleCartGroup(groupId) {
+      state.collapsedGroups[groupId] = !state.collapsedGroups[groupId];
+      renderCart();
     }
 
     function renderCart() {
-      const items = getCartItems();
+      const groups = getCartGroups();
       const summary = getCartSummary();
-      const hasItems = items.length > 0;
+      const hasItems = groups.length > 0;
 
       topCartCount.textContent = summary.quantity;
       floatingCart.classList.toggle("visible", hasItems);
       cartEmpty.classList.toggle("visible", !hasItems);
       clearCartButton.disabled = !hasItems;
 
-      floatingCartTitle.textContent = `${summary.quantity} ürün listende`;
-      floatingCartSub.textContent = hasItems ? "Garsona göstermek için dokun" : "Liste boş";
+      floatingCartTitle.textContent = t("floatingTitle", { count: summary.quantity });
+      floatingCartSub.textContent = t("floatingSub");
       floatingCartTotal.textContent = formatPrice(summary.total);
 
-      summaryText.textContent = `${summary.quantity} ürün · ${summary.lineCount} kalem`;
+      summaryText.textContent = `${summary.quantity} ${t("products")} · ${summary.lineCount} ${t("itemTypes")}`;
       summaryTotal.textContent = formatPrice(summary.total);
 
-      cartList.innerHTML = items.map(({ product, quantity }) => `
-        <article class="cart-item">
-          <div class="cart-item-main">
-            <div class="cart-item-head">
-              <div>
-                <div class="cart-item-title-row">
-                  <span class="cart-item-qty-pill">${quantity}x</span>
-                  <h3 class="cart-item-title">${product.name}</h3>
+      cartAccordion.innerHTML = groups.map(group => `
+        <section class="accordion-group ${state.collapsedGroups[group.id] ? "collapsed" : ""}">
+          <button class="accordion-trigger" type="button" data-toggle-group="${group.id}" aria-expanded="${!state.collapsedGroups[group.id]}">
+            <span class="accordion-icon">
+              <i class="fa-solid ${group.icon}"></i>
+            </span>
+            <span class="accordion-name">${group.name}</span>
+            <span class="accordion-count">${group.quantity} ${t("products")}</span>
+            <span class="accordion-sum">${formatPrice(group.total)}</span>
+            <i class="fa-solid fa-chevron-down accordion-chevron"></i>
+          </button>
+
+          <div class="accordion-content">
+            ${group.items.map(({ product, quantity }) => `
+              <article class="cart-row">
+                <div class="cart-row-main">
+                  <div class="cart-row-title">
+                    <span class="cart-qty-badge">${quantity}x</span>
+                    <strong>${localize(product.name)}</strong>
+                  </div>
+                  <div class="cart-row-meta">${formatPrice(product.price)} · ${product.categoryName}</div>
                 </div>
-                <p class="cart-item-sub">${formatPrice(product.price)} · ${product.categoryName}</p>
-              </div>
 
-              <button class="remove-item" type="button" data-remove-product="${product.id}" aria-label="${product.name} ürününü sil">
-                <i class="fa-solid fa-trash-can"></i>
-              </button>
-            </div>
+                <div class="cart-row-actions">
+                  <div class="cart-row-total">${formatPrice(product.price * quantity)}</div>
 
-            <div class="cart-item-bottom">
-              <div class="qty-control" aria-label="${product.name} adet kontrolü">
-                <button class="cart-control" type="button" data-decrement-product="${product.id}" aria-label="Adet azalt">
-                  <i class="fa-solid fa-minus"></i>
-                </button>
-                <span class="qty-value">${quantity}</span>
-                <button class="cart-control" type="button" data-increment-product="${product.id}" aria-label="Adet artır">
-                  <i class="fa-solid fa-plus"></i>
-                </button>
-              </div>
-
-              <span></span>
-
-              <div class="cart-line-total">${formatPrice(product.price * quantity)}</div>
-            </div>
+                  <div class="qty-control" aria-label="${localize(product.name)}">
+                    <button class="cart-control" type="button" data-decrement-product="${product.id}" aria-label="-">
+                      <i class="fa-solid fa-minus"></i>
+                    </button>
+                    <span class="qty-value">${quantity}</span>
+                    <button class="cart-control" type="button" data-increment-product="${product.id}" aria-label="+">
+                      <i class="fa-solid fa-plus"></i>
+                    </button>
+                    <button class="cart-control remove-control" type="button" data-remove-product="${product.id}" aria-label="remove">
+                      <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                  </div>
+                </div>
+              </article>
+            `).join("")}
           </div>
-        </article>
+        </section>
       `).join("");
 
       bindCartActions();
     }
 
     function bindCartActions() {
+      document.querySelectorAll("[data-toggle-group]").forEach(button => {
+        button.addEventListener("click", () => toggleCartGroup(button.dataset.toggleGroup));
+      });
+
       document.querySelectorAll("[data-increment-product]").forEach(button => {
         button.addEventListener("click", () => incrementCart(button.dataset.incrementProduct));
       });
@@ -2555,6 +3339,83 @@
       themeButton.setAttribute("aria-expanded", "false");
     }
 
+    function renderLanguageOptions() {
+      languageGrid.innerHTML = languages.map(lang => `
+        <button class="lang-choice ${state.lang === lang.id ? "active" : ""}" type="button" data-language="${lang.id}">
+          <span class="lang-flag">${lang.flag}</span>
+          <span class="lang-copy">
+            <strong>${lang.label}</strong>
+            <span>${lang.sub}</span>
+          </span>
+          <i class="fa-solid fa-check lang-check"></i>
+        </button>
+      `).join("");
+
+      document.querySelectorAll("[data-language]").forEach(button => {
+        button.addEventListener("click", () => setLanguage(button.dataset.language, true));
+      });
+    }
+
+    function setLanguage(lang, shouldClose = false) {
+      state.lang = i18n[lang] ? lang : "tr";
+      localStorage.setItem("quppa-language", state.lang);
+
+      document.documentElement.lang = state.lang;
+      document.documentElement.dir = state.lang === "ar" ? "rtl" : "ltr";
+
+      applyTexts();
+      renderLanguageOptions();
+      renderProducts();
+      renderCart();
+
+      if (shouldClose) {
+        closeLanguagePicker();
+      }
+    }
+
+    function applyTexts() {
+      document.getElementById("brandSub").textContent = t("brandSub");
+      document.getElementById("serviceStatus").textContent = t("serviceStatus");
+      document.getElementById("tableLabel").textContent = t("tableLabel");
+      document.getElementById("heroDescription").textContent = t("heroDescription");
+      document.getElementById("todaySuggestionLabel").textContent = t("todaySuggestionLabel");
+      document.getElementById("todaySuggestionText").textContent = t("todaySuggestionText");
+      document.getElementById("themeButtonText").textContent = t("theme");
+      document.getElementById("topCartLabel").textContent = t("list");
+      document.getElementById("emptyTitle").textContent = t("emptyTitle");
+      document.getElementById("emptyText").textContent = t("emptyText");
+      document.getElementById("footerTax").textContent = t("footerTax");
+      document.getElementById("footerWifi").textContent = t("footerWifi");
+      document.getElementById("sheetTitle").textContent = t("sheetTitle");
+      document.getElementById("sheetDescription").textContent = t("sheetDescription");
+      document.getElementById("metaTableLabel").textContent = t("metaTable");
+      document.getElementById("metaBusinessLabel").textContent = t("metaBusiness");
+      document.getElementById("metaModeLabel").textContent = t("metaMode");
+      document.getElementById("metaModeValue").textContent = t("metaModeValue");
+      document.getElementById("cartEmptyTitle").textContent = t("emptyCartTitle");
+      document.getElementById("cartEmptyText").textContent = t("emptyCartText");
+      document.getElementById("clearCartText").textContent = t("clearCart");
+      document.getElementById("languageModalTitle").textContent = t("pickTitle");
+      document.getElementById("languageModalText").textContent = t("pickText");
+      searchInput.placeholder = t("searchPlaceholder");
+      languageButtonText.textContent = t("code");
+    }
+
+    function openLanguagePicker(force = false) {
+      closeLanguageModal.classList.toggle("visible", !force);
+      languageModal.classList.add("open");
+      langBackdrop.classList.add("open");
+      languageModal.setAttribute("aria-hidden", "false");
+      document.body.classList.add("lang-open");
+    }
+
+    function closeLanguagePicker() {
+      languageModal.classList.remove("open");
+      langBackdrop.classList.remove("open");
+      languageModal.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("lang-open");
+    }
+
     function initEvents() {
       categoryList.addEventListener("click", event => {
         const button = event.target.closest("[data-category-target]");
@@ -2593,10 +3454,17 @@
       sheetBackdrop.addEventListener("click", closeOrderSheet);
       clearCartButton.addEventListener("click", clearCart);
 
+      languageButton.addEventListener("click", () => openLanguagePicker(false));
+      closeLanguageModal.addEventListener("click", closeLanguagePicker);
+      langBackdrop.addEventListener("click", () => {
+        if (state.lang) closeLanguagePicker();
+      });
+
       document.addEventListener("keydown", event => {
         if (event.key === "Escape") {
           closeThemeMenu();
           closeOrderSheet();
+          if (state.lang) closeLanguagePicker();
           toast.classList.remove("visible");
         }
       });
@@ -2605,9 +3473,17 @@
     function init() {
       const storedTheme = localStorage.getItem("quppa-menu-theme") || "modern-light";
       setTheme(storedTheme);
+
+      if (!state.lang) {
+        state.lang = "tr";
+        setLanguage("tr", false);
+        openLanguagePicker(true);
+      } else {
+        setLanguage(state.lang, false);
+      }
+
       renderThemeMenu();
-      renderProducts();
-      renderCart();
+      renderLanguageOptions();
       initEvents();
     }
 
