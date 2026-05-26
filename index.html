@@ -1657,6 +1657,104 @@
       }
     }
 
+
+    /* FINAL iOS SAFARI SAFE AREA PATCH */
+    :root {
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    .stickyShell {
+      padding-top: max(10px, var(--safe-top)) !important;
+    }
+
+    .shellSpacer {
+      height: calc(var(--shell-height, 142px) + var(--safe-top)) !important;
+    }
+
+    .searchbox input,
+    .note textarea,
+    input,
+    textarea {
+      font-size: 16px !important;
+    }
+
+    .catnav,
+    .filters,
+    .featured {
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-x: contain;
+    }
+
+    .sheet,
+    .detail {
+      max-height: calc(100dvh - max(10px, var(--safe-top))) !important;
+    }
+
+    .sheetFoot {
+      padding-bottom: max(16px, var(--safe-bottom)) !important;
+    }
+
+    .float {
+      bottom: max(14px, var(--safe-bottom)) !important;
+    }
+
+    .toast {
+      bottom: max(88px, calc(var(--safe-bottom) + 88px)) !important;
+    }
+
+    .language-modal,
+    .modal {
+      max-height: calc(100dvh - max(24px, calc(var(--safe-top) + 20px))) !important;
+    }
+
+    @supports (-webkit-touch-callout: none) {
+      body {
+        min-height: -webkit-fill-available;
+      }
+
+      .stickyShell {
+        transform: translate3d(-50%, 0, 0) !important;
+        will-change: transform;
+      }
+
+      .sheet,
+      .detail,
+      .modal {
+        transform: translate3d(-50%, 105%, 0);
+      }
+
+      .sheet.open,
+      .detail.open {
+        transform: translate3d(-50%, 0, 0);
+      }
+
+      .modal.open {
+        transform: translate3d(-50%, -50%, 0) scale(1);
+      }
+
+      .searchbox input {
+        -webkit-appearance: none;
+        appearance: none;
+      }
+    }
+
+    @media (display-mode: standalone) {
+      .stickyShell {
+        padding-top: max(14px, var(--safe-top)) !important;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .stickyShell {
+        padding-top: max(8px, var(--safe-top)) !important;
+      }
+
+      .shellSpacer {
+        height: calc(var(--shell-height, 132px) + var(--safe-top)) !important;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -2056,7 +2154,7 @@
       }
     }
 
-    function renderAll(){renderThemes();renderLangs();renderFilters();renderFeatured();renderMenu();renderCart();if(S.detail)renderDetail(S.detail);refreshDockSoon()}
+    function renderAll(){renderThemes();renderLangs();renderFilters();renderFeatured();renderMenu();renderCart();if(S.detail)renderDetail(S.detail);refreshDockSoon();refreshShellSoon&&refreshShellSoon()}
     function renderThemes(){$("themeMenu").innerHTML=themes.map(t=>`<button class="themeopt ${S.theme===t[0]?"active":""}" data-theme="${t[0]}"><span class="themeico"><i class="fa-solid ${t[3]}"></i></span><span><b>${t[1]}</b><small>${t[2]}</small></span><span class="dot"></span></button>`).join("");document.querySelectorAll("[data-theme]").forEach(b=>b.onclick=()=>{S.theme=b.dataset.theme;document.documentElement.dataset.theme=S.theme;localStorage.setItem("quppa-theme",S.theme);$("themeMenu").classList.remove("open");renderThemes()})}
     function renderLangs(){$("langs").innerHTML=langs.map(l=>`<button class="lang ${S.lang===l[0]?"active":""}" data-lang="${l[0]}"><span class="flag">${l[1]}</span><span><b>${l[2]}</b><small>${l[3]}</small></span><i class="fa-solid fa-check"></i></button>`).join("");document.querySelectorAll("[data-lang]").forEach(b=>b.onclick=()=>setLang(b.dataset.lang,true))}
     function renderFilters(){let favCount=Object.keys(S.favorites||{}).length;$("filters").innerHTML=filters.map(f=>`<button class="fchip ${S.filter===f[0]?"active":""}" data-filter="${f[0]}"><i class="fa-solid ${f[1]}"></i><span>${T(f[0])}${f[0]==="favorites"&&favCount?` ${favCount}`:""}</span></button>`).join("");document.querySelectorAll("[data-filter]").forEach(b=>b.onclick=()=>{S.filter=b.dataset.filter;renderFilters();renderMenu();requestAnimationFrame(()=>centerInScroll(document.querySelector(`[data-filter="${S.filter}"]`)))});requestAnimationFrame(()=>centerInScroll(document.querySelector(`[data-filter="${S.filter}"]`)))}
@@ -2084,13 +2182,24 @@
     function spy(){if(S.obs)S.obs.disconnect();let ratios=new Map;S.obs=new IntersectionObserver(es=>{es.forEach(e=>ratios.set(e.target.dataset.sec,e.intersectionRatio));let m=[...ratios.entries()].filter(x=>x[1]>0).sort((a,b)=>b[1]-a[1])[0];if(m&&m[0]!==S.active){S.active=m[0];renderCats(getFilteredCats());renderSwitcher();requestAnimationFrame(()=>centerInScroll(document.querySelector(`[data-cat="${S.active}"]`)))}}, {threshold:[.12,.22,.36,.52,.68],rootMargin:"-190px 0px -45% 0px"});document.querySelectorAll(".section").forEach(s=>S.obs.observe(s))}
     function getFilteredCats(){return menuData.map(c=>({...c,products:c.products.filter(match)})).filter(c=>c.products.length)}
     $("themeBtn").onclick=e=>{e.stopPropagation();$("themeMenu").classList.toggle("open")};document.addEventListener("click",e=>{if(!e.target.closest(".themebox"))$("themeMenu").classList.remove("open")});
-    $("searchInput").oninput=e=>{S.q=e.target.value.trim();$("clearBtn").classList.toggle("show",!!S.q);$("searchPanel")?.classList.toggle("has-query",!!S.q);renderMenu()};$("clearBtn").onclick=()=>{S.q="";$("searchInput").value="";$("clearBtn").classList.remove("show");$("searchPanel")?.classList.remove("has-query");$("searchPanel")?.classList.remove("is-open");$("searchPanel")?.classList.add("is-collapsed");renderMenu()};
+    $("searchInput").oninput=e=>{S.q=e.target.value.trim();$("clearBtn").classList.toggle("show",!!S.q);$("searchPanel")?.classList.toggle("has-query",!!S.q);renderMenu();refreshShellSoon()};$("clearBtn").onclick=()=>{S.q="";$("searchInput").value="";$("clearBtn").classList.remove("show");$("searchPanel")?.classList.remove("has-query");$("searchPanel")?.classList.remove("is-open");$("searchPanel")?.classList.add("is-collapsed");renderMenu()};
     $("topCart").onclick=openSheet;$("floatBtn").onclick=openSheet;$("closeSheet").onclick=closeSheet;$("sheetBack").onclick=closeSheet;$("clearCart").onclick=clearCart;$("copyBtn").onclick=copySummary;
     $("closeDetail").onclick=closeDetail;$("detailBack").onclick=closeDetail;$("langBtn").onclick=()=>openLang(false);$("closeLang").onclick=closeLang;$("langBack").onclick=()=>{if(S.lang)closeLang()};
     $("note").value=S.note;$("noteBox").classList.toggle("open",!!S.note.trim());$("noteBox").querySelector("label").onclick=()=>{$("noteBox").classList.add("open");setTimeout(()=>$("note").focus(),0)};$("note").oninput=e=>{S.note=e.target.value;localStorage.setItem("quppa-note",S.note);$("noteBox").classList.toggle("open",!!S.note.trim()||document.activeElement===$("note"))};$("copyWifi").onclick=()=>copyWifi();
     document.onkeydown=e=>{if(e.key==="Escape"){$("themeMenu").classList.remove("open");closeSheet();closeDetail();if(S.lang)closeLang();$("toast").classList.remove("show")}};
     
     
+    
+    function refreshShellSoon(){
+      clearTimeout(window.__shellRefreshTimer);
+      window.__shellRefreshTimer=setTimeout(()=>{
+        if(typeof setupFixedMenuDock==="function"){
+          const evt=new Event("resize");
+          window.dispatchEvent(evt);
+        }
+      },80);
+    }
+
     function setupSearchToggle(){
       const panel=$("searchPanel"), btn=$("searchToggle"), input=$("searchInput"), clear=$("clearBtn");
       if(!panel||!btn||!input) return;
@@ -2107,7 +2216,7 @@
         panel.classList.toggle("is-open", open);
         panel.classList.toggle("is-collapsed", !open && !input.value.trim());
         btn.setAttribute("aria-expanded", String(open));
-        if(open) setTimeout(()=>input.focus(),80);
+        if(open) setTimeout(()=>input.focus(),80); refreshShellSoon();
       });
 
       input.addEventListener("keydown",(event)=>{
