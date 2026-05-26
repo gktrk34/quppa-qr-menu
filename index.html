@@ -1042,18 +1042,651 @@
       }
     }
 
+
+    /* FINAL INTEGRATED TOP SWITCHER + SEARCH PATCH */
+    body {
+      padding-bottom: 34px !important;
+    }
+    body.has-cart {
+      padding-bottom: 96px !important;
+    }
+
+    .menuTools {
+      margin: 12px 0 10px !important;
+    }
+
+    .menuTools .catnav,
+    .menuTools .filters {
+      position: relative !important;
+      top: auto !important;
+      background: transparent !important;
+    }
+
+    .menuDock {
+      position: relative !important;
+      top: auto !important;
+      z-index: 46;
+      width: 100%;
+      max-width: 100%;
+      margin: 8px 0 12px !important;
+      padding: 0 !important;
+      background: transparent !important;
+      border: 0 !important;
+      box-shadow: none !important;
+      display: grid;
+      gap: 8px;
+    }
+
+    .menuDock.is-fixed {
+      position: fixed !important;
+      left: 50% !important;
+      top: var(--dock-top) !important;
+      width: min(100%, 980px) !important;
+      max-width: 100vw !important;
+      transform: translateX(-50%) !important;
+      margin: 0 !important;
+      padding: 0 14px 8px !important;
+      z-index: 49 !important;
+      background:
+        linear-gradient(to bottom,
+          color-mix(in srgb, var(--bg) 98%, transparent) 0%,
+          color-mix(in srgb, var(--bg) 94%, transparent) 82%,
+          transparent 100%) !important;
+      box-shadow: none !important;
+      border: 0 !important;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .menuDock .search {
+      margin: 0 !important;
+      padding: 0 !important;
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 8px;
+      align-items: center;
+      max-width: 100%;
+      min-width: 0;
+    }
+
+    .menuDock .searchToggle {
+      min-height: 42px;
+      padding: 0 13px;
+      border-radius: 17px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: color-mix(in srgb, var(--solid) 88%, transparent);
+      color: var(--p);
+      border: 1px solid color-mix(in srgb, var(--p) 28%, var(--line));
+      font-weight: 900;
+      box-shadow: 0 10px 22px rgba(0,0,0,.07);
+      white-space: nowrap;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    .menuDock .searchbox {
+      min-width: 0;
+      min-height: 42px;
+      border-radius: 17px;
+      transition: opacity .18s ease, transform .18s ease, max-width .18s ease, padding .18s ease, border-color .18s ease;
+    }
+
+    .menuDock .search.is-collapsed .searchbox {
+      max-width: 0;
+      opacity: 0;
+      transform: scaleX(.92);
+      padding-left: 0;
+      padding-right: 0;
+      border-color: transparent;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .menuDock .search.is-open .searchbox,
+    .menuDock .search.has-query .searchbox {
+      max-width: 100%;
+      opacity: 1;
+      transform: scaleX(1);
+      pointer-events: auto;
+    }
+
+    .menuDock .catSwitch {
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    .menuDock .catSwitchInner {
+      background: color-mix(in srgb, var(--solid) 88%, transparent);
+      border-color: color-mix(in srgb, var(--line) 86%, transparent);
+      box-shadow: 0 12px 28px rgba(0,0,0,.10);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .menuDock.is-fixed .catSwitchInner,
+    .menuDock.is-fixed .searchToggle,
+    .menuDock.is-fixed .searchbox {
+      box-shadow: 0 14px 32px rgba(0,0,0,.12);
+    }
+
+    .menuDockSpacer.active {
+      display: block;
+      height: var(--dock-height);
+    }
+
+    .section {
+      scroll-margin-top: calc(var(--dock-top) + var(--dock-height) + 18px) !important;
+    }
+
+    .float {
+      transition: opacity .18s ease, transform .18s ease;
+    }
+
+    @media (min-width: 720px) {
+      .menuDock.is-fixed {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+      }
+    }
+
+    @media (max-width: 500px) {
+      body.has-cart {
+        padding-bottom: 92px !important;
+      }
+      .menuDock.is-fixed {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+      }
+      .menuDock .searchToggle {
+        min-height: 40px;
+        border-radius: 15px;
+        padding: 0 11px;
+      }
+      .menuDock .searchbox {
+        min-height: 40px;
+        border-radius: 15px;
+      }
+      .menuDock .catSwitchInner {
+        min-height: 44px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .menuDock .search {
+        grid-template-columns: 40px minmax(0, 1fr);
+      }
+      .menuDock .searchToggle {
+        width: 40px;
+        padding: 0;
+      }
+      .menuDock .searchToggle span {
+        display: none;
+      }
+    }
+
+
+    /* FINAL UNIFIED STICKY HEADER SHELL PATCH */
+    .stickyShell {
+      position: sticky;
+      top: 0;
+      z-index: 60;
+      margin: -14px -14px 12px;
+      padding: 14px 14px 10px;
+      background:
+        linear-gradient(to bottom,
+          color-mix(in srgb, var(--bg) 99%, transparent) 0%,
+          color-mix(in srgb, var(--bg) 96%, transparent) 82%,
+          transparent 100%);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid color-mix(in srgb, var(--line) 74%, transparent);
+      box-shadow: 0 12px 30px rgba(0,0,0,.055);
+      isolation: isolate;
+    }
+
+    .stickyShell .top {
+      position: relative !important;
+      top: auto !important;
+      z-index: 2 !important;
+      padding: 0 !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+    }
+
+    .stickyShell .menuDock {
+      position: relative !important;
+      top: auto !important;
+      left: auto !important;
+      transform: none !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      margin: 8px 0 0 !important;
+      padding: 0 !important;
+      z-index: 1 !important;
+      display: grid !important;
+      gap: 8px !important;
+      background: transparent !important;
+      border: 0 !important;
+      box-shadow: none !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+    }
+
+    .stickyShell .menuDock.is-fixed {
+      position: relative !important;
+      top: auto !important;
+      left: auto !important;
+      transform: none !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      margin: 8px 0 0 !important;
+      padding: 0 !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      border: 0 !important;
+    }
+
+    .stickyShell .menuDock .search {
+      margin: 0 !important;
+      padding: 0 !important;
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 8px;
+      align-items: center;
+      max-width: 100%;
+      min-width: 0;
+    }
+
+    .stickyShell .menuDock .searchToggle {
+      min-height: 40px;
+      padding: 0 12px;
+      border-radius: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: color-mix(in srgb, var(--solid) 90%, transparent);
+      color: var(--p);
+      border: 1px solid color-mix(in srgb, var(--p) 28%, var(--line));
+      font-weight: 900;
+      box-shadow: 0 8px 18px rgba(0,0,0,.065);
+      white-space: nowrap;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    .stickyShell .menuDock .searchbox {
+      min-width: 0;
+      min-height: 40px;
+      border-radius: 16px;
+      transition: opacity .18s ease, transform .18s ease, max-width .18s ease, padding .18s ease, border-color .18s ease;
+    }
+
+    .stickyShell .search.is-collapsed .searchbox {
+      max-width: 0 !important;
+      opacity: 0 !important;
+      transform: scaleX(.92);
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      border-color: transparent !important;
+      overflow: hidden !important;
+      pointer-events: none !important;
+    }
+
+    .stickyShell .search.is-open .searchbox,
+    .stickyShell .search.has-query .searchbox {
+      max-width: 100% !important;
+      opacity: 1 !important;
+      transform: scaleX(1);
+      pointer-events: auto !important;
+    }
+
+    .stickyShell .catSwitch {
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    .stickyShell .catSwitchInner {
+      min-height: 44px;
+      background: color-mix(in srgb, var(--solid) 90%, transparent);
+      border-color: color-mix(in srgb, var(--line) 86%, transparent);
+      box-shadow: 0 10px 24px rgba(0,0,0,.08);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .menuDockSpacer,
+    .menuDockSpacer.active {
+      display: none !important;
+      height: 0 !important;
+    }
+
+    .section {
+      scroll-margin-top: 172px !important;
+    }
+
+    @media (min-width: 720px) {
+      .stickyShell {
+        margin: -18px -20px 14px;
+        padding: 18px 20px 12px;
+      }
+      .section {
+        scroll-margin-top: 182px !important;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .stickyShell {
+        margin: -14px -14px 10px;
+        padding: 10px 10px 9px;
+      }
+      .stickyShell .topin {
+        padding: 9px;
+      }
+      .stickyShell .menuDock {
+        gap: 7px !important;
+      }
+      .stickyShell .menuDock .search {
+        grid-template-columns: auto minmax(0,1fr);
+      }
+      .stickyShell .menuDock .searchToggle {
+        min-height: 38px;
+        border-radius: 14px;
+        padding: 0 10px;
+      }
+      .stickyShell .menuDock .searchbox {
+        min-height: 38px;
+        border-radius: 14px;
+      }
+      .stickyShell .catSwitchInner {
+        min-height: 42px;
+      }
+      .section {
+        scroll-margin-top: 164px !important;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .stickyShell .menuDock .search {
+        grid-template-columns: 38px minmax(0,1fr);
+      }
+      .stickyShell .menuDock .searchToggle {
+        width: 38px;
+        padding: 0;
+      }
+      .stickyShell .menuDock .searchToggle span {
+        display: none;
+      }
+      .section {
+        scroll-margin-top: 158px !important;
+      }
+    }
+
+
+    /* FINAL ROBUST FIXED HEADER + INLINE SEARCH PATCH */
+    .stickyShell {
+      position: fixed !important;
+      top: 0 !important;
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+      width: min(100%, 980px) !important;
+      max-width: 100vw !important;
+      z-index: 80 !important;
+      margin: 0 !important;
+      padding: 10px 14px 9px !important;
+      background:
+        linear-gradient(to bottom,
+          color-mix(in srgb, var(--bg) 99%, transparent) 0%,
+          color-mix(in srgb, var(--bg) 96%, transparent) 86%,
+          transparent 100%) !important;
+      backdrop-filter: blur(18px) !important;
+      -webkit-backdrop-filter: blur(18px) !important;
+      border-bottom: 1px solid color-mix(in srgb, var(--line) 72%, transparent) !important;
+      box-shadow: 0 12px 30px rgba(0,0,0,.07) !important;
+      isolation: isolate;
+    }
+
+    .shellSpacer {
+      height: var(--shell-height, 142px);
+      display: block;
+      flex: 0 0 auto;
+    }
+
+    .stickyShell .top {
+      position: relative !important;
+      top: auto !important;
+      z-index: 2 !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      background: transparent !important;
+    }
+
+    .stickyShell .topin {
+      min-width: 0;
+      box-shadow: 0 10px 24px rgba(0,0,0,.07);
+    }
+
+    .stickyShell .menuDock,
+    .stickyShell .menuDock.is-fixed {
+      position: relative !important;
+      top: auto !important;
+      left: auto !important;
+      transform: none !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      margin: 8px 0 0 !important;
+      padding: 0 !important;
+      display: grid !important;
+      grid-template-columns: 42px minmax(0, 1fr) !important;
+      gap: 8px !important;
+      align-items: stretch !important;
+      background: transparent !important;
+      border: 0 !important;
+      box-shadow: none !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      z-index: 1 !important;
+    }
+
+    .stickyShell .menuDock .search {
+      grid-column: 1;
+      margin: 0 !important;
+      padding: 0 !important;
+      display: grid !important;
+      grid-template-columns: 42px minmax(0, 1fr);
+      gap: 8px;
+      min-width: 0;
+      align-items: center;
+    }
+
+    .stickyShell .menuDock .searchToggle {
+      width: 42px;
+      min-width: 42px;
+      height: 42px;
+      min-height: 42px;
+      padding: 0 !important;
+      border-radius: 16px;
+      display: inline-grid !important;
+      place-items: center;
+      background: color-mix(in srgb, var(--solid) 90%, transparent);
+      color: var(--p);
+      border: 1px solid color-mix(in srgb, var(--p) 28%, var(--line));
+      font-weight: 900;
+      box-shadow: 0 10px 22px rgba(0,0,0,.08);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    .stickyShell .menuDock .searchToggle span {
+      display: none !important;
+    }
+
+    .stickyShell .menuDock .searchbox {
+      min-width: 0;
+      min-height: 42px;
+      border-radius: 16px;
+      transition: opacity .18s ease, transform .18s ease, max-width .18s ease, padding .18s ease, border-color .18s ease;
+      box-shadow: 0 10px 22px rgba(0,0,0,.08);
+    }
+
+    .stickyShell .menuDock .search.is-collapsed .searchbox {
+      max-width: 0 !important;
+      width: 0 !important;
+      opacity: 0 !important;
+      transform: scaleX(.92);
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      border-color: transparent !important;
+      overflow: hidden !important;
+      pointer-events: none !important;
+    }
+
+    .stickyShell .menuDock .search.is-open,
+    .stickyShell .menuDock .search.has-query {
+      grid-column: 1 / -1;
+    }
+
+    .stickyShell .menuDock .search.is-open + .catSwitch,
+    .stickyShell .menuDock .search.has-query + .catSwitch {
+      display: none !important;
+    }
+
+    .stickyShell .menuDock .search.is-open .searchbox,
+    .stickyShell .menuDock .search.has-query .searchbox {
+      max-width: 100% !important;
+      width: auto !important;
+      opacity: 1 !important;
+      transform: scaleX(1);
+      pointer-events: auto !important;
+    }
+
+    .stickyShell .catSwitch {
+      grid-column: 2;
+      margin: 0 !important;
+      padding: 0 !important;
+      min-width: 0;
+    }
+
+    .stickyShell .catSwitchInner {
+      min-height: 42px !important;
+      border-radius: 18px !important;
+      background: color-mix(in srgb, var(--solid) 90%, transparent) !important;
+      border-color: color-mix(in srgb, var(--line) 86%, transparent) !important;
+      box-shadow: 0 10px 24px rgba(0,0,0,.08) !important;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .menuDockSpacer,
+    .menuDockSpacer.active {
+      display: none !important;
+      height: 0 !important;
+    }
+
+    .section {
+      scroll-margin-top: calc(var(--shell-height, 142px) + 18px) !important;
+    }
+
+    @media (min-width: 720px) {
+      .stickyShell {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .stickyShell {
+        padding: 8px 10px 8px !important;
+      }
+      .stickyShell .topin {
+        padding: 8px !important;
+      }
+      .stickyShell .menuDock,
+      .stickyShell .menuDock.is-fixed {
+        grid-template-columns: 40px minmax(0, 1fr) !important;
+        gap: 7px !important;
+        margin-top: 7px !important;
+      }
+      .stickyShell .menuDock .search {
+        grid-template-columns: 40px minmax(0, 1fr);
+      }
+      .stickyShell .menuDock .searchToggle {
+        width: 40px;
+        min-width: 40px;
+        height: 40px;
+        min-height: 40px;
+        border-radius: 15px;
+      }
+      .stickyShell .menuDock .searchbox {
+        min-height: 40px;
+        border-radius: 15px;
+      }
+      .stickyShell .catSwitchInner {
+        min-height: 40px !important;
+        border-radius: 16px !important;
+      }
+      .catSwitchBtn {
+        min-height: 32px !important;
+      }
+      .catSwitchCurrent {
+        min-height: 32px !important;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .stickyShell .brand span {
+        display: none;
+      }
+      .stickyShell .menuDock,
+      .stickyShell .menuDock.is-fixed {
+        grid-template-columns: 38px minmax(0, 1fr) !important;
+      }
+      .stickyShell .menuDock .search {
+        grid-template-columns: 38px minmax(0, 1fr);
+      }
+      .stickyShell .menuDock .searchToggle {
+        width: 38px;
+        min-width: 38px;
+        height: 38px;
+        min-height: 38px;
+      }
+    }
+
   </style>
 </head>
 <body>
   <main class="wrap">
-    <div class="top"><div class="topin">
-      <div class="brand"><div class="logo">Q</div><div><strong>QUPPA</strong><span id="brandSub">QR Menü</span></div></div>
-      <div class="actions">
-        <button class="pillbtn" id="langBtn"><i class="fa-solid fa-globe"></i><span id="langCode">TR</span></button>
-        <button class="pillbtn cartbtn" id="topCart"><i class="fa-solid fa-clipboard-list"></i><span id="listText">Listem</span><span class="count" id="topCount">0</span></button>
-        <div class="themebox"><button class="pillbtn" id="themeBtn"><i class="fa-solid fa-palette"></i><span id="themeText">Tema</span><i class="fa-solid fa-chevron-down"></i></button><div class="thememenu" id="themeMenu"></div></div>
-      </div>
-    </div></div>
+    <div class="stickyShell" id="stickyShell">
+      <div class="top"><div class="topin">
+        <div class="brand"><div class="logo">Q</div><div><strong>QUPPA</strong><span id="brandSub">QR Menü</span></div></div>
+        <div class="actions">
+          <button class="pillbtn" id="langBtn"><i class="fa-solid fa-globe"></i><span id="langCode">TR</span></button>
+          <button class="pillbtn cartbtn" id="topCart"><i class="fa-solid fa-clipboard-list"></i><span id="listText">Listem</span><span class="count" id="topCount">0</span></button>
+          <div class="themebox"><button class="pillbtn" id="themeBtn"><i class="fa-solid fa-palette"></i><span id="themeText">Tema</span><i class="fa-solid fa-chevron-down"></i></button><div class="thememenu" id="themeMenu"></div></div>
+        </div>
+      </div></div>
+
+      <div class="menuDock" id="menuDock">
+            <section class="search is-collapsed" id="searchPanel">
+              <button class="searchToggle" id="searchToggle" type="button" aria-expanded="false" aria-controls="searchInput">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <span id="searchToggleText">Ara</span>
+              </button>
+              <div class="searchbox">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input id="searchInput" type="search" autocomplete="off">
+                <button class="clear" id="clearBtn"><i class="fa-solid fa-xmark"></i></button>
+              </div>
+            </section>
+            <section class="catSwitch" id="catSwitch" aria-label="Kategori geçişi"></section>
+          </div>
+    </div>
+    <div class="shellSpacer" id="shellSpacer" aria-hidden="true"></div>
 
     <header class="hero">
       <div class="kicker"><i class="fa-solid fa-qrcode"></i><span id="heroKicker">QR Menü Deneyimi</span></div>
@@ -1067,22 +1700,8 @@
     </header>
 
     <div class="menuTools" id="menuTools">
-      <section class="search is-collapsed" id="searchPanel">
-        <button class="searchToggle" id="searchToggle" type="button" aria-expanded="false" aria-controls="searchInput">
-          <i class="fa-solid fa-magnifying-glass"></i>
-          <span id="searchToggleText">Ara</span>
-        </button>
-        <div class="searchbox">
-          <i class="fa-solid fa-magnifying-glass"></i>
-          <input id="searchInput" type="search" autocomplete="off">
-          <button class="clear" id="clearBtn"><i class="fa-solid fa-xmark"></i></button>
-        </div>
-      </section>
       <nav class="catnav"><div class="catlist" id="catList"></div></nav>
       <section class="filters" id="filters"></section>
-    </div>
-    <div class="menuDock" id="menuDock">
-      <section class="catSwitch" id="catSwitch" aria-label="Kategori geçişi"></section>
     </div>
     <div class="menuDockSpacer" id="menuDockSpacer" aria-hidden="true"></div>
 
@@ -1440,7 +2059,7 @@
     function renderAll(){renderThemes();renderLangs();renderFilters();renderFeatured();renderMenu();renderCart();if(S.detail)renderDetail(S.detail);refreshDockSoon()}
     function renderThemes(){$("themeMenu").innerHTML=themes.map(t=>`<button class="themeopt ${S.theme===t[0]?"active":""}" data-theme="${t[0]}"><span class="themeico"><i class="fa-solid ${t[3]}"></i></span><span><b>${t[1]}</b><small>${t[2]}</small></span><span class="dot"></span></button>`).join("");document.querySelectorAll("[data-theme]").forEach(b=>b.onclick=()=>{S.theme=b.dataset.theme;document.documentElement.dataset.theme=S.theme;localStorage.setItem("quppa-theme",S.theme);$("themeMenu").classList.remove("open");renderThemes()})}
     function renderLangs(){$("langs").innerHTML=langs.map(l=>`<button class="lang ${S.lang===l[0]?"active":""}" data-lang="${l[0]}"><span class="flag">${l[1]}</span><span><b>${l[2]}</b><small>${l[3]}</small></span><i class="fa-solid fa-check"></i></button>`).join("");document.querySelectorAll("[data-lang]").forEach(b=>b.onclick=()=>setLang(b.dataset.lang,true))}
-    function renderFilters(){$("filters").innerHTML=filters.map(f=>`<button class="fchip ${S.filter===f[0]?"active":""}" data-filter="${f[0]}"><i class="fa-solid ${f[1]}"></i><span>${T(f[0])}</span></button>`).join("");document.querySelectorAll("[data-filter]").forEach(b=>b.onclick=()=>{S.filter=b.dataset.filter;renderFilters();renderMenu();requestAnimationFrame(()=>centerInScroll(document.querySelector(`[data-filter="${S.filter}"]`)))});requestAnimationFrame(()=>centerInScroll(document.querySelector(`[data-filter="${S.filter}"]`)))}
+    function renderFilters(){let favCount=Object.keys(S.favorites||{}).length;$("filters").innerHTML=filters.map(f=>`<button class="fchip ${S.filter===f[0]?"active":""}" data-filter="${f[0]}"><i class="fa-solid ${f[1]}"></i><span>${T(f[0])}${f[0]==="favorites"&&favCount?` ${favCount}`:""}</span></button>`).join("");document.querySelectorAll("[data-filter]").forEach(b=>b.onclick=()=>{S.filter=b.dataset.filter;renderFilters();renderMenu();requestAnimationFrame(()=>centerInScroll(document.querySelector(`[data-filter="${S.filter}"]`)))});requestAnimationFrame(()=>centerInScroll(document.querySelector(`[data-filter="${S.filter}"]`)))}
     function renderCats(cats=menuData){$("catList").innerHTML=cats.map(c=>`<button class="cat ${S.active===c.id?"active":""}" data-cat="${c.id}"><i class="fa-solid ${c.icon}"></i><span>${loc(c.name)}</span></button>`).join("");document.querySelectorAll("[data-cat]").forEach(b=>b.onclick=()=>scrollCat(b.dataset.cat));renderSwitcher();requestAnimationFrame(()=>centerInScroll(document.querySelector(`[data-cat="${S.active}"]`)))}
     function renderFeatured(){$("featured").innerHTML=all().filter(p=>p.isFeatured&&p.isAvailable).map(p=>`<article class="fcard"><img src="${p.image}" alt="${loc(p.name)}" loading="lazy"><div class="fbody"><small>${T("featuredBadge")}</small><strong>${loc(p.name)}</strong><div class="fbottom"><b>${money(p.price)}</b><div class="factions"><button class="round" data-detail="${p.id}"><i class="fa-solid fa-eye"></i></button><button class="round" data-add="${p.id}"><i class="fa-solid fa-plus"></i></button></div></div></div></article>`).join("");bind()}
     function renderMenu(){let cats=menuData.map(c=>({...c,products:c.products.filter(match)})).filter(c=>c.products.length);$("empty").classList.toggle("show",!cats.length);if(!cats.length){$("menu").innerHTML="";renderCats(menuData);renderSwitcher();return}if(!cats.some(c=>c.id===S.active))S.active=cats[0].id;$("menu").innerHTML=cats.map(c=>`<article class="section" id="${c.id}" data-sec="${c.id}"><div class="sectionTop"><div><div class="kcat"><i class="fa-solid ${c.icon}"></i> ${loc(c.name)}</div><h2>${loc(c.name)}</h2><p>${loc(c.desc)}</p></div><span class="cnt">${c.products.length} ${T("products")}</span></div><div class="grid">${c.products.map((p,i)=>card(p,c.icon,i)).join("")}</div></article>`).join("");renderCats(cats);bind();spy()}
@@ -1451,7 +2070,7 @@
     function setQ(id,q){q=Math.max(0,q);q?S.cart[id]=q:delete S.cart[id];save();renderAll()}
     function remove(id){let p=find(id);delete S.cart[id];save();renderAll();toast(T("removed"),T("removedText",{name:p?loc(p.name):""}))}
     function clearCart(){S.cart={};save();renderAll();toast(T("cleared"),T("clearedText"))}
-    function renderCart(){let gs=groups(),s=summary(),has=gs.length;$("topCount").textContent=s.q;$("float").classList.toggle("show",has);$("cartEmpty").classList.toggle("show",!has);$("noteBox").style.display=has?"block":"none";$("clearCart").disabled=!has;$("copyBtn").disabled=!has;$("floatTitle").textContent=T("floatTitle",{count:s.q});$("floatSub").textContent=T("floatSub");$("floatTotal").textContent=money(s.total);$("sumText").textContent=`${s.q} ${T("products")} · ${s.lines} ${T("lines")}`;$("sumTotal").textContent=money(s.total);$("cartAccord").innerHTML=gs.map(g=>`<section class="grp"><button class="ghead" data-group="${g.id}"><span class="gico"><i class="fa-solid ${g.icon}"></i></span><span class="gname">${g.name}</span><span class="gmeta"><span>${g.q} ${T("products")}</span><b>${money(g.total)}</b></span><i class="fa-solid fa-chevron-down chev"></i></button><div class="gbody">${g.items.map(x=>`<article class="row"><div class="rmain"><span class="qbadge">${x.q}x</span><span class="rname">${loc(x.product.name)}</span><div class="rctrl"><button class="cbtn" data-cdec="${x.product.id}"><i class="fa-solid fa-minus"></i></button><span class="qty">${x.q}</span><button class="cbtn" data-cinc="${x.product.id}"><i class="fa-solid fa-plus"></i></button><button class="cbtn del" data-rem="${x.product.id}"><i class="fa-solid fa-trash-can"></i></button></div></div><div class="rprice">${money(x.product.price*x.q)}</div></article>`).join("")}</div></section>`).join("");document.querySelectorAll("[data-group]").forEach(b=>b.onclick=()=>b.closest(".grp").classList.toggle("closed"));document.querySelectorAll("[data-cinc]").forEach(b=>b.onclick=()=>setQ(b.dataset.cinc,(S.cart[b.dataset.cinc]||0)+1));document.querySelectorAll("[data-cdec]").forEach(b=>b.onclick=()=>setQ(b.dataset.cdec,(S.cart[b.dataset.cdec]||0)-1));document.querySelectorAll("[data-rem]").forEach(b=>b.onclick=()=>remove(b.dataset.rem))}
+    function renderCart(){let gs=groups(),s=summary(),has=gs.length;document.body.classList.toggle("has-cart",!!has);$("topCount").textContent=s.q;$("float").classList.toggle("show",has);$("cartEmpty").classList.toggle("show",!has);$("noteBox").style.display=has?"block":"none";$("clearCart").disabled=!has;$("copyBtn").disabled=!has;$("floatTitle").textContent=T("floatTitle",{count:s.q});$("floatSub").textContent=T("floatSub");$("floatTotal").textContent=money(s.total);$("sumText").textContent=`${s.q} ${T("products")} · ${s.lines} ${T("lines")}`;$("sumTotal").textContent=money(s.total);$("cartAccord").innerHTML=gs.map(g=>`<section class="grp"><button class="ghead" data-group="${g.id}"><span class="gico"><i class="fa-solid ${g.icon}"></i></span><span class="gname">${g.name}</span><span class="gmeta"><span>${g.q} ${T("products")}</span><b>${money(g.total)}</b></span><i class="fa-solid fa-chevron-down chev"></i></button><div class="gbody">${g.items.map(x=>`<article class="row"><div class="rmain"><span class="qbadge">${x.q}x</span><span class="rname">${loc(x.product.name)}</span><div class="rctrl"><button class="cbtn" data-cdec="${x.product.id}"><i class="fa-solid fa-minus"></i></button><span class="qty">${x.q}</span><button class="cbtn" data-cinc="${x.product.id}"><i class="fa-solid fa-plus"></i></button><button class="cbtn del" data-rem="${x.product.id}"><i class="fa-solid fa-trash-can"></i></button></div></div><div class="rprice">${money(x.product.price*x.q)}</div></article>`).join("")}</div></section>`).join("");document.querySelectorAll("[data-group]").forEach(b=>b.onclick=()=>b.closest(".grp").classList.toggle("closed"));document.querySelectorAll("[data-cinc]").forEach(b=>b.onclick=()=>setQ(b.dataset.cinc,(S.cart[b.dataset.cinc]||0)+1));document.querySelectorAll("[data-cdec]").forEach(b=>b.onclick=()=>setQ(b.dataset.cdec,(S.cart[b.dataset.cdec]||0)-1));document.querySelectorAll("[data-rem]").forEach(b=>b.onclick=()=>remove(b.dataset.rem))}
     function copyWifi(){let m={tr:["Wi-Fi şifresi kopyalandı.","Şifre: quppa2025"],en:["Wi-Fi password copied.","Password: quppa2025"],ru:["Пароль Wi-Fi скопирован.","Пароль: quppa2025"],ar:["تم نسخ كلمة مرور Wi-Fi.","كلمة المرور: quppa2025"]}[S.lang]||["Wi-Fi şifresi kopyalandı.","Şifre: quppa2025"];let text="quppa2025";if(navigator.clipboard){navigator.clipboard.writeText(text).finally(()=>toast(m[0],m[1]))}else{toast(m[0],m[1])}}
     function openSheet(){open($("sheet"),$("sheetBack"),"sheet-open")}function closeSheet(){close($("sheet"),$("sheetBack"),"sheet-open")}
     function openDetail(id){S.detail=id;renderDetail(id);open($("detail"),$("detailBack"),"detail-open")}function closeDetail(){close($("detail"),$("detailBack"),"detail-open")}
@@ -1491,10 +2110,11 @@
         if(open) setTimeout(()=>input.focus(),80);
       });
 
-      input.addEventListener("blur",()=>{
-        if(!input.value.trim()){
+      input.addEventListener("keydown",(event)=>{
+        if(event.key==="Escape" && !input.value.trim()){
           panel.classList.remove("is-open");
           panel.classList.add("is-collapsed");
+          input.blur();
           sync();
         }
       });
@@ -1502,52 +2122,7 @@
       sync();
     }
 
-    function setupFixedMenuDock(){
-      const dock=$("menuDock");
-      const spacer=$("menuDockSpacer");
-      const topbar=document.querySelector(".top");
-      if(!dock||!spacer) return;
-
-      let startY=0;
-      let ticking=false;
-
-      function measure(){
-        dock.classList.remove("is-fixed");
-        spacer.classList.remove("active");
-        document.documentElement.style.setProperty("--dock-height", dock.offsetHeight+"px");
-
-        const topHeight = topbar ? Math.ceil(topbar.getBoundingClientRect().height) : 64;
-        const top = Math.max(58, topHeight + 4);
-        document.documentElement.style.setProperty("--dock-top", top+"px");
-
-        const rect=dock.getBoundingClientRect();
-        startY=window.scrollY + rect.top - top;
-        update(true);
-      }
-
-      function update(force=false){
-        if(!force && ticking) return;
-        ticking=true;
-        requestAnimationFrame(()=>{
-          const shouldFix=window.scrollY >= startY;
-          dock.classList.toggle("is-fixed", shouldFix);
-          spacer.classList.toggle("active", shouldFix);
-          ticking=false;
-        });
-      }
-
-      window.addEventListener("scroll",()=>update(false),{passive:true});
-      window.addEventListener("resize",measure,{passive:true});
-      window.addEventListener("orientationchange",()=>setTimeout(measure,250),{passive:true});
-
-      if(document.fonts && document.fonts.ready){
-        document.fonts.ready.then(()=>setTimeout(measure,50));
-      }
-
-      setTimeout(measure,50);
-      setTimeout(measure,450);
-      setTimeout(measure,1200);
-    }
+    function setupFixedMenuDock(){return;}
 
     document.documentElement.dataset.theme=S.theme;if(!S.lang){S.lang="tr";setLang("tr");openLang(true)}else setLang(S.lang);
     setupSearchToggle();
