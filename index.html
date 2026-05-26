@@ -38,6 +38,319 @@
     @media(max-width:500px){.topin{gap:8px}.brand{max-width:52vw}.pillbtn span,.cartbtn>span:not(.count){display:none}.suggest{grid-template-columns:42px 1fr}.suggest b{grid-column:2}.ghead{grid-template-columns:38px 1fr auto 18px}.gmeta{flex-direction:column;align-items:flex-end;gap:1px;font-size:.72rem}.row{grid-template-columns:1fr}.rprice{justify-self:end}.sheetActions{grid-template-columns:1fr}}
     @media(max-width:380px){.card{grid-template-columns:98px 1fr;gap:10px}.pic{width:98px}.title{font-size:.96rem}.desc{font-size:.8rem}.qtyInline button{width:31px;height:31px}.cbtn{width:27px;height:27px}}
     @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important}}
+
+    /* FINAL MOBILE SAFETY PATCH */
+    html, body { max-width: 100%; overflow-x: hidden; }
+    .wrap, .top, .topin, .hero, .search, .catnav, .filters, .featuredSec, #menu, .foot { max-width: 100%; min-width: 0; }
+    .catnav, .filters, .featured { overscroll-behavior-inline: contain; }
+    .catlist, .filters { width: max-content; max-width: none; }
+    .modal {
+      max-height: calc(100dvh - 24px);
+      overflow: hidden;
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr);
+    }
+    .modalHead {
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+    .modal h2 {
+      font-size: clamp(1.08rem, 5vw, 1.32rem);
+      line-height: 1.12;
+      letter-spacing: -0.04em;
+    }
+    .modal p {
+      margin: 6px 0 0;
+      line-height: 1.38;
+    }
+    .langs {
+      overflow-y: auto;
+      min-height: 0;
+      max-height: 100%;
+      padding-right: 1px;
+      grid-template-columns: 1fr !important;
+    }
+    .lang {
+      width: 100%;
+      min-width: 0;
+      min-height: 58px;
+      grid-template-columns: 40px minmax(0, 1fr) 20px;
+      padding: 10px;
+      border-radius: 18px;
+    }
+    html[dir="rtl"] .lang {
+      grid-template-columns: 20px minmax(0, 1fr) 40px;
+      text-align: right;
+    }
+    .flag {
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      font-size: 0.82rem;
+    }
+    .lang b,
+    .lang small {
+      display: block;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .lang small {
+      color: var(--muted);
+      margin-top: 2px;
+      font-size: 0.74rem;
+      line-height: 1.2;
+    }
+    .closeLang.show {
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+    }
+    .themebox, .thememenu { max-width: calc(100vw - 28px); }
+    .featured, .filters, .catnav { min-width: 0; }
+    .dimg { height: clamp(170px, 42vh, 230px); }
+    @media (max-width: 520px) {
+      .modal {
+        width: min(calc(100% - 24px), 420px);
+        padding: 14px;
+        border-radius: 26px;
+      }
+      .modalHead {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 10px;
+      }
+      .modal p {
+        font-size: 0.82rem;
+      }
+      .lang {
+        min-height: 54px;
+      }
+      .flag {
+        width: 38px;
+        height: 38px;
+      }
+      .lang small {
+        display: none;
+      }
+      .closeLang {
+        width: 38px;
+        height: 38px;
+        border-radius: 14px;
+      }
+      .sheet, .detail {
+        max-height: calc(100dvh - 12px);
+      }
+      .dimg {
+        height: 178px;
+      }
+      .themeopt {
+        min-height: 54px;
+      }
+      .themeopt small {
+        display: none;
+      }
+    }
+
+
+    /* FINAL BADGE COMPACT PATCH */
+    .flags {
+      min-height: 0 !important;
+      gap: 5px;
+    }
+    .flag,
+    .sold {
+      max-width: 100%;
+      min-height: 23px;
+      padding: 4px 7px;
+      font-size: 0.66rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .product-flags {
+      min-height: 0 !important;
+    }
+    @media (max-width: 420px) {
+      .flags {
+        min-height: 0 !important;
+      }
+      .flag,
+      .sold {
+        min-height: 22px;
+        padding: 4px 7px;
+        font-size: 0.63rem;
+      }
+      .content {
+        gap: 7px;
+      }
+    }
+
+
+    /* FINAL ICON-ONLY BADGE PATCH */
+    .flags {
+      min-height: 28px !important;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: nowrap;
+    }
+    .flag.icon-badge,
+    .sold.icon-badge {
+      width: 28px;
+      height: 28px;
+      min-width: 28px;
+      min-height: 28px;
+      max-width: 28px;
+      padding: 0;
+      border-radius: 11px;
+      display: inline-grid;
+      place-items: center;
+      overflow: hidden;
+      line-height: 1;
+      white-space: nowrap;
+      text-overflow: clip;
+      font-size: 0;
+    }
+    .flag.icon-badge i,
+    .sold.icon-badge i {
+      font-size: 0.78rem;
+      line-height: 1;
+      margin: 0;
+    }
+    .flag.icon-badge {
+      background: color-mix(in srgb, var(--p) 13%, var(--solid));
+      color: var(--p);
+      border-color: color-mix(in srgb, var(--p) 28%, var(--line));
+    }
+    .sold.icon-badge {
+      background: color-mix(in srgb, var(--danger) 13%, var(--solid));
+      color: var(--danger);
+      border-color: color-mix(in srgb, var(--danger) 28%, var(--line));
+    }
+    .product-flags .icon-badge {
+      width: 28px;
+      height: 28px;
+      min-width: 28px;
+      min-height: 28px;
+      max-width: 28px;
+      padding: 0;
+      font-size: 0;
+    }
+    @media (max-width: 420px) {
+      .flags {
+        min-height: 26px !important;
+        gap: 5px;
+      }
+      .flag.icon-badge,
+      .sold.icon-badge,
+      .product-flags .icon-badge {
+        width: 26px;
+        height: 26px;
+        min-width: 26px;
+        min-height: 26px;
+        max-width: 26px;
+        border-radius: 10px;
+      }
+      .flag.icon-badge i,
+      .sold.icon-badge i {
+        font-size: 0.72rem;
+      }
+    }
+    @media (max-width: 360px) {
+      .flags {
+        min-height: 24px !important;
+      }
+      .flag.icon-badge,
+      .sold.icon-badge,
+      .product-flags .icon-badge {
+        width: 24px;
+        height: 24px;
+        min-width: 24px;
+        min-height: 24px;
+        max-width: 24px;
+        border-radius: 9px;
+      }
+      .flag.icon-badge i,
+      .sold.icon-badge i {
+        font-size: 0.68rem;
+      }
+    }
+
+
+    /* FINAL FAVORITES + MULTI ICON PATCH */
+    .titleRow{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) auto;
+      gap:8px;
+      align-items:start;
+    }
+    .favbtn{
+      width:32px;height:32px;min-width:32px;border-radius:12px;
+      background:color-mix(in srgb,var(--soft) 88%, var(--solid));
+      border:1px solid var(--line);
+      color:var(--muted);
+      display:grid;place-items:center;
+      transition:.18s ease;
+    }
+    .favbtn:hover,.favbtn.active{
+      color:#e05b80;
+      border-color:color-mix(in srgb,#e05b80 36%, var(--line));
+      background:color-mix(in srgb,#e05b80 14%, var(--solid));
+      transform:translateY(-1px);
+    }
+    .favbtn i{font-size:.92rem;line-height:1}
+    .dhead{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:6px;
+    }
+    .detail-fav{
+      width:40px;height:40px;min-width:40px;border-radius:14px;
+    }
+    .flags{
+      min-height:28px !important;
+      display:flex;
+      align-items:center;
+      flex-wrap:wrap;
+      gap:6px;
+    }
+    .icon-badge{
+      width:28px;height:28px;min-width:28px;min-height:28px;max-width:28px;
+      padding:0;border-radius:11px;
+      display:inline-grid;place-items:center;
+      border:1px solid var(--line);
+      background:color-mix(in srgb,var(--solid) 68%, transparent);
+      color:var(--p);
+      box-shadow:0 6px 14px rgba(0,0,0,.05);
+    }
+    .icon-badge i{font-size:.78rem;line-height:1}
+    .tone-accent{color:var(--p);background:color-mix(in srgb,var(--p) 12%,var(--solid));border-color:color-mix(in srgb,var(--p) 32%,var(--line))}
+    .tone-warm{color:var(--p2);background:color-mix(in srgb,var(--p2) 13%,var(--solid));border-color:color-mix(in srgb,var(--p2) 30%,var(--line))}
+    .tone-success{color:var(--ok);background:color-mix(in srgb,var(--ok) 12%,var(--solid));border-color:color-mix(in srgb,var(--ok) 30%,var(--line))}
+    .tone-cool{color:color-mix(in srgb,var(--text) 58%, #5fa9ff);background:color-mix(in srgb,#6fb8ff 14%,var(--solid));border-color:color-mix(in srgb,#6fb8ff 30%,var(--line))}
+    .tone-danger{color:var(--danger);background:color-mix(in srgb,var(--danger) 12%,var(--solid));border-color:color-mix(in srgb,var(--danger) 28%,var(--line))}
+    .tone-soft{color:var(--muted);background:color-mix(in srgb,var(--muted) 10%,var(--solid));border-color:var(--line)}
+    .dtags .dtag.tone-accent{color:var(--p)}
+    .dtags .dtag.tone-warm{color:var(--p2)}
+    .dtags .dtag.tone-success{color:var(--ok)}
+    .dtags .dtag.tone-cool{color:color-mix(in srgb,var(--text) 58%, #5fa9ff)}
+    .dtags .dtag.tone-danger{color:var(--danger)}
+    .dtags .dtag.tone-soft{color:var(--muted)}
+    @media (max-width:420px){
+      .favbtn{width:30px;height:30px;min-width:30px;border-radius:11px}
+      .detail-fav{width:38px;height:38px;min-width:38px}
+      .icon-badge{width:26px;height:26px;min-width:26px;min-height:26px;max-width:26px;border-radius:10px}
+      .icon-badge i{font-size:.72rem}
+    }
+    @media (max-width:360px){
+      .icon-badge{width:24px;height:24px;min-width:24px;min-height:24px;max-width:24px;border-radius:9px}
+      .icon-badge i{font-size:.68rem}
+    }
+
   </style>
 </head>
 <body>
@@ -100,7 +413,7 @@
   </aside>
 
   <div class="back langBack" id="langBack"></div>
-  <section class="modal" id="langModal" aria-hidden="true"><div class="modalHead"><div><h2 id="pickTitle">Menü dilini seç</h2><p id="pickText">Menüyü incelemek istediğin dili seç. Daha sonra üst menüden değiştirebilirsin.</p></div><button class="x closeLang" id="closeLang"><i class="fa-solid fa-xmark"></i></button></div><div class="langs" id="langs"></div></section>
+  <section class="modal" id="langModal" aria-hidden="true"><div class="modalHead"><div><h2 id="pickTitle">Menü dilini seç</h2><p id="pickText">Devam etmek için bir dil seç.</p></div><button class="x closeLang" id="closeLang"><i class="fa-solid fa-xmark"></i></button></div><div class="langs" id="langs"></div></section>
 
   <div class="toast" id="toast"><i class="fa-solid fa-check"></i><div><strong id="toastTitle"></strong><span id="toastMsg"></span></div></div>
 
@@ -138,19 +451,239 @@
       ]}
     ];
     function p(id,name,desc,price,image,badge,tags,icons,isAvailable,isSignature,isFeatured){return{id,name:{tr:name,en:name,ru:name,ar:name},desc:{tr:desc,en:desc,ru:desc,ar:desc},detail:{tr:desc+" QUPPA sunumuyla dengeli ve modern bir seçenek.",en:desc,ru:desc,ar:desc},price,image,badge:{tr:badge,en:badge,ru:badge,ar:badge},tags:{tr:tags,en:tags,ru:tags,ar:tags},icons,isAvailable,isSignature,isFeatured}}
+
+    const productCopy = {
+      "espresso-tonic": {
+        name: { tr:"Espresso Tonic", en:"Espresso Tonic", ru:"Эспрессо-тоник", ar:"إسبريسو تونيك" },
+        desc: { tr:"Yoğun espresso, ferah tonic ve narenciye dokunuşu.", en:"Bold espresso with refreshing tonic and a citrus touch.", ru:"Насыщенный эспрессо, освежающий тоник и цитрусовая нотка.", ar:"إسبريسو قوي مع تونيك منعش ولمسة حمضيات." },
+        detail: { tr:"Ferah ve modern içimli bir kahve. Özellikle sıcak havalarda hafif tatlılarla iyi eşleşir.", en:"A refreshing modern coffee, especially good on warm days and with light desserts.", ru:"Освежающий современный кофейный напиток, особенно хорош в тёплую погоду и с лёгкими десертами.", ar:"قهوة عصرية ومنعشة، مناسبة للأجواء الدافئة وتنسجم مع الحلويات الخفيفة." },
+        badge: { tr:"İmza", en:"Signature", ru:"Фирменный", ar:"مميز" },
+        tags: { tr:["espresso","soğuk","narenciye"], en:["espresso","cold","citrus"], ru:["эспрессо","холодный","цитрус"], ar:["إسبريسو","بارد","حمضيات"] }
+      },
+      "lotus-cold-brew": {
+        name: { tr:"Lotus Cold Brew", en:"Lotus Cold Brew", ru:"Лотус колд брю", ar:"لوتس كولد برو" },
+        desc: { tr:"18 saat demlenmiş kahve, lotus kreması ve kadifemsi bitiş.", en:"18-hour cold brew, lotus cream and a velvety finish.", ru:"Колд брю 18-часового заваривания, крем лотус и бархатное послевкусие.", ar:"قهوة باردة منقوعة 18 ساعة مع كريمة اللوتس ولمسة مخملية." },
+        detail: { tr:"Tatlı ve kremalı bir kahve deneyimi. Kahve tadı belirgin kalırken lotus aroması tatlı bir final bırakır.", en:"A sweet and creamy coffee experience with a clear coffee base and a lotus finish.", ru:"Сладкий и кремовый кофе с выраженной кофейной основой и финалом лотус.", ar:"تجربة قهوة حلوة وكريمية مع طعم قهوة واضح ولمسة لوتس في النهاية." },
+        badge: { tr:"Popüler", en:"Popular", ru:"Популярно", ar:"شائع" },
+        tags: { tr:["cold brew","tatlı","kremalı"], en:["cold brew","sweet","creamy"], ru:["колд брю","сладкий","кремовый"], ar:["كولد برو","حلو","كريمي"] }
+      },
+      "flat-white": {
+        name: { tr:"Flat White", en:"Flat White", ru:"Флэт уайт", ar:"فلات وايت" },
+        desc: { tr:"Çift espresso ve mikro köpükle yumuşak, güçlü içim.", en:"Double espresso with silky microfoam for a smooth strong cup.", ru:"Двойной эспрессо и микропена для мягкого, но насыщенного вкуса.", ar:"دبل إسبريسو مع رغوة ناعمة لطعم قوي وسلس." },
+        detail: { tr:"Espresso tadını seven ama daha yumuşak içim isteyenler için dengeli bir seçenek.", en:"A balanced option for those who like espresso flavor with a softer milk texture.", ru:"Сбалансированный вариант для любителей вкуса эспрессо с мягкой молочной текстурой.", ar:"خيار متوازن لمن يحب طعم الإسبريسو مع قوام حليب أنعم." },
+        badge: { tr:"Klasik", en:"Classic", ru:"Классика", ar:"كلاسيكي" },
+        tags: { tr:["sıcak","sütlü","espresso"], en:["hot","milk","espresso"], ru:["горячий","молочный","эспрессо"], ar:["ساخن","حليب","إسبريسو"] }
+      },
+      "iced-latte": {
+        name: { tr:"Iced Latte", en:"Iced Latte", ru:"Айс латте", ar:"آيس لاتيه" },
+        desc: { tr:"Buzlu süt, espresso ve hafif vanilya aroması.", en:"Cold milk, espresso and a light vanilla aroma.", ru:"Холодное молоко, эспрессо и лёгкий аромат ванили.", ar:"حليب بارد مع إسبريسو ونكهة فانيليا خفيفة." },
+        detail: { tr:"Hafif ve serinletici bir latte. Vanilya dokunuşu içimi yumuşatır.", en:"A light and refreshing latte softened with a vanilla touch.", ru:"Лёгкий освежающий латте с мягкой ванильной нотой.", ar:"لاتيه خفيف ومنعش بلمسة فانيليا ناعمة." },
+        badge: { tr:"Soğuk", en:"Cold", ru:"Холодный", ar:"بارد" },
+        tags: { tr:["soğuk","sütlü","vanilya"], en:["cold","milk","vanilla"], ru:["холодный","молочный","ваниль"], ar:["بارد","حليب","فانيليا"] }
+      },
+      "bruschetta": {
+        name: { tr:"Domates Bruschetta", en:"Tomato Bruschetta", ru:"Брускетта с томатом", ar:"بروشيتا بالطماطم" },
+        desc: { tr:"Ekşi maya üzerinde fesleğenli domates ve zeytinyağı.", en:"Basil tomato and olive oil on sourdough bread.", ru:"Томаты с базиликом и оливковым маслом на хлебе на закваске.", ar:"طماطم بالريحان وزيت الزيتون على خبز ساوردو." },
+        detail: { tr:"Taze domates, fesleğen ve kaliteli zeytinyağı ile hazırlanır. Kahve öncesi hafif başlangıç için idealdir.", en:"Prepared with fresh tomato, basil and olive oil. Ideal as a light starter.", ru:"Готовится со свежими томатами, базиликом и оливковым маслом. Идеально как лёгкая закуска.", ar:"يُحضّر بالطماطم الطازجة والريحان وزيت الزيتون. بداية خفيفة ومناسبة." },
+        badge: { tr:"Taze", en:"Fresh", ru:"Свежий", ar:"طازج" },
+        tags: { tr:["ekşi maya","vejetaryen","domates"], en:["sourdough","vegetarian","tomato"], ru:["закваска","вегетарианский","томат"], ar:["ساوردو","نباتي","طماطم"] }
+      },
+      "humus": {
+        name: { tr:"Füme Paprikalı Humus", en:"Smoked Paprika Hummus", ru:"Хумус с копчёной паприкой", ar:"حمص بالبابريكا المدخنة" },
+        desc: { tr:"Kremamsı humus, çıtır pita ve zeytinyağı gezdirmesi.", en:"Creamy hummus with crispy pita and olive oil.", ru:"Кремовый хумус, хрустящая пита и оливковое масло.", ar:"حمص كريمي مع خبز بيتا مقرمش وزيت زيتون." },
+        detail: { tr:"Vegan ve paylaşmalık bir başlangıç. Füme paprika aroması sıcak bir derinlik verir.", en:"A vegan shareable starter with a warm smoked paprika depth.", ru:"Веганская закуска для компании с тёплой нотой копчёной паприки.", ar:"مقبل نباتي للمشاركة مع عمق نكهة البابريكا المدخنة." },
+        badge: { tr:"Vegan", en:"Vegan", ru:"Веган", ar:"نباتي" },
+        tags: { tr:["humus","vegan","paylaşmalık"], en:["hummus","vegan","share"], ru:["хумус","веган","для компании"], ar:["حمص","نباتي","مشاركة"] }
+      },
+      "cheese": {
+        name: { tr:"Mini Peynir Tabağı", en:"Mini Cheese Plate", ru:"Мини сырная тарелка", ar:"طبق أجبان صغير" },
+        desc: { tr:"Seçilmiş peynirler, kuru meyve ve çıtır grissini.", en:"Selected cheeses, dried fruits and crispy grissini.", ru:"Ассорти сыров, сухофрукты и хрустящие гриссини.", ar:"أجبان مختارة مع فواكه مجففة وغريسيني مقرمش." },
+        detail: { tr:"Kahve sonrası veya bar içecekleriyle eşleşen küçük ama rafine bir tabak.", en:"A compact refined plate that pairs well after coffee or with bar drinks.", ru:"Небольшая изысканная тарелка к кофе или напиткам.", ar:"طبق صغير وراقي يناسب القهوة أو المشروبات." },
+        badge: { tr:"Bar", en:"Bar", ru:"Бар", ar:"بار" },
+        tags: { tr:["peynir","paylaşmalık"], en:["cheese","share"], ru:["сыр","для компании"], ar:["جبن","مشاركة"] }
+      },
+      "avocado": {
+        name: { tr:"Avokado Lokmaları", en:"Avocado Bites", ru:"Ломтики авокадо", ar:"لقيمات الأفوكادو" },
+        desc: { tr:"Misket limonlu avokado, labne ve baharatlı kraker.", en:"Lime avocado, labneh and spiced crackers.", ru:"Авокадо с лаймом, лабне и пряные крекеры.", ar:"أفوكادو بالليمون مع لبنة وكرات مقرمشة متبلة." },
+        detail: { tr:"Hafif, ferah ve modern bir başlangıç. Şu an stokta değildir.", en:"A light, fresh and modern starter. Currently unavailable.", ru:"Лёгкая свежая современная закуска. Сейчас недоступна.", ar:"مقبل خفيف ومنعش وعصري. غير متوفر حالياً." },
+        badge: { tr:"Tükendi", en:"Sold Out", ru:"Нет в наличии", ar:"نفد" },
+        tags: { tr:["avokado","hafif","labne"], en:["avocado","light","labneh"], ru:["авокадо","лёгкий","лабне"], ar:["أفوكادو","خفيف","لبنة"] }
+      },
+      "quppa-toast": {
+        name: { tr:"QUPPA Tost", en:"QUPPA Toast", ru:"Тост QUPPA", ar:"توست QUPPA" },
+        desc: { tr:"Dana jambon, eski kaşar, domates reçeli ve tereyağı.", en:"Beef ham, aged kashar, tomato jam and butter.", ru:"Говяжья ветчина, выдержанный кашар, томатный джем и масло.", ar:"لحم بقري، جبن كاشار معتق، مربى طماطم وزبدة." },
+        detail: { tr:"QUPPA’nın doyurucu imza tostudur. Tatlı domates reçeli ve eski kaşar dengesiyle öne çıkar.", en:"QUPPA’s filling signature toast with aged cheese and tomato jam balance.", ru:"Фирменный сытный тост QUPPA с балансом выдержанного сыра и томатного джема.", ar:"توست QUPPA المميز والمشبع بتوازن جبن معتق ومربى الطماطم." },
+        badge: { tr:"İmza", en:"Signature", ru:"Фирменный", ar:"مميز" },
+        tags: { tr:["jambon","eski kaşar","doyurucu"], en:["ham","aged cheese","filling"], ru:["ветчина","сыр","сытный"], ar:["لحم","جبن","مشبع"] }
+      },
+      "three-cheese": {
+        name: { tr:"Üç Peynirli Tost", en:"Three Cheese Toast", ru:"Тост с тремя сырами", ar:"توست بثلاثة أجبان" },
+        desc: { tr:"Mozzarella, cheddar ve eski kaşarla eriyen lezzet.", en:"Mozzarella, cheddar and aged kashar melted together.", ru:"Моцарелла, чеддер и выдержанный кашар.", ar:"موزاريلا وشيدر وكاشار معتق بطعم ذائب." },
+        detail: { tr:"Peynir ağırlıklı, yumuşak ve klasik bir tost. Vejetaryen tercih edenler için uygundur.", en:"A cheese-forward classic toast, suitable for vegetarian preferences.", ru:"Классический сырный тост, подходит для вегетарианского выбора.", ar:"توست جبني كلاسيكي مناسب لمحبي الخيارات النباتية." },
+        badge: { tr:"Peynirli", en:"Cheesy", ru:"Сырный", ar:"جبنة" },
+        tags: { tr:["peynir","vejetaryen","sıcak"], en:["cheese","vegetarian","hot"], ru:["сыр","вегетарианский","горячий"], ar:["جبن","نباتي","ساخن"] }
+      },
+      "chicken-toast": {
+        name: { tr:"Fesleğenli Tavuk Tost", en:"Basil Chicken Toast", ru:"Тост с курицей и базиликом", ar:"توست دجاج بالريحان" },
+        desc: { tr:"Izgara tavuk, pesto sos, köz biber ve kaşar.", en:"Grilled chicken, pesto, roasted pepper and kashar cheese.", ru:"Курица гриль, песто, печёный перец и сыр кашар.", ar:"دجاج مشوي، صلصة بيستو، فلفل مشوي وجبن كاشار." },
+        detail: { tr:"Proteinli ve doyurucu bir seçenek. Pesto aroması ile klasik tosttan ayrılır.", en:"A protein-rich filling option with pesto aroma.", ru:"Сытный белковый вариант с ароматом песто.", ar:"خيار غني بالبروتين ومشبع مع نكهة البيستو." },
+        badge: { tr:"Protein", en:"Protein", ru:"Белок", ar:"بروتين" },
+        tags: { tr:["tavuk","pesto","doyurucu"], en:["chicken","pesto","filling"], ru:["курица","песто","сытный"], ar:["دجاج","بيستو","مشبع"] }
+      },
+      "sucuk": {
+        name: { tr:"Sucuklu Kaşarlı Tost", en:"Sucuk & Cheese Toast", ru:"Тост с суджуком и сыром", ar:"توست سجق وجبن" },
+        desc: { tr:"Baharatlı sucuk, bol kaşar ve çıtır ekmek.", en:"Spiced sucuk, plenty of kashar cheese and crispy bread.", ru:"Пряный суджук, много сыра кашар и хрустящий хлеб.", ar:"سجق متبل مع جبن كاشار وخبز مقرمش." },
+        detail: { tr:"Klasik, güçlü ve baharatlı tost sevenler için net bir seçenek.", en:"A clear choice for classic, bold and spiced toast lovers.", ru:"Выбор для любителей классического пряного тоста.", ar:"خيار واضح لمحبي التوست الكلاسيكي والمتبل." },
+        badge: { tr:"Klasik", en:"Classic", ru:"Классика", ar:"كلاسيكي" },
+        tags: { tr:["sucuk","kaşar","baharatlı"], en:["sucuk","cheese","spicy"], ru:["суджук","сыр","острый"], ar:["سجق","جبن","حار"] }
+      },
+      "truffle-fries": {
+        name: { tr:"Trüflü Patates", en:"Truffle Fries", ru:"Картофель с трюфелем", ar:"بطاطس بالترافل" },
+        desc: { tr:"İnce patates, parmesan, trüf yağı ve aioli sos.", en:"Thin fries, parmesan, truffle oil and aioli sauce.", ru:"Тонкий картофель, пармезан, трюфельное масло и айоли.", ar:"بطاطس رفيعة مع بارميزان وزيت ترافل وصلصة أيولي." },
+        detail: { tr:"Paylaşmalık, güçlü aromalı ve bar/kahve eşlikçisi bir tabak.", en:"A shareable aromatic plate that pairs with coffee or bar drinks.", ru:"Ароматная закуска для компании к кофе или напиткам.", ar:"طبق عطري للمشاركة يناسب القهوة أو المشروبات." },
+        badge: { tr:"Popüler", en:"Popular", ru:"Популярно", ar:"شائع" },
+        tags: { tr:["patates","trüf","paylaşmalık"], en:["fries","truffle","share"], ru:["картофель","трюфель","для компании"], ar:["بطاطس","ترافل","مشاركة"] }
+      },
+      "chicken-bites": {
+        name: { tr:"Çıtır Tavuk Lokmaları", en:"Crispy Chicken Bites", ru:"Хрустящие куриные кусочки", ar:"لقيمات دجاج مقرمشة" },
+        desc: { tr:"Baharatlı paneli tavuk, ballı hardal sosla servis edilir.", en:"Spiced breaded chicken served with honey mustard.", ru:"Курица в пряной панировке с медово-горчичным соусом.", ar:"دجاج متبل ومقرمش يقدم مع صلصة الخردل بالعسل." },
+        detail: { tr:"Çıtır, sıcak ve paylaşmalık. Ballı hardal sos tatlı-baharatlı denge verir.", en:"Crispy, warm and shareable with a sweet-spicy honey mustard balance.", ru:"Хрустящие тёплые кусочки для компании с медово-горчичным балансом.", ar:"مقرمش ودافئ للمشاركة مع توازن حلو وحار من صلصة الخردل بالعسل." },
+        badge: { tr:"Çıtır", en:"Crispy", ru:"Хрустящий", ar:"مقرمش" },
+        tags: { tr:["tavuk","soslu","sıcak"], en:["chicken","sauce","hot"], ru:["курица","соус","горячий"], ar:["دجاج","صلصة","ساخن"] }
+      },
+      "nachos": {
+        name: { tr:"Bar Nachos", en:"Bar Nachos", ru:"Начос бар", ar:"ناتشوز بار" },
+        desc: { tr:"Tortilla cips, cheddar sos, jalapeno ve salsa.", en:"Tortilla chips, cheddar sauce, jalapeno and salsa.", ru:"Чипсы тортилья, соус чеддер, халапеньо и сальса.", ar:"رقائق تورتيلا مع صلصة شيدر وهالابينو وسالسا." },
+        detail: { tr:"Baharatlı ve paylaşmalık bir bar klasiği. Uzun sohbetler için idealdir.", en:"A spicy shareable bar classic for long conversations.", ru:"Острая закуска для компании, барная классика.", ar:"وجبة بار كلاسيكية حارة للمشاركة والجلسات الطويلة." },
+        badge: { tr:"Baharatlı", en:"Spicy", ru:"Острый", ar:"حار" },
+        tags: { tr:["nachos","cheddar","baharatlı"], en:["nachos","cheddar","spicy"], ru:["начос","чеддер","острый"], ar:["ناتشوز","شيدر","حار"] }
+      },
+      "mini-burger": {
+        name: { tr:"Mini Burger Trio", en:"Mini Burger Trio", ru:"Три мини-бургера", ar:"ثلاثة ميني برجر" },
+        desc: { tr:"Üç mini burger, karamelize soğan ve özel sos.", en:"Three mini burgers with caramelized onion and house sauce.", ru:"Три мини-бургера с карамелизированным луком и фирменным соусом.", ar:"ثلاثة ميني برجر مع بصل مكرمل وصلصة خاصة." },
+        detail: { tr:"Paylaşmalık ve doyurucu bir seçenek. Şu an stokta değildir.", en:"A filling shareable option. Currently unavailable.", ru:"Сытный вариант для компании. Сейчас недоступен.", ar:"خيار مشبع للمشاركة. غير متوفر حالياً." },
+        badge: { tr:"Tükendi", en:"Sold Out", ru:"Нет в наличии", ar:"نفد" },
+        tags: { tr:["burger","et","paylaşmalık"], en:["burger","meat","share"], ru:["бургер","мясо","для компании"], ar:["برجر","لحم","مشاركة"] }
+      },
+      "san-sebastian": {
+        name: { tr:"San Sebastian", en:"San Sebastian", ru:"Сан-Себастьян", ar:"سان سيباستيان" },
+        desc: { tr:"Akışkan dokulu cheesecake, hafif yanık üst katman.", en:"Creamy cheesecake with a gently caramelized top.", ru:"Кремовый чизкейк с лёгкой карамелизированной корочкой.", ar:"تشيزكيك كريمي بطبقة علوية محمصة بلطف." },
+        detail: { tr:"Kahveyle en güçlü eşleşen tatlılardan biri. Hafif yanık üst katman ve kremamsı doku öne çıkar.", en:"One of the strongest coffee pairings, with a caramelized top and creamy texture.", ru:"Один из лучших десертов к кофе, с карамельной корочкой и кремовой текстурой.", ar:"من أفضل الحلويات مع القهوة، بطبقة علوية محمصة وقوام كريمي." },
+        badge: { tr:"Popüler", en:"Popular", ru:"Популярно", ar:"شائع" },
+        tags: { tr:["cheesecake","kremalı","kahve"], en:["cheesecake","creamy","coffee"], ru:["чизкейк","кремовый","к кофе"], ar:["تشيزكيك","كريمي","قهوة"] }
+      },
+      "tiramisu": {
+        name: { tr:"Kadehte Tiramisu", en:"Tiramisu Cup", ru:"Тирамису в бокале", ar:"تيراميسو بالكأس" },
+        desc: { tr:"Mascarpone kreması, espresso ve kakao dengesi.", en:"Mascarpone cream, espresso and cocoa in balance.", ru:"Крем маскарпоне, эспрессо и какао в идеальном балансе.", ar:"كريمة ماسكاربوني وإسبريسو وكاكاو بتوازن ناعم." },
+        detail: { tr:"Espresso aromalı, hafif ve zarif bir tatlı. Soğuk servis edilir.", en:"An espresso-based light dessert served cold.", ru:"Лёгкий десерт с ароматом эспрессо, подаётся холодным.", ar:"حلوى خفيفة بنكهة الإسبريسو وتُقدم باردة." },
+        badge: { tr:"İtalyan", en:"Italian", ru:"Итальянский", ar:"إيطالي" },
+        tags: { tr:["espresso","mascarpone","soğuk"], en:["espresso","mascarpone","cold"], ru:["эспрессо","маскарпоне","холодный"], ar:["إسبريسو","ماسكاربوني","بارد"] }
+      },
+      "brownie": {
+        name: { tr:"Fındıklı Brownie", en:"Hazelnut Brownie", ru:"Брауни с фундуком", ar:"براوني بالبندق" },
+        desc: { tr:"Yoğun çikolata, kavrulmuş fındık ve deniz tuzu.", en:"Rich chocolate, roasted hazelnut and sea salt.", ru:"Насыщенный шоколад, жареный фундук и морская соль.", ar:"شوكولاتة غنية مع بندق محمص وملح بحري." },
+        detail: { tr:"Yoğun çikolata isteyenler için güçlü bir seçenek. Espresso bazlı kahvelerle iyi gider.", en:"A rich chocolate option that pairs well with espresso-based coffees.", ru:"Насыщенный шоколадный десерт, хорошо сочетается с эспрессо.", ar:"خيار غني بالشوكولاتة يناسب مشروبات الإسبريسو." },
+        badge: { tr:"Çikolatalı", en:"Chocolate", ru:"Шоколадный", ar:"شوكولاتة" },
+        tags: { tr:["brownie","çikolata","fındık"], en:["brownie","chocolate","hazelnut"], ru:["брауни","шоколад","фундук"], ar:["براوني","شوكولاتة","بندق"] }
+      },
+      "lemon-tart": {
+        name: { tr:"Limon Tart", en:"Lemon Tart", ru:"Лимонный тарт", ar:"تارت الليمون" },
+        desc: { tr:"Tereyağlı tart tabanı, limon kreması ve mereng.", en:"Buttery tart base, lemon cream and meringue.", ru:"Масляная основа, лимонный крем и меренга.", ar:"قاعدة تارت بالزبدة مع كريمة الليمون والميرينغ." },
+        detail: { tr:"Ferah, ekşi-tatlı dengesi güçlü bir tatlı. Soğuk kahvelerle iyi eşleşir.", en:"A fresh sweet-sour dessert that pairs well with cold coffees.", ru:"Свежий кисло-сладкий десерт, хорошо сочетается с холодным кофе.", ar:"حلوى منعشة بتوازن حلو وحامض وتناسب القهوة الباردة." },
+        badge: { tr:"Ferah", en:"Light", ru:"Свежий", ar:"خفيف" },
+        tags: { tr:["limon","tart","hafif"], en:["lemon","tart","light"], ru:["лимон","тарт","лёгкий"], ar:["ليمون","تارت","خفيف"] }
+      }
+    };
+
+    function applyProductTranslations(){
+      const products = menuData.flatMap(category => category.products);
+      for (const product of products) {
+        const copy = productCopy[product.id];
+        if (!copy) continue;
+        product.name = copy.name || product.name;
+        product.desc = copy.desc || product.desc;
+        product.detail = copy.detail || product.detail;
+        product.badge = copy.badge || product.badge;
+        product.tags = copy.tags || product.tags;
+      }
+    }
+    applyProductTranslations();
+
     const i18n={
-      tr:{code:"TR",brandSub:"QR Menü",heroKicker:"QR Menü Deneyimi",heroDesc:"Butik kahve, seçili atıştırmalıklar ve modern bar atmosferini birleştiren premium QR menü deneyimi.",todayLabel:"Bugünün önerisi",todayText:"Lotus Cold Brew & San Sebastian",featuredTitle:"Öne Çıkanlar",featuredDesc:"İşletmenin vitrin ürünleri için hızlı gösterim alanı.",featuredBadge:"Öne çıkan",search:"Ürün, açıklama veya etiket ara...",theme:"Demo Tema",list:"Listem",add:"Ekle",sold:"Tükendi",products:"ürün",lines:"kalem",all:"Tümü",popular:"Popüler",signature:"İmza",cold:"Soğuk",vegetarian:"Vejetaryen",spicy:"Baharatlı",emptyTitle:"Sonuç bulunamadı",emptyText:"Aradığın ürün menümüzde görünmüyor. Daha genel bir kelimeyle tekrar deneyebilirsin.",tax:"Fiyatlarımıza KDV dahildir.",wifi:"Wi-Fi: QUPPA Guest / Şifre: quppa2025",floatTitle:"{count} ürün listende",floatSub:"Listeyi aç ve garsona göster",sheetTitle:"Sipariş Özeti",sheetDesc:"Bu ekranı garsona gösterebilirsin. Ürünler kategoriye göre gruplanır.",emptyCartTitle:"Listen henüz boş",emptyCartText:"Menüden ürün eklediğinde burada sade bir sipariş özeti oluşacak.",note:"Garsona Not",notePh:"Örn: Az buz, şekersiz, soğansız...",clear:"Listeyi Temizle",copy:"Özeti Kopyala",copied:"Sipariş özeti kopyalandı.",copiedText:"İstersen WhatsApp veya mesaj olarak paylaşabilirsin.",added:"{name} listeye eklendi.",addedText:"Sipariş listeni alttaki bardan açabilirsin.",removed:"Ürün listeden çıkarıldı.",removedText:"{name} sipariş listenden kaldırıldı.",cleared:"Liste temizlendi.",clearedText:"Sipariş listendeki tüm ürünler kaldırıldı.",detailTitle:"Ürün Detayı",detailSub:"Ürün bilgisi ve hızlı ekleme.",pickTitle:"Menü dilini seç",pickText:"Menüyü incelemek istediğin dili seç. Daha sonra üst menüden değiştirebilirsin."},
-      en:{code:"EN",brandSub:"QR Menu",heroKicker:"QR Menu Experience",heroDesc:"A premium QR menu experience combining boutique coffee, selected snacks and a modern bar atmosphere.",todayLabel:"Today’s pick",todayText:"Lotus Cold Brew & San Sebastian",featuredTitle:"Featured",featuredDesc:"A quick showcase area for the venue’s highlight products.",featuredBadge:"Featured",search:"Search product, description or tag...",theme:"Demo Theme",list:"List",add:"Add",sold:"Sold Out",products:"items",lines:"lines",all:"All",popular:"Popular",signature:"Signature",cold:"Cold",vegetarian:"Vegetarian",spicy:"Spicy",emptyTitle:"No results found",emptyText:"This item does not appear on the menu. Try a broader keyword.",tax:"VAT is included in our prices.",wifi:"Wi-Fi: QUPPA Guest / Password: quppa2025",floatTitle:"{count} items in your list",floatSub:"Open and show the waiter",sheetTitle:"Order Summary",sheetDesc:"You can show this screen to the waiter. Items are grouped by category.",emptyCartTitle:"Your list is empty",emptyCartText:"When you add items, a compact order summary will appear here.",note:"Note to Waiter",notePh:"E.g. less ice, no sugar, no onion...",clear:"Clear List",copy:"Copy Summary",copied:"Order summary copied.",copiedText:"You can share it via message or WhatsApp.",added:"{name} added to list.",addedText:"Open your order list from the bottom bar.",removed:"Item removed.",removedText:"{name} was removed from your order list.",cleared:"List cleared.",clearedText:"All items were removed from your order list.",detailTitle:"Product Detail",detailSub:"Product info and quick add.",pickTitle:"Choose menu language",pickText:"Select the language you want to browse the menu in. You can change it later from the top bar."},
-      ru:{code:"RU",brandSub:"QR-меню",heroKicker:"QR-меню",heroDesc:"Премиальное QR-меню: кофе, закуски и атмосфера современного бара.",todayLabel:"Рекомендация дня",todayText:"Lotus Cold Brew & San Sebastian",featuredTitle:"Избранное",featuredDesc:"Быстрый блок для витринных позиций заведения.",featuredBadge:"Избранное",search:"Искать блюдо, описание или тег...",theme:"Демо тема",list:"Список",add:"Добавить",sold:"Нет",products:"шт.",lines:"поз.",all:"Все",popular:"Популярно",signature:"Фирменное",cold:"Холодное",vegetarian:"Вегетарианское",spicy:"Острое",emptyTitle:"Ничего не найдено",emptyText:"Такого пункта нет в меню. Попробуйте более общий запрос.",tax:"НДС включён в цены.",wifi:"Wi-Fi: QUPPA Guest / Пароль: quppa2025",floatTitle:"{count} поз. в списке",floatSub:"Открыть и показать официанту",sheetTitle:"Итог заказа",sheetDesc:"Покажите этот экран официанту. Позиции сгруппированы по категориям.",emptyCartTitle:"Список пуст",emptyCartText:"Добавьте позиции из меню, и здесь появится краткий итог заказа.",note:"Примечание",notePh:"Напр.: меньше льда, без сахара...",clear:"Очистить список",copy:"Копировать",copied:"Итог заказа скопирован.",copiedText:"Можно отправить сообщением или в WhatsApp.",added:"{name} добавлено.",addedText:"Откройте список заказа в нижней панели.",removed:"Позиция удалена.",removedText:"{name} удалено из списка заказа.",cleared:"Список очищен.",clearedText:"Все позиции удалены из списка заказа.",detailTitle:"Детали",detailSub:"Информация и быстрое добавление.",pickTitle:"Выберите язык меню",pickText:"Выберите язык для просмотра меню. Его можно изменить позже в верхней панели."},
-      ar:{code:"AR",brandSub:"قائمة QR",heroKicker:"تجربة قائمة QR",heroDesc:"تجربة قائمة QR راقية تجمع بين القهوة المختصة والوجبات المختارة وأجواء البار العصري.",todayLabel:"اقتراح اليوم",todayText:"لوتس كولد برو وسان سيباستيان",featuredTitle:"الأبرز",featuredDesc:"مساحة عرض سريعة للمنتجات المميزة في المكان.",featuredBadge:"مميز",search:"ابحث عن منتج أو وصف أو وسم...",theme:"مظهر تجريبي",list:"قائمتي",add:"أضف",sold:"نفد",products:"منتج",lines:"أصناف",all:"الكل",popular:"شائع",signature:"مميز",cold:"بارد",vegetarian:"نباتي",spicy:"حار",emptyTitle:"لا توجد نتائج",emptyText:"هذا المنتج غير ظاهر في القائمة. جرّب كلمة بحث أوسع.",tax:"الأسعار تشمل ضريبة القيمة المضافة.",wifi:"Wi-Fi: QUPPA Guest / كلمة المرور: quppa2025",floatTitle:"{count} منتجات في قائمتك",floatSub:"افتح القائمة واعرضها على النادل",sheetTitle:"ملخص الطلب",sheetDesc:"يمكنك عرض هذه الشاشة على النادل. المنتجات مقسمة حسب الفئة.",emptyCartTitle:"قائمتك فارغة",emptyCartText:"عند إضافة المنتجات سيظهر هنا ملخص طلب مختصر.",note:"ملاحظة للنادل",notePh:"مثال: ثلج قليل، بدون سكر...",clear:"مسح القائمة",copy:"نسخ الملخص",copied:"تم نسخ ملخص الطلب.",copiedText:"يمكنك مشاركته عبر الرسائل أو واتساب.",added:"تمت إضافة {name}.",addedText:"افتح قائمة الطلب من الشريط السفلي.",removed:"تم حذف المنتج.",removedText:"تم حذف {name} من قائمة طلبك.",cleared:"تم مسح القائمة.",clearedText:"تم حذف جميع المنتجات من قائمة الطلب.",detailTitle:"تفاصيل المنتج",detailSub:"معلومات المنتج وإضافة سريعة.",pickTitle:"اختر لغة القائمة",pickText:"اختر اللغة التي تريد تصفح القائمة بها. يمكنك تغييرها لاحقاً من الشريط العلوي."}
+      tr:{code:"TR",brandSub:"QR Menü",heroKicker:"QR Menü Deneyimi",heroDesc:"Butik kahve, seçili atıştırmalıklar ve modern bar atmosferini birleştiren premium QR menü deneyimi.",todayLabel:"Bugünün önerisi",todayText:"Lotus Cold Brew & San Sebastian",featuredTitle:"Öne Çıkanlar",featuredDesc:"İşletmenin vitrin ürünleri için hızlı gösterim alanı.",featuredBadge:"Öne çıkan",search:"Ürün, açıklama veya etiket ara...",theme:"Demo Tema",list:"Listem",add:"Ekle",sold:"Tükendi",products:"ürün",lines:"kalem",all:"Tümü",popular:"Popüler",signature:"İmza",cold:"Soğuk",vegetarian:"Vejetaryen",spicy:"Baharatlı",emptyTitle:"Sonuç bulunamadı",emptyText:"Aradığın ürün menümüzde görünmüyor. Daha genel bir kelimeyle tekrar deneyebilirsin.",tax:"Fiyatlarımıza KDV dahildir.",wifi:"Wi-Fi: QUPPA Guest / Şifre: quppa2025",floatTitle:"{count} ürün listende",floatSub:"Listeyi aç ve garsona göster",sheetTitle:"Sipariş Özeti",sheetDesc:"Bu ekranı garsona gösterebilirsin. Ürünler kategoriye göre gruplanır.",emptyCartTitle:"Listen henüz boş",emptyCartText:"Menüden ürün eklediğinde burada sade bir sipariş özeti oluşacak.",note:"Garsona Not",notePh:"Örn: Az buz, şekersiz, soğansız...",clear:"Listeyi Temizle",copy:"Özeti Kopyala",copied:"Sipariş özeti kopyalandı.",copiedText:"İstersen WhatsApp veya mesaj olarak paylaşabilirsin.",added:"{name} listeye eklendi.",addedText:"Sipariş listeni alttaki bardan açabilirsin.",removed:"Ürün listeden çıkarıldı.",removedText:"{name} sipariş listenden kaldırıldı.",cleared:"Liste temizlendi.",clearedText:"Sipariş listendeki tüm ürünler kaldırıldı.",detailTitle:"Ürün Detayı",detailSub:"Ürün bilgisi ve hızlı ekleme.",pickTitle:"Menü dilini seç",pickText:"Devam etmek için bir dil seç.",favorites:"Favoriler",favorite:"Favori",favorited:"Favorilere eklendi.",favoritedText:"Bu ürün artık bu cihazda favori olarak saklanacak.",unfavorited:"Favorilerden kaldırıldı.",unfavoritedText:"Bu ürün artık favori listenizde görünmeyecek.",shareable:"Paylaşmalık",sweet:"Tatlı",cheesy:"Peynirli",protein:"Protein",fresh:"Ferah",creamy:"Kremalı",coffeePair:"Kahve eşlikçisi",hearty:"Doyurucu"},
+      en:{code:"EN",brandSub:"QR Menu",heroKicker:"QR Menu Experience",heroDesc:"A premium QR menu experience combining boutique coffee, selected snacks and a modern bar atmosphere.",todayLabel:"Today’s pick",todayText:"Lotus Cold Brew & San Sebastian",featuredTitle:"Featured",featuredDesc:"A quick showcase area for the venue’s highlight products.",featuredBadge:"Featured",search:"Search product, description or tag...",theme:"Demo Theme",list:"List",add:"Add",sold:"Sold Out",products:"items",lines:"lines",all:"All",popular:"Popular",signature:"Signature",cold:"Cold",vegetarian:"Vegetarian",spicy:"Spicy",emptyTitle:"No results found",emptyText:"This item does not appear on the menu. Try a broader keyword.",tax:"VAT is included in our prices.",wifi:"Wi-Fi: QUPPA Guest / Password: quppa2025",floatTitle:"{count} items in your list",floatSub:"Open and show the waiter",sheetTitle:"Order Summary",sheetDesc:"You can show this screen to the waiter. Items are grouped by category.",emptyCartTitle:"Your list is empty",emptyCartText:"When you add items, a compact order summary will appear here.",note:"Note to Waiter",notePh:"E.g. less ice, no sugar, no onion...",clear:"Clear List",copy:"Copy Summary",copied:"Order summary copied.",copiedText:"You can share it via message or WhatsApp.",added:"{name} added to list.",addedText:"Open your order list from the bottom bar.",removed:"Item removed.",removedText:"{name} was removed from your order list.",cleared:"List cleared.",clearedText:"All items were removed from your order list.",detailTitle:"Product Detail",detailSub:"Product info and quick add.",pickTitle:"Choose menu language",pickText:"Choose a language to continue.",favorites:"Favorites",favorite:"Favorite",favorited:"Added to favorites.",favoritedText:"This product will be saved on this device.",unfavorited:"Removed from favorites.",unfavoritedText:"This product will no longer appear in your favorites.",shareable:"Shareable",sweet:"Sweet",cheesy:"Cheesy",protein:"Protein",fresh:"Fresh",creamy:"Creamy",coffeePair:"Coffee Pairing",hearty:"Hearty"},
+      ru:{code:"RU",brandSub:"QR-меню",heroKicker:"QR-меню",heroDesc:"Премиальное QR-меню: кофе, закуски и атмосфера современного бара.",todayLabel:"Рекомендация дня",todayText:"Lotus Cold Brew & San Sebastian",featuredTitle:"Избранное",featuredDesc:"Быстрый блок для витринных позиций заведения.",featuredBadge:"Избранное",search:"Искать блюдо, описание или тег...",theme:"Демо тема",list:"Список",add:"Добавить",sold:"Нет",products:"шт.",lines:"поз.",all:"Все",popular:"Популярно",signature:"Фирменное",cold:"Холодное",vegetarian:"Вегетарианское",spicy:"Острое",emptyTitle:"Ничего не найдено",emptyText:"Такого пункта нет в меню. Попробуйте более общий запрос.",tax:"НДС включён в цены.",wifi:"Wi-Fi: QUPPA Guest / Пароль: quppa2025",floatTitle:"{count} поз. в списке",floatSub:"Открыть и показать официанту",sheetTitle:"Итог заказа",sheetDesc:"Покажите этот экран официанту. Позиции сгруппированы по категориям.",emptyCartTitle:"Список пуст",emptyCartText:"Добавьте позиции из меню, и здесь появится краткий итог заказа.",note:"Примечание",notePh:"Напр.: меньше льда, без сахара...",clear:"Очистить список",copy:"Копировать",copied:"Итог заказа скопирован.",copiedText:"Можно отправить сообщением или в WhatsApp.",added:"{name} добавлено.",addedText:"Откройте список заказа в нижней панели.",removed:"Позиция удалена.",removedText:"{name} удалено из списка заказа.",cleared:"Список очищен.",clearedText:"Все позиции удалены из списка заказа.",detailTitle:"Детали",detailSub:"Информация и быстрое добавление.",pickTitle:"Выберите язык меню",pickText:"Выберите язык, чтобы продолжить.",favorites:"Избранное",favorite:"Избранное",favorited:"Добавлено в избранное.",favoritedText:"Этот продукт будет сохранён на этом устройстве.",unfavorited:"Удалено из избранного.",unfavoritedText:"Этот продукт больше не будет в избранном.",shareable:"Для компании",sweet:"Сладкое",cheesy:"Сырное",protein:"Белковое",fresh:"Свежий",creamy:"Кремовый",coffeePair:"К кофе",hearty:"Сытное"},
+      ar:{code:"AR",brandSub:"قائمة QR",heroKicker:"تجربة قائمة QR",heroDesc:"تجربة قائمة QR راقية تجمع بين القهوة المختصة والوجبات المختارة وأجواء البار العصري.",todayLabel:"اقتراح اليوم",todayText:"لوتس كولد برو وسان سيباستيان",featuredTitle:"الأبرز",featuredDesc:"مساحة عرض سريعة للمنتجات المميزة في المكان.",featuredBadge:"مميز",search:"ابحث عن منتج أو وصف أو وسم...",theme:"مظهر تجريبي",list:"قائمتي",add:"أضف",sold:"نفد",products:"منتج",lines:"أصناف",all:"الكل",popular:"شائع",signature:"مميز",cold:"بارد",vegetarian:"نباتي",spicy:"حار",emptyTitle:"لا توجد نتائج",emptyText:"هذا المنتج غير ظاهر في القائمة. جرّب كلمة بحث أوسع.",tax:"الأسعار تشمل ضريبة القيمة المضافة.",wifi:"Wi-Fi: QUPPA Guest / كلمة المرور: quppa2025",floatTitle:"{count} منتجات في قائمتك",floatSub:"افتح القائمة واعرضها على النادل",sheetTitle:"ملخص الطلب",sheetDesc:"يمكنك عرض هذه الشاشة على النادل. المنتجات مقسمة حسب الفئة.",emptyCartTitle:"قائمتك فارغة",emptyCartText:"عند إضافة المنتجات سيظهر هنا ملخص طلب مختصر.",note:"ملاحظة للنادل",notePh:"مثال: ثلج قليل، بدون سكر...",clear:"مسح القائمة",copy:"نسخ الملخص",copied:"تم نسخ ملخص الطلب.",copiedText:"يمكنك مشاركته عبر الرسائل أو واتساب.",added:"تمت إضافة {name}.",addedText:"افتح قائمة الطلب من الشريط السفلي.",removed:"تم حذف المنتج.",removedText:"تم حذف {name} من قائمة طلبك.",cleared:"تم مسح القائمة.",clearedText:"تم حذف جميع المنتجات من قائمة الطلب.",detailTitle:"تفاصيل المنتج",detailSub:"معلومات المنتج وإضافة سريعة.",pickTitle:"اختر لغة القائمة",pickText:"اختر لغة للمتابعة."}
     };
     const themes=[["light","Modern Light","Aydınlık butik kafe","fa-sun"],["dark","Dark Mode","Şık bar atmosferi","fa-moon"],["espresso","Espresso","Sıcak kahve tonları","fa-mug-saucer"],["cyber","Neon Cyberpunk","Genç ve enerjik konsept","fa-bolt"],["retro","Retro","Nostaljik kafe ruhu","fa-record-vinyl"],["minimal","Minimalist","Sade premium görünüm","fa-circle-half-stroke"]];
     const langs=[["tr","TR","Türkçe","Menüyü Türkçe görüntüle"],["en","EN","English","Browse menu in English"],["ru","RU","Русский","Смотреть меню на русском"],["ar","AR","العربية","عرض القائمة بالعربية"]];
-    const filters=[["all","fa-border-all",p=>true],["popular","fa-fire",p=>p.isFeatured||loc(p.badge).toLowerCase().includes("popüler")],["signature","fa-star",p=>p.isSignature],["cold","fa-snowflake",p=>loc(p.tags).some(x=>norm(x).includes("soğuk")||norm(x).includes("cold"))],["vegetarian","fa-leaf",p=>loc(p.tags).some(x=>norm(x).includes("vejetaryen")||norm(x).includes("vegetarian")||norm(x).includes("vegan"))],["spicy","fa-pepper-hot",p=>loc(p.tags).some(x=>norm(x).includes("baharat")||norm(x).includes("spicy"))]];
-    const S={lang:localStorage.getItem("quppa-language")||"",theme:localStorage.getItem("quppa-theme")||"light",q:"",filter:"all",active:menuData[0].id,cart:load("quppa-cart",{}),note:localStorage.getItem("quppa-note")||"",timer:null,obs:null,detail:null};
+    const filters=[["all","fa-border-all",p=>true],["favorites","fa-heart",p=>!!S.favorites[p.id]],["popular","fa-fire",p=>p.isFeatured||loc(p.badge).toLowerCase().includes("popüler")],["signature","fa-star",p=>p.isSignature],["cold","fa-snowflake",p=>loc(p.tags).some(x=>norm(x).includes("soğuk")||norm(x).includes("cold"))],["vegetarian","fa-leaf",p=>loc(p.tags).some(x=>norm(x).includes("vejetaryen")||norm(x).includes("vegetarian")||norm(x).includes("vegan"))],["spicy","fa-pepper-hot",p=>loc(p.tags).some(x=>norm(x).includes("baharat")||norm(x).includes("spicy"))]];
+    const S={lang:localStorage.getItem("quppa-language")||"",theme:localStorage.getItem("quppa-theme")||"light",q:"",filter:"all",active:menuData[0].id,cart:load("quppa-cart",{}),favorites:load("quppa-favorites",{}),note:localStorage.getItem("quppa-note")||"",timer:null,obs:null,detail:null};
     const $=id=>document.getElementById(id), T=(k,v={})=>Object.entries(v).reduce((a,[x,y])=>a.replaceAll("{"+x+"}",y), (i18n[S.lang]||i18n.tr)[k]||k), loc=o=>o&&typeof o==="object"?(o[S.lang]||o.tr||Object.values(o)[0]):(o||"");
     function load(k,d){try{return JSON.parse(localStorage.getItem(k))||d}catch{return d}}function save(){localStorage.setItem("quppa-cart",JSON.stringify(S.cart))}
     function money(n){return new Intl.NumberFormat("tr-TR",{style:"currency",currency:"TRY",maximumFractionDigits:0}).format(n)}function norm(x){return String(x||"").toLocaleLowerCase(S.lang==="tr"?"tr-TR":undefined).normalize("NFD").replace(/[\u0300-\u036f]/g,"")}
+
+    function saveFavs(){localStorage.setItem("quppa-favorites",JSON.stringify(S.favorites))}
+    function isFav(id){return !!S.favorites[id]}
+    function toggleFav(id){
+      const product=find(id); if(!product) return;
+      if(isFav(id)){ delete S.favorites[id]; saveFavs(); renderAll(); toast(T("unfavorited"),T("unfavoritedText")); }
+      else { S.favorites[id]=1; saveFavs(); renderAll(); toast(T("favorited"),T("favoritedText")); }
+    }
+    function labelFromIcon(icon){
+      const map={
+        "fa-snowflake":T("cold"),
+        "fa-leaf":T("vegetarian"),
+        "fa-pepper-hot":T("spicy"),
+        "fa-people-group":T("shareable"),
+        "fa-cookie-bite":T("sweet"),
+        "fa-cheese":T("cheesy"),
+        "fa-drumstick-bite":T("protein"),
+        "fa-droplet":T("creamy"),
+        "fa-lemon":T("fresh"),
+        "fa-mug-hot":T("coffeePair"),
+        "fa-burger":T("hearty"),
+        "fa-fire":T("spicy")
+      };
+      return map[icon]||"";
+    }
+    function toneFromIcon(icon){
+      if(icon==="fa-circle-xmark") return "danger";
+      if(icon==="fa-star") return "accent";
+      if(icon==="fa-fire") return "warm";
+      if(icon==="fa-snowflake"||icon==="fa-droplet") return "cool";
+      if(icon==="fa-leaf") return "success";
+      if(icon==="fa-pepper-hot") return "danger";
+      if(icon==="fa-cookie-bite"||icon==="fa-cheese"||icon==="fa-mug-hot"||icon==="fa-bread-slice"||icon==="fa-burger") return "warm";
+      if(icon==="fa-drumstick-bite") return "accent";
+      return "soft";
+    }
+    function metaItems(product){
+      const out=[], seen=new Set();
+      const push=(icon,label,tone)=>{
+        const key=icon+"|"+label;
+        if(!icon||!label||seen.has(key)) return;
+        seen.add(key);
+        out.push({icon,label,tone:tone||toneFromIcon(icon)});
+      };
+      if(!product.isAvailable){ push("fa-circle-xmark",T("sold"),"danger"); }
+      else{
+        if(product.isSignature) push("fa-star",T("signature"),"accent");
+        if(product.isFeatured) push("fa-fire",T("popular"),"warm");
+      }
+      (product.icons||[]).forEach(icon=>{
+        const label=labelFromIcon(icon);
+        if(label) push(icon,label,toneFromIcon(icon));
+      });
+      return out;
+    }
+    function renderMenuFlags(product){
+      return metaItems(product).slice(0,4).map(item=>`<span class="icon-badge tone-${item.tone}" title="${item.label}" aria-label="${item.label}"><i class="fa-solid ${item.icon}"></i></span>`).join("");
+    }
+    function renderDetailFlags(product){
+      return metaItems(product).map(item=>`<span class="dtag tone-${item.tone}"><i class="fa-solid ${item.icon}"></i>${item.label}</span>`).join("");
+    }
+
     function all(){return menuData.flatMap(c=>c.products.map(p=>({...p,catId:c.id,catName:loc(c.name),catIcon:c.icon})))}function find(id){return all().find(p=>p.id===id)}
     function match(p){let text=[loc(p.name),loc(p.desc),loc(p.detail),loc(p.badge),...loc(p.tags)].join(" ");let f=filters.find(x=>x[0]===S.filter)||filters[0];return (!S.q||norm(text).includes(norm(S.q)))&&f[2](p)}
     function cartItems(){return Object.entries(S.cart).map(([id,q])=>({product:find(id),q})).filter(x=>x.product&&x.q>0)}function summary(){return cartItems().reduce((s,x)=>(s.q+=x.q,s.total+=x.q*x.product.price,s.lines++,s),{q:0,total:0,lines:0})}
@@ -164,9 +697,9 @@
     function renderCats(cats=menuData){$("catList").innerHTML=cats.map(c=>`<button class="cat ${S.active===c.id?"active":""}" data-cat="${c.id}"><i class="fa-solid ${c.icon}"></i><span>${loc(c.name)}</span></button>`).join("");document.querySelectorAll("[data-cat]").forEach(b=>b.onclick=()=>scrollCat(b.dataset.cat))}
     function renderFeatured(){$("featured").innerHTML=all().filter(p=>p.isFeatured&&p.isAvailable).map(p=>`<article class="fcard"><img src="${p.image}" alt="${loc(p.name)}" loading="lazy"><div class="fbody"><small>${T("featuredBadge")}</small><strong>${loc(p.name)}</strong><div class="fbottom"><b>${money(p.price)}</b><div class="factions"><button class="round" data-detail="${p.id}"><i class="fa-solid fa-eye"></i></button><button class="round" data-add="${p.id}"><i class="fa-solid fa-plus"></i></button></div></div></div></article>`).join("");bind()}
     function renderMenu(){let cats=menuData.map(c=>({...c,products:c.products.filter(match)})).filter(c=>c.products.length);$("empty").classList.toggle("show",!cats.length);if(!cats.length){$("menu").innerHTML="";renderCats(menuData);return}if(!cats.some(c=>c.id===S.active))S.active=cats[0].id;$("menu").innerHTML=cats.map(c=>`<article class="section" id="${c.id}" data-sec="${c.id}"><div class="sectionTop"><div><div class="kcat"><i class="fa-solid ${c.icon}"></i> ${loc(c.name)}</div><h2>${loc(c.name)}</h2><p>${loc(c.desc)}</p></div><span class="cnt">${c.products.length} ${T("products")}</span></div><div class="grid">${c.products.map((p,i)=>card(p,c.icon,i)).join("")}</div></article>`).join("");renderCats(cats);bind();spy()}
-    function card(p,catIcon,i){let q=S.cart[p.id]||0,special=p.isAvailable&&(p.isSignature||p.isFeatured);return`<article class="card ${p.isAvailable?"":"off"}" data-detail="${p.id}" style="animation-delay:${Math.min(i*42,180)}ms"><div class="pic"><img src="${p.image}" alt="${loc(p.name)}" loading="lazy" onerror="this.parentElement.classList.add('err')"><div class="fallback"><i class="fa-solid ${catIcon}"></i></div></div><div class="content"><div><div class="titleRow"><h3 class="title">${loc(p.name)}</h3><button class="eye" data-detail="${p.id}"><i class="fa-solid fa-eye"></i></button></div><div class="flags">${special?`<span class="flag"><i class="fa-solid fa-star"></i>${loc(p.badge)}</span>`:""}${(p.icons||[]).slice(0,2).map(x=>`<span class="flag"><i class="fa-solid ${x}"></i></span>`).join("")}${!p.isAvailable?`<span class="sold"><i class="fa-solid fa-circle-xmark"></i>${T("sold")}</span>`:""}</div></div><p class="desc">${loc(p.desc)}</p><div class="bottom"><div class="price">${money(p.price)}</div>${control(p,q)}</div></div></article>`}
+    function card(p,catIcon,i){let q=S.cart[p.id]||0,fav=isFav(p.id);return`<article class="card ${p.isAvailable?"":"off"}" data-detail="${p.id}" style="animation-delay:${Math.min(i*42,180)}ms"><div class="pic"><img src="${p.image}" alt="${loc(p.name)}" loading="lazy" onerror="this.parentElement.classList.add('err')"><div class="fallback"><i class="fa-solid ${catIcon}"></i></div></div><div class="content"><div><div class="titleRow"><h3 class="title">${loc(p.name)}</h3><button class="favbtn ${fav?"active":""}" data-fav="${p.id}" title="${T("favorite")}" aria-label="${T("favorite")}"><i class="fa-${fav?"solid":"regular"} fa-heart"></i></button></div><div class="flags">${renderMenuFlags(p)}</div></div><p class="desc">${loc(p.desc)}</p><div class="bottom"><div class="price">${money(p.price)}</div>${control(p,q)}</div></div></article>`}
     function control(p,q){if(!p.isAvailable)return`<button class="add" disabled><i class="fa-solid fa-plus"></i></button>`;return q>0?`<div class="qtyInline"><button data-dec="${p.id}"><i class="fa-solid fa-minus"></i></button><strong>${q}</strong><button data-inc="${p.id}"><i class="fa-solid fa-plus"></i></button></div>`:`<button class="add" data-add="${p.id}"><i class="fa-solid fa-plus"></i></button>`}
-    function bind(){document.querySelectorAll("[data-add]").forEach(b=>b.onclick=e=>{e.stopPropagation();add(b.dataset.add)});document.querySelectorAll("[data-inc]").forEach(b=>b.onclick=e=>{e.stopPropagation();setQ(b.dataset.inc,(S.cart[b.dataset.inc]||0)+1)});document.querySelectorAll("[data-dec]").forEach(b=>b.onclick=e=>{e.stopPropagation();setQ(b.dataset.dec,(S.cart[b.dataset.dec]||0)-1)});document.querySelectorAll("[data-detail]").forEach(b=>b.onclick=e=>{e.stopPropagation();openDetail(b.dataset.detail)})}
+    function bind(){document.querySelectorAll("[data-add]").forEach(b=>b.onclick=e=>{e.stopPropagation();add(b.dataset.add)});document.querySelectorAll("[data-inc]").forEach(b=>b.onclick=e=>{e.stopPropagation();setQ(b.dataset.inc,(S.cart[b.dataset.inc]||0)+1)});document.querySelectorAll("[data-dec]").forEach(b=>b.onclick=e=>{e.stopPropagation();setQ(b.dataset.dec,(S.cart[b.dataset.dec]||0)-1)});document.querySelectorAll("[data-detail]").forEach(b=>b.onclick=e=>{e.stopPropagation();openDetail(b.dataset.detail)});document.querySelectorAll("[data-fav]").forEach(b=>b.onclick=e=>{e.stopPropagation();toggleFav(b.dataset.fav)})}
     function add(id){let p=find(id);if(!p||!p.isAvailable)return;S.cart[id]=(S.cart[id]||0)+1;save();renderAll();toast(T("added",{name:loc(p.name)}),T("addedText"))}
     function setQ(id,q){q=Math.max(0,q);q?S.cart[id]=q:delete S.cart[id];save();renderAll()}
     function remove(id){let p=find(id);delete S.cart[id];save();renderAll();toast(T("removed"),T("removedText",{name:p?loc(p.name):""}))}
@@ -175,7 +708,7 @@
     function copyWifi(){let m={tr:["Wi-Fi şifresi kopyalandı.","Şifre: quppa2025"],en:["Wi-Fi password copied.","Password: quppa2025"],ru:["Пароль Wi-Fi скопирован.","Пароль: quppa2025"],ar:["تم نسخ كلمة مرور Wi-Fi.","كلمة المرور: quppa2025"]}[S.lang]||["Wi-Fi şifresi kopyalandı.","Şifre: quppa2025"];let text="quppa2025";if(navigator.clipboard){navigator.clipboard.writeText(text).finally(()=>toast(m[0],m[1]))}else{toast(m[0],m[1])}}
     function openSheet(){open($("sheet"),$("sheetBack"),"sheet-open")}function closeSheet(){close($("sheet"),$("sheetBack"),"sheet-open")}
     function openDetail(id){S.detail=id;renderDetail(id);open($("detail"),$("detailBack"),"detail-open")}function closeDetail(){close($("detail"),$("detailBack"),"detail-open")}
-    function renderDetail(id){let p=find(id);if(!p)return;let q=S.cart[id]||0;$("detailBody").innerHTML=`<div class="dimg"><img src="${p.image}" alt="${loc(p.name)}"></div><article class="dinfo"><h3>${loc(p.name)}</h3><p>${loc(p.detail)||loc(p.desc)}</p><div class="dtags">${p.isSignature?`<span class="dtag"><i class="fa-solid fa-star"></i>${loc(p.badge)}</span>`:""}${(p.icons||[]).map(x=>`<span class="dtag"><i class="fa-solid ${x}"></i></span>`).join("")}${loc(p.tags).slice(0,4).map(t=>`<span class="dtag">#${t}</span>`).join("")}</div><div class="dbot"><strong>${money(p.price)}</strong>${control(p,q)}</div></article>`;bind()}
+    function renderDetail(id){let p=find(id);if(!p)return;let q=S.cart[id]||0,fav=isFav(id);$("detailBody").innerHTML=`<div class="dimg"><img src="${p.image}" alt="${loc(p.name)}"></div><article class="dinfo"><div class="dhead"><h3>${loc(p.name)}</h3><button class="favbtn detail-fav ${fav?"active":""}" data-fav="${p.id}" title="${T("favorite")}" aria-label="${T("favorite")}"><i class="fa-${fav?"solid":"regular"} fa-heart"></i></button></div><p>${loc(p.detail)||loc(p.desc)}</p><div class="dtags">${renderDetailFlags(p)}${loc(p.tags).slice(0,4).map(t=>`<span class="dtag"><i class="fa-solid fa-hashtag"></i>${t}</span>`).join("")}</div><div class="dbot"><strong>${money(p.price)}</strong>${control(p,q)}</div></article>`;bind()}
     function open(el,b,cls){el.classList.add("open");b.classList.add("open");el.removeAttribute("inert");el.setAttribute("aria-hidden","false");document.body.classList.add(cls)}
     function close(el,b,cls){if(el.contains(document.activeElement))document.activeElement.blur();el.classList.remove("open");b.classList.remove("open");el.setAttribute("aria-hidden","true");el.setAttribute("inert","");document.body.classList.remove(cls)}
     function openLang(force=false){$("closeLang").classList.toggle("show",!force);open($("langModal"),$("langBack"),"lang-open")}function closeLang(){close($("langModal"),$("langBack"),"lang-open")}
