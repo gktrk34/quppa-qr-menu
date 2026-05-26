@@ -189,7 +189,7 @@
       color: var(--text);
       transition: background var(--transition), color var(--transition);
       min-height: 100vh;
-      padding-bottom: 92px;
+      padding-bottom: 98px;
     }
 
     body.sheet-open {
@@ -245,6 +245,7 @@
       align-items: center;
       gap: 10px;
       min-width: 0;
+      flex: 1 1 auto;
     }
 
     .brand-mark {
@@ -298,13 +299,14 @@
       border: 1px solid var(--border);
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 8px;
       color: var(--text);
       transition: transform var(--transition), background var(--transition), border-color var(--transition);
+      white-space: nowrap;
     }
 
     .mini-cart-button {
-      position: relative;
       background: linear-gradient(135deg, var(--primary), var(--primary-2));
       color: var(--bg-2);
       box-shadow: 0 10px 24px color-mix(in srgb, var(--primary) 24%, transparent);
@@ -330,7 +332,8 @@
     .category-pill:active,
     .cart-control:active,
     .primary-action:active,
-    .secondary-action:active {
+    .secondary-action:active,
+    .floating-cart-button:active {
       transform: scale(0.97);
     }
 
@@ -784,13 +787,6 @@
       padding: 2px 0 0;
     }
 
-    .product-top {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 10px;
-    }
-
     .product-title {
       margin: 0;
       font-size: 1.02rem;
@@ -966,12 +962,13 @@
 
     .floating-cart {
       position: fixed;
-      left: 50%;
+      left: 0;
+      right: 0;
       bottom: max(14px, env(safe-area-inset-bottom));
       z-index: 70;
-      width: min(calc(100% - 28px), 520px);
-      transform: translateX(-50%);
       display: none;
+      padding: 0 14px;
+      pointer-events: none;
     }
 
     .floating-cart.visible {
@@ -979,45 +976,62 @@
       animation: floatIn 260ms ease both;
     }
 
+    .floating-cart-inner {
+      width: min(100%, 520px);
+      margin: 0 auto;
+      pointer-events: auto;
+    }
+
     .floating-cart-button {
       width: 100%;
       min-height: 64px;
-      padding: 10px 12px 10px 14px;
+      padding: 10px 12px 10px 12px;
       display: grid;
-      grid-template-columns: 42px 1fr auto;
+      grid-template-columns: 44px minmax(0, 1fr) auto;
       align-items: center;
       gap: 12px;
       border-radius: 24px;
-      background: color-mix(in srgb, var(--surface-solid) 88%, transparent);
+      background: color-mix(in srgb, var(--surface-solid) 90%, transparent);
       border: 1px solid var(--border);
       box-shadow: var(--shadow);
       color: var(--text);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
+      overflow: hidden;
+      transition: transform var(--transition), background var(--transition);
     }
 
     .floating-icon {
-      width: 42px;
-      height: 42px;
-      border-radius: 16px;
+      width: 44px;
+      height: 44px;
+      border-radius: 17px;
       display: grid;
       place-items: center;
       background: linear-gradient(135deg, var(--primary), var(--primary-2));
       color: var(--bg-2);
+      flex: 0 0 auto;
     }
 
-    .floating-cart-button strong,
-    .floating-cart-button span {
-      display: block;
+    .floating-cart-text {
+      min-width: 0;
       text-align: left;
     }
 
-    .floating-cart-button strong {
+    .floating-cart-text strong,
+    .floating-cart-text span {
+      display: block;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .floating-cart-text strong {
       font-size: 0.95rem;
       line-height: 1.15;
     }
 
-    .floating-cart-button span {
+    .floating-cart-text span {
       margin-top: 3px;
       color: var(--muted);
       font-size: 0.78rem;
@@ -1027,6 +1041,7 @@
       color: var(--primary);
       font-weight: 900;
       white-space: nowrap;
+      font-size: 0.95rem;
     }
 
     .sheet-backdrop {
@@ -1050,14 +1065,14 @@
       bottom: 0;
       z-index: 90;
       width: min(100%, 620px);
-      max-height: min(86vh, 760px);
+      max-height: min(88vh, 780px);
       transform: translate(-50%, 105%);
       border-radius: 30px 30px 0 0;
       background: var(--surface-solid);
       border: 1px solid var(--border);
       box-shadow: 0 -22px 70px rgba(0,0,0,0.30);
       display: grid;
-      grid-template-rows: auto 1fr auto;
+      grid-template-rows: auto minmax(0, 1fr) auto;
       overflow: hidden;
       transition: transform 300ms ease, background var(--transition), border-color var(--transition);
     }
@@ -1093,14 +1108,14 @@
 
     .sheet-title-row h2 {
       margin: 0;
-      font-size: 1.24rem;
+      font-size: 1.18rem;
       letter-spacing: -0.04em;
     }
 
     .sheet-title-row p {
       margin: 5px 0 0;
       color: var(--muted);
-      font-size: 0.84rem;
+      font-size: 0.82rem;
       line-height: 1.45;
     }
 
@@ -1117,37 +1132,43 @@
 
     .sheet-meta {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      margin-top: 14px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 12px;
     }
 
     .meta-card {
-      padding: 11px;
-      border-radius: 18px;
+      padding: 10px;
+      border-radius: 16px;
       background: var(--surface-soft);
       border: 1px solid var(--border);
+      min-width: 0;
     }
 
     .meta-card small {
       display: block;
       color: var(--muted);
-      font-size: 0.68rem;
+      font-size: 0.64rem;
       font-weight: 900;
       text-transform: uppercase;
       letter-spacing: 0.07em;
+      white-space: nowrap;
     }
 
     .meta-card strong {
       display: block;
       margin-top: 4px;
-      font-size: 0.95rem;
+      font-size: 0.88rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     .sheet-body {
       overflow: auto;
-      padding: 14px 16px;
+      padding: 12px 12px;
       overscroll-behavior: contain;
+      min-height: 0;
     }
 
     .cart-empty {
@@ -1188,32 +1209,17 @@
 
     .cart-list {
       display: grid;
-      gap: 10px;
+      gap: 8px;
     }
 
     .cart-item {
       display: grid;
-      grid-template-columns: 54px 1fr;
-      gap: 11px;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 8px;
       padding: 10px;
-      border-radius: 20px;
+      border-radius: 18px;
       background: var(--surface);
       border: 1px solid var(--border);
-    }
-
-    .cart-item-image {
-      width: 54px;
-      height: 54px;
-      border-radius: 16px;
-      overflow: hidden;
-      background: var(--image-fallback);
-      position: relative;
-    }
-
-    .cart-item-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
     }
 
     .cart-item-main {
@@ -1221,23 +1227,45 @@
     }
 
     .cart-item-head {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: start;
       gap: 10px;
+    }
+
+    .cart-item-title-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .cart-item-qty-pill {
+      min-width: 34px;
+      height: 28px;
+      padding: 0 8px;
+      border-radius: 999px;
+      display: inline-grid;
+      place-items: center;
+      flex: 0 0 auto;
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      color: var(--bg-2);
+      font-size: 0.78rem;
+      font-weight: 900;
     }
 
     .cart-item-title {
       margin: 0;
-      font-size: 0.92rem;
+      font-size: 0.96rem;
       letter-spacing: -0.02em;
       line-height: 1.22;
+      overflow-wrap: anywhere;
     }
 
     .remove-item {
-      width: 34px;
-      height: 34px;
-      border-radius: 13px;
+      width: 36px;
+      height: 36px;
+      border-radius: 14px;
       display: grid;
       place-items: center;
       background: color-mix(in srgb, var(--danger) 12%, var(--surface-soft));
@@ -1246,28 +1274,29 @@
     }
 
     .cart-item-sub {
-      margin: 5px 0 0;
+      margin: 6px 0 0 42px;
       color: var(--muted);
-      font-size: 0.78rem;
-      line-height: 1.4;
+      font-size: 0.76rem;
+      line-height: 1.35;
     }
 
     .cart-item-bottom {
-      display: flex;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
       align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin-top: 11px;
+      gap: 10px;
+      margin-left: 42px;
     }
 
     .qty-control {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 5px;
+      gap: 6px;
+      padding: 4px;
       border-radius: 999px;
       background: var(--surface-soft);
       border: 1px solid var(--border);
+      width: max-content;
     }
 
     .cart-control {
@@ -1293,12 +1322,14 @@
       font-weight: 900;
       color: var(--primary);
       white-space: nowrap;
+      font-size: 0.93rem;
+      justify-self: end;
     }
 
     .sheet-footer {
-      padding: 14px 16px max(16px, env(safe-area-inset-bottom));
+      padding: 12px 16px max(16px, env(safe-area-inset-bottom));
       border-top: 1px solid var(--border);
-      background: color-mix(in srgb, var(--surface-solid) 92%, transparent);
+      background: color-mix(in srgb, var(--surface-solid) 94%, transparent);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
     }
@@ -1325,11 +1356,10 @@
 
     .sheet-actions {
       display: grid;
-      grid-template-columns: 1fr 1.45fr;
+      grid-template-columns: 1fr;
       gap: 10px;
     }
 
-    .primary-action,
     .secondary-action {
       min-height: 52px;
       border-radius: 18px;
@@ -1339,21 +1369,11 @@
       gap: 9px;
       font-weight: 900;
       transition: transform var(--transition), opacity var(--transition), background var(--transition);
-    }
-
-    .primary-action {
-      background: linear-gradient(135deg, var(--primary), var(--primary-2));
-      color: var(--bg-2);
-      box-shadow: 0 12px 24px color-mix(in srgb, var(--primary) 22%, transparent);
-    }
-
-    .secondary-action {
       background: var(--surface-soft);
       color: var(--text);
       border: 1px solid var(--border);
     }
 
-    .primary-action:disabled,
     .secondary-action:disabled {
       opacity: 0.42;
       cursor: not-allowed;
@@ -1427,11 +1447,11 @@
     @keyframes floatIn {
       from {
         opacity: 0;
-        transform: translate(-50%, 16px);
+        transform: translateY(16px);
       }
       to {
         opacity: 1;
-        transform: translate(-50%, 0);
+        transform: translateY(0);
       }
     }
 
@@ -1482,6 +1502,10 @@
       .order-sheet {
         border-radius: 34px 34px 0 0;
       }
+
+      .cart-list {
+        gap: 10px;
+      }
     }
 
     @media (max-width: 460px) {
@@ -1509,6 +1533,19 @@
       .suggestion-card b {
         grid-column: 2;
       }
+
+      .sheet-meta {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .meta-card:last-child {
+        grid-column: 1 / -1;
+      }
+
+      .floating-cart-button {
+        grid-template-columns: 42px minmax(0, 1fr) auto;
+        gap: 10px;
+      }
     }
 
     @media (max-width: 380px) {
@@ -1533,8 +1570,12 @@
         display: none;
       }
 
-      .sheet-actions {
-        grid-template-columns: 1fr;
+      .cart-item-bottom {
+        grid-template-columns: 1fr auto;
+      }
+
+      .cart-line-total {
+        grid-column: 2;
       }
     }
 
@@ -1656,16 +1697,18 @@
   </main>
 
   <div class="floating-cart" id="floatingCart">
-    <button class="floating-cart-button" id="floatingCartButton" type="button">
-      <span class="floating-icon">
-        <i class="fa-solid fa-basket-shopping"></i>
-      </span>
-      <span>
-        <strong id="floatingCartTitle">Sipariş listende ürün var</strong>
-        <span id="floatingCartSub">Garsona göstermek için dokun</span>
-      </span>
-      <span class="floating-total" id="floatingCartTotal">₺0</span>
-    </button>
+    <div class="floating-cart-inner">
+      <button class="floating-cart-button" id="floatingCartButton" type="button">
+        <span class="floating-icon">
+          <i class="fa-solid fa-basket-shopping"></i>
+        </span>
+        <span class="floating-cart-text">
+          <strong id="floatingCartTitle">Sipariş listende ürün var</strong>
+          <span id="floatingCartSub">Garsona göstermek için dokun</span>
+        </span>
+        <span class="floating-total" id="floatingCartTotal">₺0</span>
+      </button>
+    </div>
   </div>
 
   <div class="sheet-backdrop" id="sheetBackdrop"></div>
@@ -1680,8 +1723,8 @@
   <header class="sheet-header">
     <div class="sheet-title-row">
       <div>
-        <h2>Garsona Gösterilecek Liste</h2>
-        <p>Ürünleri buradan artırabilir, azaltabilir, silebilir veya listeyi tek dokunuşla temizleyebilirsin.</p>
+        <h2>Sipariş Listem</h2>
+        <p>Bu ekranı garsona gösterebilirsin. Ürünleri buradan hızlıca artırabilir, azaltabilir veya silebilirsin.</p>
       </div>
       <button class="close-sheet" id="closeSheet" type="button" aria-label="Listeyi kapat">
         <i class="fa-solid fa-xmark"></i>
@@ -1697,6 +1740,10 @@
         <small>İşletme</small>
         <strong>QUPPA</strong>
       </div>
+      <div class="meta-card">
+        <small>Durum</small>
+        <strong>Garsona Göster</strong>
+      </div>
     </div>
   </header>
 </div>
@@ -1705,7 +1752,7 @@
   <div class="cart-empty" id="cartEmpty">
     <i class="fa-solid fa-clipboard-list"></i>
     <h3>Listen henüz boş</h3>
-    <p>Menüden ürün eklediğinde burada garsona kolayca gösterebileceğin düzenli bir sipariş listesi oluşacak.</p>
+    <p>Menüden ürün eklediğinde burada garsona kolayca gösterebileceğin sade bir sipariş listesi oluşacak.</p>
   </div>
 
   <div class="cart-list" id="cartList"></div>
@@ -1720,10 +1767,6 @@
     <button class="secondary-action" id="clearCartButton" type="button" disabled>
       <i class="fa-solid fa-trash-can"></i>
       Listeyi Temizle
-    </button>
-    <button class="primary-action" id="showWaiterButton" type="button" disabled>
-      <i class="fa-solid fa-eye"></i>
-      Garsona Göster
     </button>
   </div>
 </footer>
@@ -2045,7 +2088,6 @@
     const summaryText = document.getElementById("summaryText");
     const summaryTotal = document.getElementById("summaryTotal");
     const clearCartButton = document.getElementById("clearCartButton");
-    const showWaiterButton = document.getElementById("showWaiterButton");
 
     function formatPrice(price) {
       return new Intl.NumberFormat("tr-TR", {
@@ -2212,13 +2254,11 @@
           </div>
 
           <div class="product-content">
-            <div class="product-top">
-              <div>
-                <h3 class="product-title">${product.name}</h3>
-                <div class="badge-row">
-                  ${product.isAvailable ? `<span class="badge"><i class="fa-solid fa-sparkles"></i>${product.badge}</span>` : ""}
-                  ${!product.isAvailable ? `<span class="soldout-label"><i class="fa-solid fa-circle-xmark"></i>Tükendi</span>` : ""}
-                </div>
+            <div>
+              <h3 class="product-title">${product.name}</h3>
+              <div class="badge-row">
+                ${product.isAvailable ? `<span class="badge"><i class="fa-solid fa-sparkles"></i>${product.badge}</span>` : ""}
+                ${!product.isAvailable ? `<span class="soldout-label"><i class="fa-solid fa-circle-xmark"></i>Tükendi</span>` : ""}
               </div>
             </div>
 
@@ -2255,13 +2295,9 @@
     }
 
     function bindImageFallbacks() {
-      document.querySelectorAll(".product-image-wrap img, .cart-item-image img").forEach(img => {
+      document.querySelectorAll(".product-image-wrap img").forEach(img => {
         img.addEventListener("error", () => {
-          const wrap = img.closest(".product-image-wrap, .cart-item-image");
-          if (wrap) {
-            wrap.classList.add("image-error");
-            img.style.display = "none";
-          }
+          img.closest(".product-image-wrap")?.classList.add("image-error");
         }, { once: true });
       });
     }
@@ -2274,7 +2310,7 @@
       saveCart();
       renderCart();
       renderProducts();
-      showToast(`${product.name} listeye eklendi.`, "Garsona göstermek için sipariş listeni açabilirsin.");
+      showToast(`${product.name} listeye eklendi.`, "Sipariş listeni alttaki bardan açabilirsin.");
     }
 
     function setCartQuantity(productId, quantity) {
@@ -2325,7 +2361,6 @@
       floatingCart.classList.toggle("visible", hasItems);
       cartEmpty.classList.toggle("visible", !hasItems);
       clearCartButton.disabled = !hasItems;
-      showWaiterButton.disabled = !hasItems;
 
       floatingCartTitle.textContent = `${summary.quantity} ürün listende`;
       floatingCartSub.textContent = hasItems ? "Garsona göstermek için dokun" : "Liste boş";
@@ -2336,16 +2371,16 @@
 
       cartList.innerHTML = items.map(({ product, quantity }) => `
         <article class="cart-item">
-          <div class="cart-item-image">
-            <img src="${product.image}" alt="${product.name}" loading="lazy" decoding="async" />
-          </div>
-
           <div class="cart-item-main">
             <div class="cart-item-head">
               <div>
-                <h3 class="cart-item-title">${product.name}</h3>
+                <div class="cart-item-title-row">
+                  <span class="cart-item-qty-pill">${quantity}x</span>
+                  <h3 class="cart-item-title">${product.name}</h3>
+                </div>
                 <p class="cart-item-sub">${formatPrice(product.price)} · ${product.categoryName}</p>
               </div>
+
               <button class="remove-item" type="button" data-remove-product="${product.id}" aria-label="${product.name} ürününü sil">
                 <i class="fa-solid fa-trash-can"></i>
               </button>
@@ -2362,6 +2397,8 @@
                 </button>
               </div>
 
+              <span></span>
+
               <div class="cart-line-total">${formatPrice(product.price * quantity)}</div>
             </div>
           </div>
@@ -2369,7 +2406,6 @@
       `).join("");
 
       bindCartActions();
-      bindImageFallbacks();
     }
 
     function bindCartActions() {
@@ -2400,11 +2436,6 @@
       document.body.classList.remove("sheet-open");
     }
 
-    function showWaiterMode() {
-      openOrderSheet();
-      showToast("Liste garsona hazır.", "Masa 12 için seçtiğin ürünleri bu ekrandan gösterebilirsin.");
-    }
-
     function showToast(title, message) {
       clearTimeout(state.toastTimer);
       toastTitle.textContent = title;
@@ -2413,7 +2444,7 @@
 
       state.toastTimer = setTimeout(() => {
         toast.classList.remove("visible");
-      }, 2400);
+      }, 2200);
     }
 
     function setupScrollSpy() {
@@ -2561,7 +2592,6 @@
       closeSheet.addEventListener("click", closeOrderSheet);
       sheetBackdrop.addEventListener("click", closeOrderSheet);
       clearCartButton.addEventListener("click", clearCart);
-      showWaiterButton.addEventListener("click", showWaiterMode);
 
       document.addEventListener("keydown", event => {
         if (event.key === "Escape") {
