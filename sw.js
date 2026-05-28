@@ -1,9 +1,9 @@
 /* QUPPA QR Menu - Service Worker
    Stage 3: Offline/PWA cache strategy
-   Version: 3.3.0
+   Version: 3.8.2
 */
 
-const APP_VERSION = "3.3.0";
+const APP_VERSION = "3.8.2";
 const STATIC_CACHE = `quppa-static-${APP_VERSION}`;
 const IMAGE_CACHE = `quppa-images-${APP_VERSION}`;
 const RUNTIME_CACHE = `quppa-runtime-${APP_VERSION}`;
@@ -11,8 +11,8 @@ const RUNTIME_CACHE = `quppa-runtime-${APP_VERSION}`;
 const CORE_ASSETS = [
   "./",
   "./index.html",
-  "./style.css?v=3.3.0",
-  "./app.js?v=3.3.0",
+  "./style.css?v=3.8.2",
+  "./app.js?v=3.8.2",
   "./manifest.json",
   "./menu.json",
   "./brand.json",

@@ -1,6 +1,6 @@
 # QUPPA QR Menu — Yayına Hazır Paket
 
-Sürüm: 3.2.2
+Sürüm: 3.8.2
 
 ## Dosyalar
 
@@ -226,3 +226,77 @@ Service Worker `networkFirstMenuData()` cache.put parametre hatası düzeltildi.
 ## Version 3.2.2
 
 Hafif ilk açılış performans polish uygulandı. `brand.json` ve `menu.json` bağımsız render yerine batch akışıyla yüklenir; JSON sonrası tek final render yapılır. No-op resize dispatch kullanan refresh helper'lar kaldırıldı.
+
+## Version 3.3.0
+
+Bağımsız `admin.html` menü editörü eklendi. `Canlı Önizle` localStorage tabanlı `index.html?mode=demo&preview=local` açar; `menu.json indir` gerçek yayın dosyasını üretir.
+
+## Version 3.4.0
+
+Admin panel premium Admin Studio arayüzüne yükseltildi. Hazır etiket/ikon araçları, ürün şablonları, mobil kart önizlemesi ve demo-only index yönlendirmesi eklendi: `index.html?mode=demo&admin=show`.
+
+## Version 3.5.0
+
+Admin panel inline menü düzenleme modeline geçirildi. Kartlar doğrudan düzenlenir; `menu.json` yüklenemezse gömülü hazır menüyle açılır.
+
+## Version 3.6.0
+
+Admin panel kart seçmeli premium düzenleme paneline geçirildi. İmza/öne çıkan/aktiflik toggle'ları, hazır badge, tag ve ikon seçimleri çocuk kadar basit olacak şekilde butonlaştırıldı.
+
+## Version 3.7.0
+
+Premium Admin UX Final uygulandı. Görsel ikon seçici, gruplu tag seçici, hazır kombinasyonlar, kart kalite skoru, alan bazlı glow rehberi ve canlı kart önizleme güçlendirildi.
+
+## Version 3.7.1
+
+Admin UX Final hotfix: tag/ikon görsel seçicilerin dosyaya uygulanmadığı paket sorunu düzeltildi. `ICON_OPTIONS`, `TAG_GROUPS`, `PRESETS`, görsel seçim kartları, kalite skoru ve glow efektleri admin dosyalarına işlendi.
+
+## Version 3.7.2
+
+Admin görsel seçim polish: rozetlerin her biri kendi anlamına uygun emoji/simgeyle gösterildi; tagler ikonlu ve açıklamalı görsel seçim kartlarına dönüştürüldü; edit paneline `Kaydet` butonu eklendi.
+
+## Version 3.7.3
+
+Admin taxonomy visual fix: mevcut `menu.json` içindeki çok dilli tag yapısı desteklendi, eski ikon sınıfları emoji/etiket karşılıklarıyla eşlendi, bilinmeyen ikonlarda nokta görünmesi engellendi ve aynı anlamlı rozetler/flagler kartta çift görünmeyecek şekilde dedupe edildi.
+
+## Version 3.7.4
+
+Admin üst alanı sadeleştirildi; ürün ekleme akışı kategori seçimi, ürün adı ve şablon seçimi olan modal yapıya alındı. Boş ürünlerde kırık görsel yerine varsayılan “Ürün fotoğrafı hazırlanıyor” görsel alanı eklendi.
+
+## Version 3.7.5
+
+Admin üst alanı yeniden hizalandı ve gereksiz briefing alanı kaldırıldı. Ürün ekleme akışı kategori seçimi + şablon + kaydetmeden önce özet önizlemesi olacak şekilde düzeltildi. Metrik kartları sola hizalı ve mobilde düzenli grid oldu.
+
+## Version 3.7.6
+
+Admin üst toolbar tam responsive grid yapısına alındı. Aksiyonlar primary/utility olarak gruplandı. Görsel düzenleme alanında kırık görsel ikonu yerine `Ürün fotoğrafı hazırlanıyor` placeholder'ı gösterilir.
+
+
+## Version 3.8.0 — Final Admin Studio
+
+Bu sürüm final admin onay akışını ekler:
+
+- `Kaydet` butonu değişiklik özeti modalı açar.
+- Modal eski/yeni alanları ve güncel ürün kartı önizlemesini gösterir.
+- `Onayla ve kaydet` sonrası localStorage taslağı güncellenir.
+- `Geri al` seçeneği ürün değişikliklerini son onaylı haline döndürür.
+- `Değişiklikler` paneli son ürün/kategori işlemlerini localStorage logunda tutar.
+- Panelden mobil önizleme, JSON indirme ve log temizleme yapılabilir.
+
+
+## Version 3.8.1 — Final Hotfix
+
+- `file://` ortamında `menu.json` fetch denenmez; CORS hatası yerine gömülü hazır menü açılır.
+- Yeni ürünlerde boş görsel yolu korunur; var olmayan `starters/...webp` gibi local yol üretilmez.
+- Modal kapatılırken odak önce blur edilir; `aria-hidden` focus uyarısı giderilir.
+- Sol panele `Son değişenler` mini paneli eklendi.
+- `Değişiklikler` drawer'ı ve mini panel aynı localStorage logunu gösterir.
+
+
+## Version 3.8.2 — Mode Context Guard
+
+- Demo, live ve admin preview sepet/not state'leri ayrıldı.
+- Sepet artık `demo:cart`, `live:cart`, `demo-preview:cart` scope'larında saklanır.
+- Not alanı da aynı scope mantığıyla ayrılır.
+- Favoriler, dil ve tema bilinçli olarak ortak kalır.
+- Eski demo sepeti yalnızca demo scope'a migrate edilir; live/preview temiz başlar.

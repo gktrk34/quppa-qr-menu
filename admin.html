@@ -1,47 +1,283 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="robots" content="noindex,nofollow" />
-  <meta name="theme-color" content="#2a160d" />
-  <title>QUPPA Admin Editor</title>
-  <link rel="stylesheet" href="./admin.css?v=3.3.0" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+  <meta name="robots" content="noindex,nofollow"/>
+  <meta name="theme-color" content="#1f120b"/>
+  <title>QUPPA Menu Studio Final</title>
+  <link rel="stylesheet" href="./admin.css?v=3.8.2"/>
 </head>
 <body>
-  <header class="adminTop">
-    <div>
-      <small>QUPPA Ops Tool</small>
-      <h1>Menu JSON Editor</h1>
-      <p>Menüyü düzenle, local preview ile anında gör, onaylı JSON'u indir.</p>
+  <header class="topbar">
+    <div class="brand">
+      <span class="mark">Q</span>
+      <div>
+        <small>QUPPA Menu Studio</small>
+        <h1>Menü Yönetimi</h1>
+      </div>
     </div>
-    <div class="topActions">
-      <button id="loadCurrentBtn" class="btn ghost">Mevcut menu.json yükle</button>
-      <label class="btn ghost fileBtn">JSON içe aktar<input id="fileInput" type="file" accept="application/json,.json" hidden /></label>
-      <button id="previewBtn" class="btn primary">Canlı Önizle</button>
-      <button id="downloadBtn" class="btn success">menu.json indir</button>
-    </div>
+
+    <nav class="actions" aria-label="Admin aksiyonları">
+      <div class="primaryActions">
+        <button id="addProductBtn" class="btn primary">+ Ürün ekle</button>
+        <button id="openAddCategoryBtn" class="btn soft">+ Kategori</button>
+        <button id="openChangesBtn" class="btn ghost">Değişiklikler</button>
+        <button id="previewBtn" class="btn ghost">Önizle</button>
+        <button id="downloadBtn" class="btn success">JSON indir</button>
+      </div>
+      <div class="utilityActions">
+        <button id="loadCurrentBtn" class="iconOnly" title="Menüyü yenile" aria-label="Menüyü yenile">↻</button>
+        <label class="iconOnly" title="JSON içe aktar" aria-label="JSON içe aktar">⇪<input id="fileInput" type="file" accept="application/json,.json" hidden></label>
+      </div>
+    </nav>
   </header>
+
   <main class="layout">
-    <aside class="side">
-      <div class="panel"><div class="panelHead"><strong>Kategoriler</strong><button id="addCategoryBtn" class="mini">+ Kategori</button></div><div id="categoryList" class="categoryList"></div></div>
-      <div class="panel statusPanel"><strong>Durum</strong><div id="status" class="status">Hazır.</div><div id="validation" class="validation"></div></div>
+    <aside class="rail">
+      <section class="panel">
+        <div class="panelHead"><strong>Kategoriler</strong></div>
+        <p class="hint">Kategori adını değiştirmek için menü başlığındaki yazıya tıkla.</p>
+        <div id="categoryList" class="categoryList"></div>
+      </section>
+
+      <section class="panel miniGuide">
+        <strong>Alan rehberi</strong>
+        <div><b>Rozet</b><span>Müşterinin ilk gördüğü satış mesajı.</span></div>
+        <div><b>İkon</b><span>Ürünü hızlı anlatan küçük semboller.</span></div>
+        <div><b>Tag</b><span>Ürünün karakterini ve filtre mantığını belirler.</span></div>
+      </section>
+
+      <section class="panel">
+        <strong>Durum</strong>
+        <div id="status" class="status">Hazır.</div>
+        <div id="validation" class="validation"></div>
+      </section>
+
+      <section class="panel recentPanel">
+        <div class="panelHead">
+          <strong>Son değişenler</strong>
+          <button id="openChangesMiniBtn" type="button">Tümü</button>
+        </div>
+        <div id="recentChangesMini" class="recentChangesMini"></div>
+      </section>
     </aside>
-    <section class="work">
-      <div class="toolbar"><div><small id="currentCategoryMeta">Kategori seçilmedi</small><h2 id="currentCategoryTitle">Ürünler</h2></div><button id="addProductBtn" class="btn primary">+ Ürün ekle</button></div>
-      <div id="productList" class="productList"></div>
-      <form id="editorForm" class="editor hidden">
-        <div class="editorHead"><div><small>Ürün Düzenle</small><h3 id="editorTitle">Ürün</h3></div><button type="button" id="deleteProductBtn" class="btn danger">Ürünü sil</button></div>
-        <div class="grid"><label>ID <input id="p_id" autocomplete="off" /></label><label>Fiyat <input id="p_price" type="number" min="0" step="1" /></label><label>Remote görsel URL <input id="p_image" autocomplete="off" /></label><label>Local görsel yolu <input id="p_localImage" autocomplete="off" placeholder="coffee/example.webp" /></label></div>
-        <div class="grid four"><label>TR Ad <input id="p_name_tr" /></label><label>EN Name <input id="p_name_en" /></label><label>RU Name <input id="p_name_ru" /></label><label>AR Name <input id="p_name_ar" /></label></div>
-        <div class="grid four"><label>TR Açıklama <textarea id="p_desc_tr"></textarea></label><label>EN Description <textarea id="p_desc_en"></textarea></label><label>RU Description <textarea id="p_desc_ru"></textarea></label><label>AR Description <textarea id="p_desc_ar"></textarea></label></div>
-        <div class="grid four"><label>TR Badge <input id="p_badge_tr" /></label><label>EN Badge <input id="p_badge_en" /></label><label>RU Badge <input id="p_badge_ru" /></label><label>AR Badge <input id="p_badge_ar" /></label></div>
-        <div class="grid"><label>Taglar <input id="p_tags" placeholder="soğuk, tatlı, popüler" /></label><label>FontAwesome ikonları <input id="p_icons" placeholder="fa-snowflake, fa-cookie-bite" /></label></div>
-        <div class="toggles"><label><input id="p_available" type="checkbox" /> Aktif / stokta</label><label><input id="p_featured" type="checkbox" /> Öne çıkan</label><label><input id="p_signature" type="checkbox" /> İmza</label></div>
-        <div class="formActions"><button type="submit" class="btn success">Kaydet</button><button type="button" id="duplicateProductBtn" class="btn ghost">Kopyala</button></div>
-      </form>
+
+    <section class="menuArea">
+      <div class="menuHeader">
+        <div>
+          <small>Hazır menü</small>
+          <h2>QUPPA Menü</h2>
+        </div>
+        <div id="metrics" class="metrics"></div>
+      </div>
+      <div id="menuCanvas" class="menuCanvas"></div>
     </section>
   </main>
-  <script src="./admin.js?v=3.3.0"></script>
+
+  <aside id="editorSheet" class="editorSheet" aria-hidden="true">
+    <div class="sheetHead">
+      <div>
+        <small>Ürün Kartı Düzenle</small>
+        <h3 id="editorTitle">Ürün seç</h3>
+      </div>
+      <button id="closeEditorBtn" class="roundBtn">×</button>
+    </div>
+
+    <div id="editorEmpty" class="editorEmpty">
+      <b>Bir ürün kartına tıkla</b>
+      <span>Ad, fiyat, açıklama, görsel, rozet, tag ve ikonları buradan seçerek düzenle.</span>
+    </div>
+
+    <div id="editorBody" class="editorBody" hidden>
+      <section class="qualityCard">
+        <div class="qualityTop"><b>Kart kalitesi</b><strong id="qualityScore">0/100</strong></div>
+        <div class="qualityBar"><span id="qualityFill"></span></div>
+        <div id="qualityNotes" class="qualityNotes"></div>
+      </section>
+
+      <section class="editBlock">
+        <div class="blockTitle"><b>1. Temel bilgiler</b><span>Ürün kartının ana metinleri</span></div>
+        <label>Ürün adı <input id="ed_name_tr" placeholder="Örn: San Sebastian"></label>
+        <label>Kısa açıklama <textarea id="ed_desc_tr" placeholder="Örn: Kremamsı dokulu, hafif yanık yüzeyli..."></textarea></label>
+        <label>Fiyat <div class="priceInput"><input id="ed_price" type="number" min="0" step="1"><span>₺</span></div></label>
+      </section>
+
+      <section class="editBlock">
+        <div class="blockTitle"><b>2. Rozet seç</b><span>Kartın üst kısmında satış vurgusu olarak görünür</span></div>
+        <input id="ed_badge_tr" class="badgeText" placeholder="Örn: Şefin önerisi">
+        <div id="badgePresets" class="visualChoiceGrid compact"></div>
+      </section>
+
+      <section class="editBlock">
+        <div class="blockTitle"><b>3. Ürün durumu</b><span>Menüde nasıl konumlanacağını belirler</span></div>
+        <div class="switchGrid">
+          <button id="toggleAvailable" class="toggleChoice" type="button"><b>Satışta</b><span>Menüde aktif görünür</span></button>
+          <button id="toggleFeatured" class="toggleChoice" type="button"><b>Öne çıkan</b><span>Vitrin alanında göster</span></button>
+          <button id="toggleSignature" class="toggleChoice" type="button"><b>İmza ürün</b><span>Premium öneri gibi vurgula</span></button>
+        </div>
+      </section>
+
+      <section class="editBlock">
+        <div class="blockTitle"><b>4. Hazır kombinasyonlar</b><span>Tek tıkla profesyonel ürün kimliği</span></div>
+        <div id="presetChoices" class="visualChoiceGrid"></div>
+      </section>
+
+      <section class="editBlock">
+        <div class="blockTitle"><b>5. Tag seç</b><span>Ürünün karakterini anlatır</span></div>
+        <div id="tagChoices" class="groupedChoices"></div>
+      </section>
+
+      <section class="editBlock">
+        <div class="blockTitle"><b>6. Kart ikonları</b><span>Ürünü sembollerle hızlı anlatır</span></div>
+        <div id="iconChoices" class="visualChoiceGrid icons"></div>
+      </section>
+
+      <section class="editBlock">
+        <div class="blockTitle"><b>7. Görsel</b><span>Kartın ana görsel alanında görünür</span></div>
+        <div class="imagePreviewBox"><img id="ed_image_preview" alt=""></div>
+        <label>İnternet görsel linki <input id="ed_image" placeholder="https://..."></label>
+        <label>Yerel görsel yolu <input id="ed_localImage" placeholder="coffee/product.webp"></label>
+      </section>
+
+      <details class="editBlock">
+        <summary>Çok dil ve gelişmiş alanlar</summary>
+        <div class="advancedGrid">
+          <label>ID <input id="ed_id"></label>
+          <label>EN Ad <input id="ed_name_en"></label>
+          <label>RU Ad <input id="ed_name_ru"></label>
+          <label>AR Ad <input id="ed_name_ar"></label>
+          <label>EN Açıklama <textarea id="ed_desc_en"></textarea></label>
+          <label>RU Açıklama <textarea id="ed_desc_ru"></textarea></label>
+          <label>AR Açıklama <textarea id="ed_desc_ar"></textarea></label>
+        </div>
+      </details>
+
+      <div class="sheetActions">
+        <button id="saveDraftBtn" class="btn success">Kaydet</button>
+        <button id="duplicateBtn" class="btn ghost">Kopyala</button>
+        <button id="deleteBtn" class="btn danger">Sil</button>
+      </div>
+    </div>
+  </aside>
+
+  <aside id="changesDrawer" class="changesDrawer" aria-hidden="true">
+    <div class="sheetHead">
+      <div>
+        <small>Operasyon Kaydı</small>
+        <h3>Son değişiklikler</h3>
+      </div>
+      <button id="closeChangesBtn" class="roundBtn">×</button>
+    </div>
+    <div class="drawerActions">
+      <button id="drawerPreviewBtn" class="btn ghost">Mobil önizle</button>
+      <button id="drawerDownloadBtn" class="btn success">JSON indir</button>
+      <button id="clearLogBtn" class="btn danger">Logu temizle</button>
+    </div>
+    <div id="changesList" class="changesList"></div>
+  </aside>
+
+  <div id="addSheet" class="addSheet" aria-hidden="true">
+    <div class="addDialog">
+      <div class="sheetHead">
+        <div>
+          <small id="addSheetEyebrow">Yeni ürün</small>
+          <h3 id="addSheetTitle">Ürün ekle</h3>
+        </div>
+        <button id="closeAddSheetBtn" class="roundBtn">×</button>
+      </div>
+
+      <div id="addProductPanel" class="addPanel">
+        <div class="addGrid">
+          <label>Eklenecek kategori
+            <select id="newProductCategory"></select>
+          </label>
+          <label>Ürün adı
+            <input id="newProductName" placeholder="Örn: Flat White">
+          </label>
+          <label>Başlangıç şablonu
+            <select id="newProductTemplate">
+              <option value="blank">Boş ürün</option>
+              <option value="coffee">Kahve ürünü</option>
+              <option value="dessert">Tatlı ürünü</option>
+              <option value="starter">Başlangıç / atıştırmalık</option>
+            </select>
+          </label>
+        </div>
+
+        <section class="addSummary">
+          <small>Kaydetmeden önce özet</small>
+          <div class="summaryPreview">
+            <div class="summaryImage placeholderArt"></div>
+            <div>
+              <b id="addSummaryName">Yeni Ürün</b>
+              <span id="addSummaryCategory">Kategori seçilmedi</span>
+              <em id="addSummaryTemplate">Boş ürün</em>
+            </div>
+          </div>
+          <p>Onayladığında ürün seçtiğin kategoriye eklenecek ve düzenleme paneli otomatik açılacak.</p>
+        </section>
+
+        <div class="addActions">
+          <button id="cancelAddProductBtn" class="btn ghost">Vazgeç</button>
+          <button id="confirmAddProductBtn" class="btn primary">Onayla ve ekle</button>
+        </div>
+      </div>
+
+      <div id="addCategoryPanel" class="addPanel" hidden>
+        <label>Kategori adı
+          <input id="newCategoryName" placeholder="Örn: Kokteyller">
+        </label>
+        <label>Kategori ID
+          <input id="newCategoryId" placeholder="kokteyller">
+        </label>
+
+        <section class="addSummary">
+          <small>Kaydetmeden önce özet</small>
+          <div class="summaryPreview category">
+            <div class="summaryIcon">＋</div>
+            <div>
+              <b id="addCategorySummaryName">Yeni Kategori</b>
+              <span id="addCategorySummaryId">kategori-id</span>
+            </div>
+          </div>
+          <p>Onayladığında kategori menüye eklenecek. Ardından bu kategoriye ürün ekleyebilirsin.</p>
+        </section>
+
+        <div class="addActions">
+          <button id="cancelAddCategoryBtn" class="btn ghost">Vazgeç</button>
+          <button id="confirmAddCategoryBtn" class="btn primary">Onayla ve ekle</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="reviewModal" class="reviewModal" aria-hidden="true">
+    <div class="reviewDialog">
+      <div class="sheetHead">
+        <div>
+          <small>Kaydetmeden önce kontrol</small>
+          <h3 id="reviewTitle">Ürün güncellenecek</h3>
+        </div>
+        <button id="closeReviewBtn" class="roundBtn">×</button>
+      </div>
+      <div class="reviewGrid">
+        <section class="reviewChanges">
+          <b>Değişen alanlar</b>
+          <div id="reviewChangeList"></div>
+        </section>
+        <section class="reviewPreview">
+          <b>Müşteriye böyle görünecek</b>
+          <div id="reviewCardMount"></div>
+        </section>
+      </div>
+      <div class="reviewActions">
+        <button id="revertReviewBtn" class="btn ghost">Geri al</button>
+        <button id="confirmReviewBtn" class="btn success">Onayla ve kaydet</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="./admin.js?v=3.8.2"></script>
 </body>
 </html>

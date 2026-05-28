@@ -1,8 +1,8 @@
 /* QUPPA QR Menu - App Logic
    Stage 1: Split from single-file index.html
-   Version: 3.3.0
+   Version: 3.8.2
 */
-const APP_VERSION = "3.3.0";
+const APP_VERSION = "3.8.2";
 
 /*
   PUBLISHING NOTES
@@ -432,6 +432,51 @@ class SafeStorage {
 }
 
 const storage = new SafeStorage("quppa");
+
+const STATE_SCOPE = (() => {
+  const mode = APP_CONFIG.mode === "live" ? "live" : "demo";
+  const preview = getUrlFlag("preview") === "local" ? "preview" : "standard";
+  return preview === "preview" ? "demo-preview" : mode;
+})();
+
+function stateKey(key) {
+  return `${STATE_SCOPE}:${key}`;
+}
+
+function clearTransientOrderState() {
+  try {
+    const scopedCart = stateKey("cart");
+    const scopedNote = stateKey("note");
+    storage.remove(scopedCart);
+    storage.remove(scopedNote);
+  } catch {}
+}
+
+function migrateScopedJSON(legacyKey, plainKey, fallback) {
+  const scopedKey = stateKey(plainKey);
+  const existing = storage.getJSON(scopedKey, null);
+  if (existing !== null) return existing;
+
+  if (STATE_SCOPE === "demo") {
+    return storage.migrateLegacyJSON(legacyKey, scopedKey, fallback);
+  }
+
+  return fallback;
+}
+
+function migrateScopedString(legacyKey, plainKey, fallback = "") {
+  const scopedKey = stateKey(plainKey);
+  const existing = storage.get(scopedKey, null);
+  if (existing !== null) return existing;
+
+  if (STATE_SCOPE === "demo") {
+    return storage.migrateLegacyString(legacyKey, scopedKey, fallback);
+  }
+
+  return fallback;
+}
+
+
 
 
 const SafeSession = {
@@ -963,7 +1008,7 @@ function refreshUpsellCopy() {
 }
 
 
-    const S={lang:storage.migrateLegacyString("quppa-language","language",""),theme:storage.migrateLegacyString("quppa-theme","theme",BRAND_CONFIG.defaultTheme||"light"),q:"",filter:"all",active:menuData[0].id,cart:storage.migrateLegacyJSON("quppa-cart","cart",{}),favorites:storage.migrateLegacyJSON("quppa-favorites","favorites",{}),note:storage.migrateLegacyString("quppa-note","note",""),timer:null,obs:null,detail:null,waiterView:false};
+    const S={lang:storage.migrateLegacyString("quppa-language","language",""),theme:storage.migrateLegacyString("quppa-theme","theme",BRAND_CONFIG.defaultTheme||"light"),q:"",filter:"all",active:menuData[0].id,cart:migrateScopedJSON("quppa-cart","cart",{}),favorites:storage.migrateLegacyJSON("quppa-favorites","favorites",{}),note:migrateScopedString("quppa-note","note",""),timer:null,obs:null,detail:null,waiterView:false};
 function normalizeSavedThemeId(){
   const allowedThemes=new Set(themes.map(t=>t.id));
   const legacyMap={
@@ -1008,7 +1053,7 @@ normalizeSavedThemeId();
       const raw=pack[k]||tr[k]||fallback[k]||"";
       return Object.entries(v).reduce((a,[x,y])=>a.replaceAll("{"+x+"}",y), String(raw));
     }, loc=o=>o&&typeof o==="object"?(o[S.lang]||o.tr||Object.values(o)[0]):(o||"");
-    function save(){storage.setJSON("cart",S.cart)}
+    function save(){storage.setJSON(stateKey("cart"),S.cart)}
     function money(n){return new Intl.NumberFormat("tr-TR",{style:"currency",currency:"TRY",maximumFractionDigits:0}).format(n)}function norm(x){return String(x||"").toLocaleLowerCase(S.lang==="tr"?"tr-TR":undefined).normalize("NFD").replace(/[\u0300-\u036f]/g,"")}
 
     function saveFavs(){storage.setJSON("favorites",S.favorites)}
@@ -1236,7 +1281,17 @@ function buildModeUrl(nextMode) {
   }
 }
 
+
+function renderAdminShortcut(){
+  const el = $("adminShortcut");
+  if(!el) return;
+  const adminFlag = getUrlFlag("admin");
+  const show = isDemoMode() && (adminFlag === "show" || adminFlag === "studio" || adminFlag === "1");
+  el.toggleAttribute("hidden", !show);
+}
+
 function renderModeBadge(){
+  renderAdminShortcut();
   syncPresentationSurface();
   syncModeVisibility();
   const badge=$("modeBadge");
@@ -1905,7 +1960,7 @@ function getFilteredCats(){return menuData.map(c=>({...c,products:c.products.fil
     $("searchInput").oninput=e=>{S.q=e.target.value.trim();$("clearBtn").classList.toggle("show",!!S.q);$("searchPanel")?.classList.toggle("has-query",!!S.q);renderMenu();refreshShellSoon()};$("clearBtn").onclick=()=>{S.q="";$("searchInput").value="";$("clearBtn").classList.remove("show");$("searchPanel")?.classList.remove("has-query");$("searchPanel")?.classList.remove("is-open");$("searchPanel")?.classList.add("is-collapsed");renderMenu()};
     $("topCart").onclick=openSheet;$("floatBtn").onclick=openSheet;$("closeSheet").onclick=closeSheet;$("sheetBack").onclick=closeSheet;$("clearCart").onclick=clearCart;$("copyBtn").onclick=()=>{S.waiterView=!S.waiterView;renderCart();if(S.waiterView)scrollOrderSheetToTop();};
     $("closeDetail").onclick=closeDetail;$("detailBack").onclick=closeDetail;$("langBtn").onclick=()=>openLang(false);$("closeLang").onclick=closeLang;$("langBack").onclick=()=>{if(S.lang)closeLang()};
-    $("note").value=S.note;$("noteBox").classList.toggle("open",!!S.note.trim());$("noteBox").querySelector("label").onclick=()=>{$("noteBox").classList.add("open");setTimeout(()=>$("note").focus(),0)};$("note").oninput=e=>{S.note=e.target.value;storage.set("note",S.note);$("noteBox").classList.toggle("open",!!S.note.trim()||document.activeElement===$("note"))};$("copyWifi").onclick=()=>copyWifi();
+    $("note").value=S.note;$("noteBox").classList.toggle("open",!!S.note.trim());$("noteBox").querySelector("label").onclick=()=>{$("noteBox").classList.add("open");setTimeout(()=>$("note").focus(),0)};$("note").oninput=e=>{S.note=e.target.value;storage.set(stateKey("note"),S.note);$("noteBox").classList.toggle("open",!!S.note.trim()||document.activeElement===$("note"))};$("copyWifi").onclick=()=>copyWifi();
     document.onkeydown=e=>{if(e.key==="Escape"){$("themeMenu").classList.remove("open");closeSheet();closeDetail();if(S.lang)closeLang();$("toast").classList.remove("show")}};
     
     
@@ -2035,6 +2090,7 @@ async function resetQUPPACacheForDebug() {
 if (isDemoMode()) {
   window.QUPPA_DEBUG = {
     version: APP_VERSION,
+    stateScope: STATE_SCOPE,
     resetCache: resetQUPPACacheForDebug
   };
 }

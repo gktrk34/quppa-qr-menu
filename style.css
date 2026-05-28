@@ -1,6 +1,6 @@
 /* QUPPA QR Menu - Styles
    Stage 1: Split from single-file index.html
-   Version: 3.3.0
+   Version: 3.8.2
 */
 :root{
       --bg:#f6efe6;--bg2:#fffaf4;--card:rgba(255,255,255,.78);--solid:#fff;--soft:#efe3d6;--text:#211914;--muted:#76695e;
@@ -4738,6 +4738,45 @@ html[dir="rtl"],
   .fmedia::before,
   .dimg::before {
     animation: none !important;
+  }
+}
+
+
+
+/* STEP 34 - DEMO ONLY ADMIN SHORTCUT */
+.adminShortcut {
+  min-height: 40px;
+  padding: 0 11px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--control-text);
+  background: var(--control-bg);
+  border: 1px solid var(--control-border);
+  text-decoration: none;
+  font-size: .72rem;
+  font-weight: 950;
+  box-shadow: 0 10px 24px rgba(0,0,0,.08);
+}
+
+.adminShortcut[hidden] {
+  display: none !important;
+}
+
+.adminShortcut i {
+  color: var(--primary-readable);
+}
+
+@media (max-width: 520px) {
+  .adminShortcut span {
+    display: none;
+  }
+
+  .adminShortcut {
+    width: 40px;
+    justify-content: center;
+    padding: 0;
   }
 }
 
