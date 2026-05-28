@@ -1,8 +1,8 @@
 /* QUPPA QR Menu - App Logic
    Stage 1: Split from single-file index.html
-   Version: 3.2.1
+   Version: 3.2.2
 */
-const APP_VERSION = "3.2.1";
+const APP_VERSION = "3.2.2";
 
 /*
   PUBLISHING NOTES
@@ -1271,15 +1271,7 @@ function renderModeBadge(){
 
 function applyTexts(){renderModeBadge();["brandSub","heroKicker","featuredTitle"].forEach(id=>{const el=$(id);if(el)el.textContent=T(id)});if($("heroDesc"))$("heroDesc").textContent=T("heroDesc");if($("todayLabel"))$("todayLabel").textContent=T("todayLabel");if($("todayText"))$("todayText").textContent=T("todayText");if($("featuredDesc"))$("featuredDesc").textContent=T("featuredDesc");if($("searchInput"))$("searchInput").placeholder=T("search");if($("searchToggleText"))if($("searchToggleText"))$("searchToggleText").textContent=T("searchToggle");if($("themeText"))$("themeText").textContent=T("theme");if($("listText"))$("listText").textContent=T("list");if($("emptyTitle"))$("emptyTitle").textContent=T("emptyTitle");if($("emptyText"))$("emptyText").textContent=T("emptyText");if($("taxText"))$("taxText").textContent=T("tax");if($("wifiText"))$("wifiText").textContent=T("wifi");if($("sheetTitle"))$("sheetTitle").textContent=T("sheetTitle");if($("sheetDesc"))$("sheetDesc").textContent=T("sheetDesc");if($("cartEmptyTitle"))$("cartEmptyTitle").textContent=T("emptyCartTitle");if($("cartEmptyText"))$("cartEmptyText").textContent=T("emptyCartText");if($("noteLabel"))$("noteLabel").textContent=T("noteLabel")||T("note");if($("note"))$("note").placeholder=T("notePh");if($("copyText"))$("copyText").textContent=T("waiterMode")||T("copyText")||T("copy");if($("floatTitle"))$("floatTitle").textContent=T("floatTitle",{count:summary().q});if($("floatSub"))$("floatSub").textContent=T("floatSub");if($("clearText"))$("clearText").textContent=T("clearList")||T("clear");$("detailTitle").textContent=T("detailTitle");$("detailSub").textContent=T("detailSub");if($("pickTitle"))$("pickTitle").textContent=T("pickTitle");if($("pickText"))$("pickText").textContent=T("pickText");$("langCode").textContent=T("code")}
     
-    function refreshDockSoon(){
-      if(typeof setupFixedMenuDock === "function"){
-        clearTimeout(window.__dockRefreshTimer);
-        window.__dockRefreshTimer=setTimeout(()=>{
-          const event=new Event("resize");
-          window.dispatchEvent(event);
-        },80);
-      }
-    }
+    function refreshDockSoon(){return;}
 
     function renderAll(){renderModeBadge();renderThemes();renderLangs();renderFilters();renderFeatured();renderMenu();renderCart();if(S.detail)renderDetail(S.detail);refreshDockSoon();refreshShellSoon&&refreshShellSoon();refreshUpsellCopy()}
     
@@ -1509,6 +1501,8 @@ function scrollOrderSheetToTop(){
 
 
 
+let __quppaExternalBatchMode = false;
+
 function mergePlainConfig(target, incoming, allowedKeys = null) {
   if (!incoming || typeof incoming !== "object" || Array.isArray(incoming)) return false;
 
@@ -1576,10 +1570,13 @@ async function loadExternalBrandConfig(){
 
     applyRuntimeConfig();
     normalizeSavedThemeId();
-    applyBrandConfig();
-    applyTexts();
-    renderThemes();
-    renderModeBadge();
+
+    if(!__quppaExternalBatchMode){
+      applyBrandConfig();
+      applyTexts();
+      renderThemes();
+      renderModeBadge();
+    }
 
     console.info("[QUPPA] External brand config loaded:", path);
     return true;
@@ -1630,7 +1627,7 @@ async function loadExternalMenuData(){
     });
     if(cartChanged) save();
 
-    renderAll();
+    if(!__quppaExternalBatchMode) renderAll();
     console.info("[QUPPA] External menu loaded:", path, warnings.length ? `${warnings.length} warning` : "ok");
     return true;
   } catch(error) {
@@ -1638,6 +1635,29 @@ async function loadExternalMenuData(){
       console.info("[QUPPA] menu.json kullanılamadı, gömülü menüyle devam ediliyor:", error.message || error);
     }
     return false;
+  }
+}
+
+
+async function bootstrapExternalData(){
+  __quppaExternalBatchMode = true;
+  let brandLoaded = false;
+  let menuLoaded = false;
+
+  try {
+    brandLoaded = await loadExternalBrandConfig();
+    menuLoaded = await loadExternalMenuData();
+  } finally {
+    __quppaExternalBatchMode = false;
+  }
+
+  if(brandLoaded || menuLoaded){
+    applyRuntimeConfig();
+    normalizeSavedThemeId();
+    applyBrandConfig();
+    document.documentElement.dataset.theme = S.theme;
+    applyTexts();
+    renderAll();
   }
 }
 
@@ -1877,15 +1897,7 @@ function getFilteredCats(){return menuData.map(c=>({...c,products:c.products.fil
     
     
     
-    function refreshShellSoon(){
-      clearTimeout(window.__shellRefreshTimer);
-      window.__shellRefreshTimer=setTimeout(()=>{
-        if(typeof setupFixedMenuDock==="function"){
-          const evt=new Event("resize");
-          window.dispatchEvent(evt);
-        }
-      },80);
-    }
+    function refreshShellSoon(){return;}
 
     function setupSearchToggle(){
       const panel=$("searchPanel"), btn=$("searchToggle"), input=$("searchInput"), clear=$("clearBtn");
@@ -1984,8 +1996,7 @@ function registerServiceWorker(){
     setupUpsell();
     setupThemePanel();
     setupSheetScrollGuard();
-loadExternalBrandConfig();
-loadExternalMenuData();
+bootstrapExternalData();
 registerServiceWorker();
 
 
