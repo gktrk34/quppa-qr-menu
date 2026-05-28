@@ -1,0 +1,1292 @@
+[
+  {
+    "id": "coffee",
+    "icon": "fa-mug-hot",
+    "name": {
+      "tr": "Kahveler",
+      "en": "Coffee",
+      "ru": "Кофе",
+      "ar": "القهوة"
+    },
+    "desc": {
+      "tr": "Taze çekilmiş kahve, dengeli aromalar ve imza soğuk demlemeler.",
+      "en": "Freshly ground coffee, balanced aromas and signature cold brews.",
+      "ru": "Свежемолотый кофе и фирменные холодные напитки.",
+      "ar": "قهوة طازجة ومشروبات باردة مميزة."
+    },
+    "products": [
+      {
+        "badge": {
+          "tr": "İmza",
+          "en": "Signature",
+          "ru": "Фирменный",
+          "ar": "مميز"
+        },
+        "tags": {
+          "tr": [
+            "espresso",
+            "soğuk",
+            "narenciye"
+          ],
+          "en": [
+            "espresso",
+            "cold",
+            "citrus"
+          ],
+          "ru": [
+            "эспрессо",
+            "холодный",
+            "цитрус"
+          ],
+          "ar": [
+            "إسبريسو",
+            "بارد",
+            "حمضيات"
+          ]
+        },
+        "icons": [
+          "fa-snowflake",
+          "fa-lemon"
+        ],
+        "isAvailable": true,
+        "isSignature": true,
+        "isFeatured": true,
+        "id": "espresso-tonic",
+        "name": {
+          "tr": "Espresso Tonic",
+          "en": "Espresso Tonic",
+          "ru": "Эспрессо-тоник",
+          "ar": "إسبريسو تونيك"
+        },
+        "desc": {
+          "tr": "Yoğun espresso, ferah tonic ve narenciye dokunuşu.",
+          "en": "Bold espresso with refreshing tonic and a citrus touch.",
+          "ru": "Насыщенный эспрессо, освежающий тоник и цитрусовая нотка.",
+          "ar": "إسبريسو قوي مع تونيك منعش ولمسة حمضيات."
+        },
+        "detail": {
+          "tr": "Ferah ve modern içimli bir kahve. Özellikle sıcak havalarda hafif tatlılarla iyi eşleşir.",
+          "en": "A refreshing modern coffee, especially good on warm days and with light desserts.",
+          "ru": "Освежающий современный кофейный напиток, особенно хорош в тёплую погоду и с лёгкими десертами.",
+          "ar": "قهوة عصرية ومنعشة، مناسبة للأجواء الدافئة وتنسجم مع الحلويات الخفيفة."
+        },
+        "price": 165,
+        "image": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=900&q=80",
+        "localImage": "coffee/espresso-tonic.webp"
+      },
+      {
+        "badge": {
+          "tr": "Popüler",
+          "en": "Popular",
+          "ru": "Популярно",
+          "ar": "شائع"
+        },
+        "tags": {
+          "tr": [
+            "cold brew",
+            "tatlı",
+            "kremalı"
+          ],
+          "en": [
+            "cold brew",
+            "sweet",
+            "creamy"
+          ],
+          "ru": [
+            "колд брю",
+            "сладкий",
+            "кремовый"
+          ],
+          "ar": [
+            "كولد برو",
+            "حلو",
+            "كريمي"
+          ]
+        },
+        "icons": [
+          "fa-snowflake",
+          "fa-cookie-bite"
+        ],
+        "isAvailable": true,
+        "isSignature": true,
+        "isFeatured": true,
+        "id": "lotus-cold-brew",
+        "name": {
+          "tr": "Lotus Cold Brew",
+          "en": "Lotus Cold Brew",
+          "ru": "Лотус колд брю",
+          "ar": "لوتس كولد برو"
+        },
+        "desc": {
+          "tr": "18 saat demlenmiş kahve, lotus kreması ve kadifemsi bitiş.",
+          "en": "18-hour cold brew, lotus cream and a velvety finish.",
+          "ru": "Колд брю 18-часового заваривания, крем лотус и бархатное послевкусие.",
+          "ar": "قهوة باردة منقوعة 18 ساعة مع كريمة اللوتس ولمسة مخملية."
+        },
+        "detail": {
+          "tr": "Tatlı ve kremalı bir kahve deneyimi. Kahve tadı belirgin kalırken lotus aroması tatlı bir final bırakır.",
+          "en": "A sweet and creamy coffee experience with a clear coffee base and a lotus finish.",
+          "ru": "Сладкий и кремовый кофе с выраженной кофейной основой и финалом лотус.",
+          "ar": "تجربة قهوة حلوة وكريمية مع طعم قهوة واضح ولمسة لوتس في النهاية."
+        },
+        "price": 185,
+        "image": "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=900&q=80",
+        "localImage": "coffee/lotus-cold-brew.webp"
+      },
+      {
+        "badge": {
+          "tr": "Klasik",
+          "en": "Classic",
+          "ru": "Классика",
+          "ar": "كلاسيكي"
+        },
+        "tags": {
+          "tr": [
+            "sıcak",
+            "sütlü",
+            "espresso"
+          ],
+          "en": [
+            "hot",
+            "milk",
+            "espresso"
+          ],
+          "ru": [
+            "горячий",
+            "молочный",
+            "эспрессо"
+          ],
+          "ar": [
+            "ساخن",
+            "حليب",
+            "إسبريسو"
+          ]
+        },
+        "icons": [
+          "fa-mug-hot",
+          "fa-droplet"
+        ],
+        "isAvailable": true,
+        "isSignature": false,
+        "isFeatured": false,
+        "id": "flat-white",
+        "name": {
+          "tr": "Flat White",
+          "en": "Flat White",
+          "ru": "Флэт уайт",
+          "ar": "فلات وايت"
+        },
+        "desc": {
+          "tr": "Çift espresso ve mikro köpükle yumuşak, güçlü içim.",
+          "en": "Double espresso with silky microfoam for a smooth strong cup.",
+          "ru": "Двойной эспрессо и микропена для мягкого, но насыщенного вкуса.",
+          "ar": "دبل إسبريسو مع رغوة ناعمة لطعم قوي وسلس."
+        },
+        "detail": {
+          "tr": "Espresso tadını seven ama daha yumuşak içim isteyenler için dengeli bir seçenek.",
+          "en": "A balanced option for those who like espresso flavor with a softer milk texture.",
+          "ru": "Сбалансированный вариант для любителей вкуса эспрессо с мягкой молочной текстурой.",
+          "ar": "خيار متوازن لمن يحب طعم الإسبريسو مع قوام حليب أنعم."
+        },
+        "price": 145,
+        "image": "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=900&q=80",
+        "localImage": "coffee/flat-white.webp"
+      },
+      {
+        "badge": {
+          "tr": "Soğuk",
+          "en": "Cold",
+          "ru": "Холодный",
+          "ar": "بارد"
+        },
+        "tags": {
+          "tr": [
+            "soğuk",
+            "sütlü",
+            "vanilya"
+          ],
+          "en": [
+            "cold",
+            "milk",
+            "vanilla"
+          ],
+          "ru": [
+            "холодный",
+            "молочный",
+            "ваниль"
+          ],
+          "ar": [
+            "بارد",
+            "حليب",
+            "فانيليا"
+          ]
+        },
+        "icons": [
+          "fa-snowflake",
+          "fa-droplet"
+        ],
+        "isAvailable": true,
+        "isSignature": false,
+        "isFeatured": false,
+        "id": "iced-latte",
+        "name": {
+          "tr": "Iced Latte",
+          "en": "Iced Latte",
+          "ru": "Айс латте",
+          "ar": "آيس لاتيه"
+        },
+        "desc": {
+          "tr": "Buzlu süt, espresso ve hafif vanilya aroması.",
+          "en": "Cold milk, espresso and a light vanilla aroma.",
+          "ru": "Холодное молоко, эспрессо и лёгкий аромат ванили.",
+          "ar": "حليب بارد مع إسبريسو ونكهة فانيليا خفيفة."
+        },
+        "detail": {
+          "tr": "Hafif ve serinletici bir latte. Vanilya dokunuşu içimi yumuşatır.",
+          "en": "A light and refreshing latte softened with a vanilla touch.",
+          "ru": "Лёгкий освежающий латте с мягкой ванильной нотой.",
+          "ar": "لاتيه خفيف ومنعش بلمسة فانيليا ناعمة."
+        },
+        "price": 155,
+        "image": "https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=900&q=80",
+        "localImage": "coffee/iced-latte.webp"
+      }
+    ],
+    "description": {
+      "tr": "",
+      "en": "",
+      "ru": "",
+      "ar": ""
+    }
+  },
+  {
+    "id": "starters",
+    "icon": "fa-seedling",
+    "name": {
+      "tr": "Başlangıçlar",
+      "en": "Starters",
+      "ru": "Закуски",
+      "ar": "المقبلات"
+    },
+    "desc": {
+      "tr": "Masayı açan hafif, paylaşmalık ve taze tabaklar.",
+      "en": "Light, fresh and shareable plates.",
+      "ru": "Лёгкие свежие закуски.",
+      "ar": "أطباق خفيفة وطازجة."
+    },
+    "products": [
+      {
+        "badge": {
+          "tr": "Taze",
+          "en": "Fresh",
+          "ru": "Свежий",
+          "ar": "طازج"
+        },
+        "tags": {
+          "tr": [
+            "ekşi maya",
+            "vejetaryen",
+            "domates"
+          ],
+          "en": [
+            "sourdough",
+            "vegetarian",
+            "tomato"
+          ],
+          "ru": [
+            "закваска",
+            "вегетарианский",
+            "томат"
+          ],
+          "ar": [
+            "ساوردو",
+            "نباتي",
+            "طماطم"
+          ]
+        },
+        "icons": [
+          "fa-leaf",
+          "fa-wheat-awn"
+        ],
+        "isAvailable": true,
+        "isSignature": false,
+        "isFeatured": false,
+        "id": "bruschetta",
+        "name": {
+          "tr": "Domates Bruschetta",
+          "en": "Tomato Bruschetta",
+          "ru": "Брускетта с томатом",
+          "ar": "بروشيتا بالطماطم"
+        },
+        "desc": {
+          "tr": "Ekşi maya üzerinde fesleğenli domates ve zeytinyağı.",
+          "en": "Basil tomato and olive oil on sourdough bread.",
+          "ru": "Томаты с базиликом и оливковым маслом на хлебе на закваске.",
+          "ar": "طماطم بالريحان وزيت الزيتون على خبز ساوردو."
+        },
+        "detail": {
+          "tr": "Taze domates, fesleğen ve kaliteli zeytinyağı ile hazırlanır. Kahve öncesi hafif başlangıç için idealdir.",
+          "en": "Prepared with fresh tomato, basil and olive oil. Ideal as a light starter.",
+          "ru": "Готовится со свежими томатами, базиликом и оливковым маслом. Идеально как лёгкая закуска.",
+          "ar": "يُحضّر بالطماطم الطازجة والريحان وزيت الزيتون. بداية خفيفة ومناسبة."
+        },
+        "price": 175,
+        "image": "https://images.unsplash.com/photo-1572695157366-5e585ab2b69f?auto=format&fit=crop&w=900&q=80",
+        "localImage": "starters/bruschetta.webp"
+      },
+      {
+        "badge": {
+          "tr": "Vegan",
+          "en": "Vegan",
+          "ru": "Веган",
+          "ar": "نباتي"
+        },
+        "tags": {
+          "tr": [
+            "humus",
+            "vegan",
+            "paylaşmalık"
+          ],
+          "en": [
+            "hummus",
+            "vegan",
+            "share"
+          ],
+          "ru": [
+            "хумус",
+            "веган",
+            "для компании"
+          ],
+          "ar": [
+            "حمص",
+            "نباتي",
+            "مشاركة"
+          ]
+        },
+        "icons": [
+          "fa-leaf",
+          "fa-people-group"
+        ],
+        "isAvailable": true,
+        "isSignature": false,
+        "isFeatured": false,
+        "id": "humus",
+        "name": {
+          "tr": "Füme Paprikalı Humus",
+          "en": "Smoked Paprika Hummus",
+          "ru": "Хумус с копчёной паприкой",
+          "ar": "حمص بالبابريكا المدخنة"
+        },
+        "desc": {
+          "tr": "Kremamsı humus, çıtır pita ve zeytinyağı gezdirmesi.",
+          "en": "Creamy hummus with crispy pita and olive oil.",
+          "ru": "Кремовый хумус, хрустящая пита и оливковое масло.",
+          "ar": "حمص كريمي مع خبز بيتا مقرمش وزيت زيتون."
+        },
+        "detail": {
+          "tr": "Vegan ve paylaşmalık bir başlangıç. Füme paprika aroması sıcak bir derinlik verir.",
+          "en": "A vegan shareable starter with a warm smoked paprika depth.",
+          "ru": "Веганская закуска для компании с тёплой нотой копчёной паприки.",
+          "ar": "مقبل نباتي للمشاركة مع عمق نكهة البابريكا المدخنة."
+        },
+        "price": 165,
+        "image": "https://images.unsplash.com/photo-1637949385162-e416fb15b2ce?auto=format&fit=crop&w=900&q=80",
+        "localImage": "starters/humus.webp"
+      },
+      {
+        "badge": {
+          "tr": "Bar",
+          "en": "Bar",
+          "ru": "Бар",
+          "ar": "بار"
+        },
+        "tags": {
+          "tr": [
+            "peynir",
+            "paylaşmalık"
+          ],
+          "en": [
+            "cheese",
+            "share"
+          ],
+          "ru": [
+            "сыр",
+            "для компании"
+          ],
+          "ar": [
+            "جبن",
+            "مشاركة"
+          ]
+        },
+        "icons": [
+          "fa-cheese",
+          "fa-people-group"
+        ],
+        "isAvailable": true,
+        "isSignature": true,
+        "isFeatured": false,
+        "id": "cheese",
+        "name": {
+          "tr": "Mini Peynir Tabağı",
+          "en": "Mini Cheese Plate",
+          "ru": "Мини сырная тарелка",
+          "ar": "طبق أجبان صغير"
+        },
+        "desc": {
+          "tr": "Seçilmiş peynirler, kuru meyve ve çıtır grissini.",
+          "en": "Selected cheeses, dried fruits and crispy grissini.",
+          "ru": "Ассорти сыров, сухофрукты и хрустящие гриссини.",
+          "ar": "أجبان مختارة مع فواكه مجففة وغريسيني مقرمش."
+        },
+        "detail": {
+          "tr": "Kahve sonrası veya bar içecekleriyle eşleşen küçük ama rafine bir tabak.",
+          "en": "A compact refined plate that pairs well after coffee or with bar drinks.",
+          "ru": "Небольшая изысканная тарелка к кофе или напиткам.",
+          "ar": "طبق صغير وراقي يناسب القهوة أو المشروبات."
+        },
+        "price": 245,
+        "image": "https://images.unsplash.com/photo-1452195100486-9cc805987862?auto=format&fit=crop&w=900&q=80",
+        "localImage": "starters/cheese.webp"
+      },
+      {
+        "badge": {
+          "tr": "Tükendi",
+          "en": "Sold Out",
+          "ru": "Нет в наличии",
+          "ar": "نفد"
+        },
+        "tags": {
+          "tr": [
+            "avokado",
+            "hafif",
+            "labne"
+          ],
+          "en": [
+            "avocado",
+            "light",
+            "labneh"
+          ],
+          "ru": [
+            "авокадо",
+            "лёгкий",
+            "лабне"
+          ],
+          "ar": [
+            "أفوكادو",
+            "خفيف",
+            "لبنة"
+          ]
+        },
+        "icons": [
+          "fa-leaf"
+        ],
+        "isAvailable": false,
+        "isSignature": false,
+        "isFeatured": false,
+        "id": "avocado",
+        "name": {
+          "tr": "Avokado Lokmaları",
+          "en": "Avocado Bites",
+          "ru": "Ломтики авокадо",
+          "ar": "لقيمات الأفوكادو"
+        },
+        "desc": {
+          "tr": "Misket limonlu avokado, labne ve baharatlı kraker.",
+          "en": "Lime avocado, labneh and spiced crackers.",
+          "ru": "Авокадо с лаймом, лабне и пряные крекеры.",
+          "ar": "أفوكادو بالليمون مع لبنة وكرات مقرمشة متبلة."
+        },
+        "detail": {
+          "tr": "Hafif, ferah ve modern bir başlangıç. Şu an stokta değildir.",
+          "en": "A light, fresh and modern starter. Currently unavailable.",
+          "ru": "Лёгкая свежая современная закуска. Сейчас недоступна.",
+          "ar": "مقبل خفيف ومنعش وعصري. غير متوفر حالياً."
+        },
+        "price": 195,
+        "image": "https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=900&q=80",
+        "localImage": "starters/avocado.webp"
+      }
+    ],
+    "description": {
+      "tr": "",
+      "en": "",
+      "ru": "",
+      "ar": ""
+    }
+  },
+  {
+    "id": "toasts",
+    "icon": "fa-bread-slice",
+    "name": {
+      "tr": "Tostlar",
+      "en": "Toasts",
+      "ru": "Тосты",
+      "ar": "التوست"
+    },
+    "desc": {
+      "tr": "Bol malzemeli, çıtır ekmekli ve doyurucu tost seçkisi.",
+      "en": "Crispy, filling toasts with generous ingredients.",
+      "ru": "Сытные хрустящие тосты.",
+      "ar": "توست مشبع ومقرمش."
+    },
+    "products": [
+      {
+        "badge": {
+          "tr": "İmza",
+          "en": "Signature",
+          "ru": "Фирменный",
+          "ar": "مميز"
+        },
+        "tags": {
+          "tr": [
+            "jambon",
+            "eski kaşar",
+            "doyurucu"
+          ],
+          "en": [
+            "ham",
+            "aged cheese",
+            "filling"
+          ],
+          "ru": [
+            "ветчина",
+            "сыр",
+            "сытный"
+          ],
+          "ar": [
+            "لحم",
+            "جبن",
+            "مشبع"
+          ]
+        },
+        "icons": [
+          "fa-bread-slice",
+          "fa-star"
+        ],
+        "isAvailable": true,
+        "isSignature": true,
+        "isFeatured": true,
+        "id": "quppa-toast",
+        "name": {
+          "tr": "QUPPA Tost",
+          "en": "QUPPA Toast",
+          "ru": "Тост QUPPA",
+          "ar": "توست QUPPA"
+        },
+        "desc": {
+          "tr": "Dana jambon, eski kaşar, domates reçeli ve tereyağı.",
+          "en": "Beef ham, aged kashar, tomato jam and butter.",
+          "ru": "Говяжья ветчина, выдержанный кашар, томатный джем и масло.",
+          "ar": "لحم بقري، جبن كاشار معتق، مربى طماطم وزبدة."
+        },
+        "detail": {
+          "tr": "QUPPA’nın doyurucu imza tostudur. Tatlı domates reçeli ve eski kaşar dengesiyle öne çıkar.",
+          "en": "QUPPA’s filling signature toast with aged cheese and tomato jam balance.",
+          "ru": "Фирменный сытный тост QUPPA с балансом выдержанного сыра и томатного джема.",
+          "ar": "توست QUPPA المميز والمشبع بتوازن جبن معتق ومربى الطماطم."
+        },
+        "price": 235,
+        "image": "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=900&q=80",
+        "localImage": "toasts/quppa-toast.webp"
+      },
+      {
+        "badge": {
+          "tr": "Peynirli",
+          "en": "Cheesy",
+          "ru": "Сырный",
+          "ar": "جبنة"
+        },
+        "tags": {
+          "tr": [
+            "peynir",
+            "vejetaryen",
+            "sıcak"
+          ],
+          "en": [
+            "cheese",
+            "vegetarian",
+            "hot"
+          ],
+          "ru": [
+            "сыр",
+            "вегетарианский",
+            "горячий"
+          ],
+          "ar": [
+            "جبن",
+            "نباتي",
+            "ساخن"
+          ]
+        },
+        "icons": [
+          "fa-cheese",
+          "fa-leaf"
+        ],
+        "isAvailable": true,
+        "isSignature": false,
+        "isFeatured": false,
+        "id": "three-cheese",
+        "name": {
+          "tr": "Üç Peynirli Tost",
+          "en": "Three Cheese Toast",
+          "ru": "Тост с тремя сырами",
+          "ar": "توست بثلاثة أجبان"
+        },
+        "desc": {
+          "tr": "Mozzarella, cheddar ve eski kaşarla eriyen lezzet.",
+          "en": "Mozzarella, cheddar and aged kashar melted together.",
+          "ru": "Моцарелла, чеддер и выдержанный кашар.",
+          "ar": "موزاريلا وشيدر وكاشار معتق بطعم ذائب."
+        },
+        "detail": {
+          "tr": "Peynir ağırlıklı, yumuşak ve klasik bir tost. Vejetaryen tercih edenler için uygundur.",
+          "en": "A cheese-forward classic toast, suitable for vegetarian preferences.",
+          "ru": "Классический сырный тост, подходит для вегетарианского выбора.",
+          "ar": "توست جبني كلاسيكي مناسب لمحبي الخيارات النباتية."
+        },
+        "price": 205,
+        "image": "https://images.unsplash.com/photo-1528736235302-52922df5c122?auto=format&fit=crop&w=900&q=80",
+        "localImage": "toasts/three-cheese.webp"
+      },
+      {
+        "badge": {
+          "tr": "Protein",
+          "en": "Protein",
+          "ru": "Белок",
+          "ar": "بروتين"
+        },
+        "tags": {
+          "tr": [
+            "tavuk",
+            "pesto",
+            "doyurucu"
+          ],
+          "en": [
+            "chicken",
+            "pesto",
+            "filling"
+          ],
+          "ru": [
+            "курица",
+            "песто",
+            "сытный"
+          ],
+          "ar": [
+            "دجاج",
+            "بيستو",
+            "مشبع"
+          ]
+        },
+        "icons": [
+          "fa-drumstick-bite"
+        ],
+        "isAvailable": true,
+        "isSignature": false,
+        "isFeatured": false,
+        "id": "chicken-toast",
+        "name": {
+          "tr": "Fesleğenli Tavuk Tost",
+          "en": "Basil Chicken Toast",
+          "ru": "Тост с курицей и базиликом",
+          "ar": "توست دجاج بالريحان"
+        },
+        "desc": {
+          "tr": "Izgara tavuk, pesto sos, köz biber ve kaşar.",
+          "en": "Grilled chicken, pesto, roasted pepper and kashar cheese.",
+          "ru": "Курица гриль, песто, печёный перец и сыр кашар.",
+          "ar": "دجاج مشوي، صلصة بيستو، فلفل مشوي وجبن كاشار."
+        },
+        "detail": {
+          "tr": "Proteinli ve doyurucu bir seçenek. Pesto aroması ile klasik tosttan ayrılır.",
+          "en": "A protein-rich filling option with pesto aroma.",
+          "ru": "Сытный белковый вариант с ароматом песто.",
+          "ar": "خيار غني بالبروتين ومشبع مع نكهة البيستو."
+        },
+        "price": 225,
+        "image": "https://images.unsplash.com/photo-1553909489-cd47e0907980?auto=format&fit=crop&w=900&q=80",
+        "localImage": "toasts/chicken-toast.webp"
+      },
+      {
+        "badge": {
+          "tr": "Klasik",
+          "en": "Classic",
+          "ru": "Классика",
+          "ar": "كلاسيكي"
+        },
+        "tags": {
+          "tr": [
+            "sucuk",
+            "kaşar",
+            "baharatlı"
+          ],
+          "en": [
+            "sucuk",
+            "cheese",
+            "spicy"
+          ],
+          "ru": [
+            "суджук",
+            "сыр",
+            "острый"
+          ],
+          "ar": [
+            "سجق",
+            "جبن",
+            "حار"
+          ]
+        },
+        "icons": [
+          "fa-fire"
+        ],
+        "isAvailable": true,
+        "isSignature": false,
+        "isFeatured": false,
+        "id": "sucuk",
+        "name": {
+          "tr": "Sucuklu Kaşarlı Tost",
+          "en": "Sucuk & Cheese Toast",
+          "ru": "Тост с суджуком и сыром",
+          "ar": "توست سجق وجبن"
+        },
+        "desc": {
+          "tr": "Baharatlı sucuk, bol kaşar ve çıtır ekmek.",
+          "en": "Spiced sucuk, plenty of kashar cheese and crispy bread.",
+          "ru": "Пряный суджук, много сыра кашар и хрустящий хлеб.",
+          "ar": "سجق متبل مع جبن كاشار وخبز مقرمش."
+        },
+        "detail": {
+          "tr": "Klasik, güçlü ve baharatlı tost sevenler için net bir seçenek.",
+          "en": "A clear choice for classic, bold and spiced toast lovers.",
+          "ru": "Выбор для любителей классического пряного тоста.",
+          "ar": "خيار واضح لمحبي التوست الكلاسيكي والمتبل."
+        },
+        "price": 215,
+        "image": "https://images.unsplash.com/photo-1528736235302-52922df5c122?auto=format&fit=crop&w=900&q=80",
+        "localImage": "toasts/sucuk.webp"
+      }
+    ],
+    "description": {
+      "tr": "",
+      "en": "",
+      "ru": "",
+      "ar": ""
+    }
+  },
+  {
+    "id": "snacks",
+    "icon": "fa-bowl-food",
+    "name": {
+      "tr": "Atıştırmalıklar",
+      "en": "Snacks",
+      "ru": "Снеки",
+      "ar": "الوجبات الخفيفة"
+    },
+    "desc": {
+      "tr": "Kahveye, kokteyle ve sohbetlere eşlik eden küçük tabaklar.",
+      "en": "Small plates for coffee, cocktails and conversations.",
+      "ru": "Небольшие блюда к кофе и напиткам.",
+      "ar": "أطباق صغيرة تناسب القهوة والجلسات."
+    },
+    "products": [
+      {
+        "badge": {
+          "tr": "Popüler",
+          "en": "Popular",
+          "ru": "Популярно",
+          "ar": "شائع"
+        },
+        "tags": {
+          "tr": [
+            "patates",
+            "trüf",
+            "paylaşmalık"
+          ],
+          "en": [
+            "fries",
+            "truffle",
+            "share"
+          ],
+          "ru": [
+            "картофель",
+            "трюфель",
+            "для компании"
+          ],
+          "ar": [
+            "بطاطس",
+            "ترافل",
+            "مشاركة"
+          ]
+        },
+        "icons": [
+          "fa-people-group",
+          "fa-star"
+        ],
+        "isAvailable": true,
+        "isSignature": true,
+        "isFeatured": true,
+        "id": "truffle-fries",
+        "name": {
+          "tr": "Trüflü Patates",
+          "en": "Truffle Fries",
+          "ru": "Картофель с трюфелем",
+          "ar": "بطاطس بالترافل"
+        },
+        "desc": {
+          "tr": "İnce patates, parmesan, trüf yağı ve aioli sos.",
+          "en": "Thin fries, parmesan, truffle oil and aioli sauce.",
+          "ru": "Тонкий картофель, пармезан, трюфельное масло и айоли.",
+          "ar": "بطاطس رفيعة مع بارميزان وزيت ترافل وصلصة أيولي."
+        },
+        "detail": {
+          "tr": "Paylaşmalık, güçlü aromalı ve bar/kahve eşlikçisi bir tabak.",
+          "en": "A shareable aromatic plate that pairs with coffee or bar drinks.",
+          "ru": "Ароматная закуска для компании к кофе или напиткам.",
+          "ar": "طبق عطري للمشاركة يناسب القهوة أو المشروبات."
+        },
+        "price": 195,
+        "image": "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=900&q=80",
+        "localImage": "snacks/truffle-fries.webp"
+      },
+      {
+        "badge": {
+          "tr": "Çıtır",
+          "en": "Crispy",
+          "ru": "Хрустящий",
+          "ar": "مقرمش"
+        },
+        "tags": {
+          "tr": [
+            "tavuk",
+            "soslu",
+            "sıcak"
+          ],
+          "en": [
+            "chicken",
+            "sauce",
+            "hot"
+          ],
+          "ru": [
+            "курица",
+            "соус",
+            "горячий"
+          ],
+          "ar": [
+            "دجاج",
+            "صلصة",
+            "ساخن"
+          ]
+        },
+        "icons": [
+          "fa-drumstick-bite",
+          "fa-fire"
+        ],
+        "isAvailable": true,
+        "isSignature": false,
+        "isFeatured": false,
+        "id": "chicken-bites",
+        "name": {
+          "tr": "Çıtır Tavuk Lokmaları",
+          "en": "Crispy Chicken Bites",
+          "ru": "Хрустящие куриные кусочки",
+          "ar": "لقيمات دجاج مقرمشة"
+        },
+        "desc": {
+          "tr": "Baharatlı paneli tavuk, ballı hardal sosla servis edilir.",
+          "en": "Spiced breaded chicken served with honey mustard.",
+          "ru": "Курица в пряной панировке с медово-горчичным соусом.",
+          "ar": "دجاج متبل ومقرمش يقدم مع صلصة الخردل بالعسل."
+        },
+        "detail": {
+          "tr": "Çıtır, sıcak ve paylaşmalık. Ballı hardal sos tatlı-baharatlı denge verir.",
+          "en": "Crispy, warm and shareable with a sweet-spicy honey mustard balance.",
+          "ru": "Хрустящие тёплые кусочки для компании с медово-горчичным балансом.",
+          "ar": "مقرمش ودافئ للمشاركة مع توازن حلو وحار من صلصة الخردل بالعسل."
+        },
+        "price": 225,
+        "image": "https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&w=900&q=80",
+        "localImage": "snacks/chicken-bites.webp"
+      },
+      {
+        "badge": {
+          "tr": "Baharatlı",
+          "en": "Spicy",
+          "ru": "Острый",
+          "ar": "حار"
+        },
+        "tags": {
+          "tr": [
+            "nachos",
+            "cheddar",
+            "baharatlı"
+          ],
+          "en": [
+            "nachos",
+            "cheddar",
+            "spicy"
+          ],
+          "ru": [
+            "начос",
+            "чеддер",
+            "острый"
+          ],
+          "ar": [
+            "ناتشوز",
+            "شيدر",
+            "حار"
+          ]
+        },
+        "icons": [
+          "fa-fire",
+          "fa-people-group"
+        ],
+        "isAvailable": true,
+        "isSignature": false,
+        "isFeatured": false,
+        "id": "nachos",
+        "name": {
+          "tr": "Bar Nachos",
+          "en": "Bar Nachos",
+          "ru": "Начос бар",
+          "ar": "ناتشوز بار"
+        },
+        "desc": {
+          "tr": "Tortilla cips, cheddar sos, jalapeno ve salsa.",
+          "en": "Tortilla chips, cheddar sauce, jalapeno and salsa.",
+          "ru": "Чипсы тортилья, соус чеддер, халапеньо и сальса.",
+          "ar": "رقائق تورتيلا مع صلصة شيدر وهالابينو وسالسا."
+        },
+        "detail": {
+          "tr": "Baharatlı ve paylaşmalık bir bar klasiği. Uzun sohbetler için idealdir.",
+          "en": "A spicy shareable bar classic for long conversations.",
+          "ru": "Острая закуска для компании, барная классика.",
+          "ar": "وجبة بار كلاسيكية حارة للمشاركة والجلسات الطويلة."
+        },
+        "price": 215,
+        "image": "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20900%20900%27%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%27bg%27%20x1%3D%270%27%20x2%3D%271%27%20y1%3D%270%27%20y2%3D%271%27%3E%0A%20%20%20%20%20%20%3Cstop%20stop-color%3D%27%232a1710%27%20offset%3D%270%27/%3E%0A%20%20%20%20%20%20%3Cstop%20stop-color%3D%27%239b4d24%27%20offset%3D%27.55%27/%3E%0A%20%20%20%20%20%20%3Cstop%20stop-color%3D%27%23d99445%27%20offset%3D%271%27/%3E%0A%20%20%20%20%3C/linearGradient%3E%0A%20%20%20%20%3CradialGradient%20id%3D%27glow%27%20cx%3D%27.35%27%20cy%3D%27.25%27%20r%3D%27.8%27%3E%0A%20%20%20%20%20%20%3Cstop%20stop-color%3D%27%23ffd68a%27%20stop-opacity%3D%27.75%27/%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%27.55%27%20stop-color%3D%27%23d66b2f%27%20stop-opacity%3D%27.38%27/%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%271%27%20stop-color%3D%27%231b0d08%27%20stop-opacity%3D%270%27/%3E%0A%20%20%20%20%3C/radialGradient%3E%0A%20%20%20%20%3Cfilter%20id%3D%27shadow%27%20x%3D%27-20%25%27%20y%3D%27-20%25%27%20width%3D%27140%25%27%20height%3D%27140%25%27%3E%0A%20%20%20%20%20%20%3CfeDropShadow%20dx%3D%270%27%20dy%3D%2718%27%20stdDeviation%3D%2720%27%20flood-color%3D%27%231c0b05%27%20flood-opacity%3D%27.36%27/%3E%0A%20%20%20%20%3C/filter%3E%0A%20%20%3C/defs%3E%0A%20%20%3Crect%20width%3D%27900%27%20height%3D%27900%27%20fill%3D%27url%28%23bg%29%27/%3E%0A%20%20%3Crect%20width%3D%27900%27%20height%3D%27900%27%20fill%3D%27url%28%23glow%29%27/%3E%0A%20%20%3Ccircle%20cx%3D%27735%27%20cy%3D%27160%27%20r%3D%2796%27%20fill%3D%27%23ffd27b%27%20opacity%3D%27.20%27/%3E%0A%20%20%3Ccircle%20cx%3D%27170%27%20cy%3D%27780%27%20r%3D%27150%27%20fill%3D%27%2349180f%27%20opacity%3D%27.28%27/%3E%0A%20%20%3Cg%20filter%3D%27url%28%23shadow%29%27%3E%0A%20%20%20%20%3Cellipse%20cx%3D%27450%27%20cy%3D%27585%27%20rx%3D%27335%27%20ry%3D%27160%27%20fill%3D%27%233b1d13%27%20opacity%3D%27.62%27/%3E%0A%20%20%20%20%3Cellipse%20cx%3D%27450%27%20cy%3D%27555%27%20rx%3D%27310%27%20ry%3D%27135%27%20fill%3D%27%235a2a18%27/%3E%0A%20%20%20%20%3Cg%20stroke%3D%27%23a95425%27%20stroke-width%3D%278%27%20stroke-linejoin%3D%27round%27%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%27M225%20540%20L370%20250%20L505%20565%20Z%27%20fill%3D%27%23f3b24d%27/%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%27M365%20575%20L535%20245%20L668%20590%20Z%27%20fill%3D%27%23f7c35e%27/%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%27M180%20620%20L325%20345%20L455%20650%20Z%27%20fill%3D%27%23e99a36%27/%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%27M500%20650%20L635%20350%20L765%20625%20Z%27%20fill%3D%27%23f0ad49%27/%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%27M330%20650%20L455%20375%20L590%20665%20Z%27%20fill%3D%27%23ffd06c%27/%3E%0A%20%20%20%20%3C/g%3E%0A%20%20%20%20%3Cg%20fill%3D%27%23b92222%27%20opacity%3D%27.92%27%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%27350%27%20cy%3D%27510%27%20r%3D%2722%27/%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%27520%27%20cy%3D%27520%27%20r%3D%2719%27/%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%27615%27%20cy%3D%27585%27%20r%3D%2717%27/%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%27430%27%20cy%3D%27610%27%20r%3D%2715%27/%3E%0A%20%20%20%20%3C/g%3E%0A%20%20%20%20%3Cg%20fill%3D%27%232f8a4b%27%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%27405%27%20cy%3D%27475%27%20r%3D%2715%27/%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%27570%27%20cy%3D%27450%27%20r%3D%2714%27/%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%27500%27%20cy%3D%27620%27%20r%3D%2712%27/%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%27650%27%20cy%3D%27520%27%20r%3D%2713%27/%3E%0A%20%20%20%20%3C/g%3E%0A%20%20%20%20%3Cg%20fill%3D%27%23ffe38e%27%20opacity%3D%27.88%27%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%27M315%20450c52-32%20120-33%20180-4%2014%207%2010%2029-6%2028-60-5-111%200-158%2018-20%208-33-30-16-42z%27/%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%27M425%20562c58-28%20116-26%20176%206%2017%209%208%2033-11%2030-52-8-98-6-151%2013-21%207-34-39-14-49z%27/%3E%0A%20%20%20%20%3C/g%3E%0A%20%20%3C/g%3E%0A%20%20%3Ctext%20x%3D%27450%27%20y%3D%27805%27%20text-anchor%3D%27middle%27%20font-family%3D%27Inter%2CArial%2Csans-serif%27%20font-weight%3D%27900%27%20font-size%3D%2754%27%20fill%3D%27%23fff3d6%27%20letter-spacing%3D%275%27%3EBAR%20NACHOS%3C/text%3E%0A%3C/svg%3E",
+        "localImage": "snacks/nachos.webp"
+      },
+      {
+        "badge": {
+          "tr": "Tükendi",
+          "en": "Sold Out",
+          "ru": "Нет в наличии",
+          "ar": "نفد"
+        },
+        "tags": {
+          "tr": [
+            "burger",
+            "et",
+            "paylaşmalık"
+          ],
+          "en": [
+            "burger",
+            "meat",
+            "share"
+          ],
+          "ru": [
+            "бургер",
+            "мясо",
+            "для компании"
+          ],
+          "ar": [
+            "برجر",
+            "لحم",
+            "مشاركة"
+          ]
+        },
+        "icons": [
+          "fa-burger"
+        ],
+        "isAvailable": false,
+        "isSignature": false,
+        "isFeatured": false,
+        "id": "mini-burger",
+        "name": {
+          "tr": "Mini Burger Trio",
+          "en": "Mini Burger Trio",
+          "ru": "Три мини-бургера",
+          "ar": "ثلاثة ميني برجر"
+        },
+        "desc": {
+          "tr": "Üç mini burger, karamelize soğan ve özel sos.",
+          "en": "Three mini burgers with caramelized onion and house sauce.",
+          "ru": "Три мини-бургера с карамелизированным луком и фирменным соусом.",
+          "ar": "ثلاثة ميني برجر مع بصل مكرمل وصلصة خاصة."
+        },
+        "detail": {
+          "tr": "Paylaşmalık ve doyurucu bir seçenek. Şu an stokta değildir.",
+          "en": "A filling shareable option. Currently unavailable.",
+          "ru": "Сытный вариант для компании. Сейчас недоступен.",
+          "ar": "خيار مشبع للمشاركة. غير متوفر حالياً."
+        },
+        "price": 285,
+        "image": "https://images.unsplash.com/photo-1550317138-10000687a72b?auto=format&fit=crop&w=900&q=80",
+        "localImage": "snacks/mini-burger.webp"
+      }
+    ],
+    "description": {
+      "tr": "",
+      "en": "",
+      "ru": "",
+      "ar": ""
+    }
+  },
+  {
+    "id": "desserts",
+    "icon": "fa-cake-candles",
+    "name": {
+      "tr": "Tatlılar",
+      "en": "Desserts",
+      "ru": "Десерты",
+      "ar": "الحلويات"
+    },
+    "desc": {
+      "tr": "Kahveyle dengelenen, rafine ve tatlı kapanışlar.",
+      "en": "Refined sweet finishes that pair beautifully with coffee.",
+      "ru": "Изысканные десерты к кофе.",
+      "ar": "حلويات راقية تناسب القهوة."
+    },
+    "products": [
+      {
+        "badge": {
+          "tr": "Popüler",
+          "en": "Popular",
+          "ru": "Популярно",
+          "ar": "شائع"
+        },
+        "tags": {
+          "tr": [
+            "cheesecake",
+            "kremalı",
+            "kahve"
+          ],
+          "en": [
+            "cheesecake",
+            "creamy",
+            "coffee"
+          ],
+          "ru": [
+            "чизкейк",
+            "кремовый",
+            "к кофе"
+          ],
+          "ar": [
+            "تشيزكيك",
+            "كريمي",
+            "قهوة"
+          ]
+        },
+        "icons": [
+          "fa-star",
+          "fa-mug-hot"
+        ],
+        "isAvailable": true,
+        "isSignature": true,
+        "isFeatured": true,
+        "id": "san-sebastian",
+        "name": {
+          "tr": "San Sebastian",
+          "en": "San Sebastian",
+          "ru": "Сан-Себастьян",
+          "ar": "سان سيباستيان"
+        },
+        "desc": {
+          "tr": "Akışkan dokulu cheesecake, hafif yanık üst katman.",
+          "en": "Creamy cheesecake with a gently caramelized top.",
+          "ru": "Кремовый чизкейк с лёгкой карамелизированной корочкой.",
+          "ar": "تشيزكيك كريمي بطبقة علوية محمصة بلطف."
+        },
+        "detail": {
+          "tr": "Kahveyle en güçlü eşleşen tatlılardan biri. Hafif yanık üst katman ve kremamsı doku öne çıkar.",
+          "en": "One of the strongest coffee pairings, with a caramelized top and creamy texture.",
+          "ru": "Один из лучших десертов к кофе, с карамельной корочкой и кремовой текстурой.",
+          "ar": "من أفضل الحلويات مع القهوة، بطبقة علوية محمصة وقوام كريمي."
+        },
+        "price": 195,
+        "image": "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&w=900&q=80",
+        "localImage": "desserts/san-sebastian.webp"
+      },
+      {
+        "badge": {
+          "tr": "İtalyan",
+          "en": "Italian",
+          "ru": "Итальянский",
+          "ar": "إيطالي"
+        },
+        "tags": {
+          "tr": [
+            "espresso",
+            "mascarpone",
+            "soğuk"
+          ],
+          "en": [
+            "espresso",
+            "mascarpone",
+            "cold"
+          ],
+          "ru": [
+            "эспрессо",
+            "маскарпоне",
+            "холодный"
+          ],
+          "ar": [
+            "إسبريسو",
+            "ماسكاربوني",
+            "بارد"
+          ]
+        },
+        "icons": [
+          "fa-snowflake",
+          "fa-mug-hot"
+        ],
+        "isAvailable": true,
+        "isSignature": false,
+        "isFeatured": false,
+        "id": "tiramisu",
+        "name": {
+          "tr": "Kadehte Tiramisu",
+          "en": "Tiramisu Cup",
+          "ru": "Тирамису в бокале",
+          "ar": "تيراميسو بالكأس"
+        },
+        "desc": {
+          "tr": "Mascarpone kreması, espresso ve kakao dengesi.",
+          "en": "Mascarpone cream, espresso and cocoa in balance.",
+          "ru": "Крем маскарпоне, эспрессо и какао в идеальном балансе.",
+          "ar": "كريمة ماسكاربوني وإسبريسو وكاكاو بتوازن ناعم."
+        },
+        "detail": {
+          "tr": "Espresso aromalı, hafif ve zarif bir tatlı. Soğuk servis edilir.",
+          "en": "An espresso-based light dessert served cold.",
+          "ru": "Лёгкий десерт с ароматом эспрессо, подаётся холодным.",
+          "ar": "حلوى خفيفة بنكهة الإسبريسو وتُقدم باردة."
+        },
+        "price": 185,
+        "image": "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=900&q=80",
+        "localImage": "desserts/tiramisu.webp"
+      },
+      {
+        "badge": {
+          "tr": "Çikolatalı",
+          "en": "Chocolate",
+          "ru": "Шоколадный",
+          "ar": "شوكولاتة"
+        },
+        "tags": {
+          "tr": [
+            "brownie",
+            "çikolata",
+            "fındık"
+          ],
+          "en": [
+            "brownie",
+            "chocolate",
+            "hazelnut"
+          ],
+          "ru": [
+            "брауни",
+            "шоколад",
+            "фундук"
+          ],
+          "ar": [
+            "براوني",
+            "شوكولاتة",
+            "بندق"
+          ]
+        },
+        "icons": [
+          "fa-cookie-bite"
+        ],
+        "isAvailable": true,
+        "isSignature": false,
+        "isFeatured": false,
+        "id": "brownie",
+        "name": {
+          "tr": "Fındıklı Brownie",
+          "en": "Hazelnut Brownie",
+          "ru": "Брауни с фундуком",
+          "ar": "براوني بالبندق"
+        },
+        "desc": {
+          "tr": "Yoğun çikolata, kavrulmuş fındık ve deniz tuzu.",
+          "en": "Rich chocolate, roasted hazelnut and sea salt.",
+          "ru": "Насыщенный шоколад, жареный фундук и морская соль.",
+          "ar": "شوكولاتة غنية مع بندق محمص وملح بحري."
+        },
+        "detail": {
+          "tr": "Yoğun çikolata isteyenler için güçlü bir seçenek. Espresso bazlı kahvelerle iyi gider.",
+          "en": "A rich chocolate option that pairs well with espresso-based coffees.",
+          "ru": "Насыщенный шоколадный десерт, хорошо сочетается с эспрессо.",
+          "ar": "خيار غني بالشوكولاتة يناسب مشروبات الإسبريسو."
+        },
+        "price": 175,
+        "image": "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=900&q=80",
+        "localImage": "desserts/brownie.webp"
+      },
+      {
+        "badge": {
+          "tr": "Ferah",
+          "en": "Light",
+          "ru": "Свежий",
+          "ar": "خفيف"
+        },
+        "tags": {
+          "tr": [
+            "limon",
+            "tart",
+            "hafif"
+          ],
+          "en": [
+            "lemon",
+            "tart",
+            "light"
+          ],
+          "ru": [
+            "лимон",
+            "тарт",
+            "лёгкий"
+          ],
+          "ar": [
+            "ليمون",
+            "تارت",
+            "خفيف"
+          ]
+        },
+        "icons": [
+          "fa-lemon"
+        ],
+        "isAvailable": true,
+        "isSignature": false,
+        "isFeatured": false,
+        "id": "lemon-tart",
+        "name": {
+          "tr": "Limon Tart",
+          "en": "Lemon Tart",
+          "ru": "Лимонный тарт",
+          "ar": "تارت الليمون"
+        },
+        "desc": {
+          "tr": "Tereyağlı tart tabanı, limon kreması ve mereng.",
+          "en": "Buttery tart base, lemon cream and meringue.",
+          "ru": "Масляная основа, лимонный крем и меренга.",
+          "ar": "قاعدة تارت بالزبدة مع كريمة الليمون والميرينغ."
+        },
+        "detail": {
+          "tr": "Ferah, ekşi-tatlı dengesi güçlü bir tatlı. Soğuk kahvelerle iyi eşleşir.",
+          "en": "A fresh sweet-sour dessert that pairs well with cold coffees.",
+          "ru": "Свежий кисло-сладкий десерт, хорошо сочетается с холодным кофе.",
+          "ar": "حلوى منعشة بتوازن حلو وحامض وتناسب القهوة الباردة."
+        },
+        "price": 165,
+        "image": "https://images.unsplash.com/photo-1519915028121-7d3463d20b13?auto=format&fit=crop&w=900&q=80",
+        "localImage": "desserts/lemon-tart.webp"
+      }
+    ],
+    "description": {
+      "tr": "",
+      "en": "",
+      "ru": "",
+      "ar": ""
+    }
+  }
+]

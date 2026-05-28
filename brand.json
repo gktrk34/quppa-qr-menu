@@ -1,0 +1,41 @@
+{
+  "brand": {
+    "name": "QUPPA",
+    "shortName": "QUPPA",
+    "slogan": {
+      "tr": "Butik kahve & bar deneyimi",
+      "en": "Boutique coffee & bar experience",
+      "ru": "Бутик-кофе и бар",
+      "ar": "تجربة قهوة وبار بوتيكية"
+    },
+    "menuLabel": {
+      "tr": "QR Menü",
+      "en": "QR Menu",
+      "ru": "QR меню",
+      "ar": "قائمة QR"
+    },
+    "wifiName": "QUPPA Guest",
+    "wifiPassword": "quppa2025",
+    "instagram": "@quppa",
+    "defaultTheme": "espresso",
+    "logoLetter": "Q"
+  },
+  "app": {
+    "mode": "demo",
+    "liveTheme": "espresso",
+    "liveLocksTheme": true,
+    "showThemeSwitcher": true,
+    "showDemoBadge": true,
+    "showFeatured": true,
+    "showTodaySuggestion": true,
+    "enableFavorites": true,
+    "enableSmartUpsell": true,
+    "enablePwa": true,
+    "enableExternalMenu": true,
+    "menuPath": "./menu.json",
+    "enableExternalBrand": true,
+    "brandPath": "./brand.json",
+    "preferLocalImages": false,
+    "imageBasePath": "./assets/products/"
+  }
+}
