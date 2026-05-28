@@ -1,6 +1,6 @@
 # QUPPA QR Menu — Yayın Hazırlık Kontrol Listesi
 
-Sürüm: 3.8.0
+Sürüm: 3.8.3
 
 ## Önerilen linkler
 

@@ -1,6 +1,6 @@
 # QUPPA QR Menu — Yayına Hazır Paket
 
-Sürüm: 3.8.2
+Sürüm: 3.8.3
 
 ## Dosyalar
 
@@ -300,3 +300,10 @@ Bu sürüm final admin onay akışını ekler:
 - Not alanı da aynı scope mantığıyla ayrılır.
 - Favoriler, dil ve tema bilinçli olarak ortak kalır.
 - Eski demo sepeti yalnızca demo scope'a migrate edilir; live/preview temiz başlar.
+
+
+## Version 3.8.3 — Final Stabilization Patch
+
+- `menu.json` artık release sırasında `admin.js` içindeki `FALLBACK_MENU` bloğuna otomatik senkronlanır.
+- Admin preview temiz oturum olarak açılır; `demo-preview:cart` ve `demo-preview:note` her preview öncesi temizlenir.
+- Admin asset'leri müşteri tarafı core cache listesinden çıkarıldı; customer cache yalnızca müşteri deneyimi için tutulur.

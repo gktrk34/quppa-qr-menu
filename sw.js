@@ -1,9 +1,9 @@
 /* QUPPA QR Menu - Service Worker
    Stage 3: Offline/PWA cache strategy
-   Version: 3.8.2
+   Version: 3.8.3
 */
 
-const APP_VERSION = "3.8.2";
+const APP_VERSION = "3.8.3";
 const STATIC_CACHE = `quppa-static-${APP_VERSION}`;
 const IMAGE_CACHE = `quppa-images-${APP_VERSION}`;
 const RUNTIME_CACHE = `quppa-runtime-${APP_VERSION}`;
@@ -11,14 +11,11 @@ const RUNTIME_CACHE = `quppa-runtime-${APP_VERSION}`;
 const CORE_ASSETS = [
   "./",
   "./index.html",
-  "./style.css?v=3.8.2",
-  "./app.js?v=3.8.2",
+  "./style.css?v=3.8.3",
+  "./app.js?v=3.8.3",
   "./manifest.json",
   "./menu.json",
   "./brand.json",
-  "./admin.html",
-  "./admin.css",
-  "./admin.js"
 ];
 
 self.addEventListener("install", event => {
@@ -104,8 +101,12 @@ async function networkFirstMenuData(request) {
 async function networkFirstNavigation(request) {
   try {
     const response = await fetch(request);
-    const cache = await caches.open(STATIC_CACHE);
-    cache.put("./index.html", response.clone());
+
+    if (response && response.ok) {
+      const cache = await caches.open(STATIC_CACHE);
+      cache.put("./index.html", response.clone());
+    }
+
     return response;
   } catch (error) {
     const cached = await caches.match(request);

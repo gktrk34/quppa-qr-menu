@@ -1,6 +1,6 @@
 # QUPPA Menu Studio — Final Admin
 
-Sürüm: 3.8.2
+Sürüm: 3.8.3
 
 ## Ana akış
 
@@ -38,3 +38,10 @@ Demo, live ve local preview arasında gidip gelirken sepet/not aynı localStorag
 
 Ortak kalanlar: dil, tema, favoriler.
 Ayrılanlar: sepet, garson notu.
+
+
+## 3.8.3 Final Stabilization Patch
+
+- `menu.json → FALLBACK_MENU` senkronu artık `npm run release:patch` sırasında otomatik yapılır.
+- Admin preview temiz oturumdur; demo-preview sepet/not bilgisi preview açılmadan önce sıfırlanır.
+- `admin.html`, `admin.css`, `admin.js` service worker core cache listesinden çıkarıldı.

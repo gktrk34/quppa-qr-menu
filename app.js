@@ -1,8 +1,8 @@
 /* QUPPA QR Menu - App Logic
    Stage 1: Split from single-file index.html
-   Version: 3.8.2
+   Version: 3.8.3
 */
-const APP_VERSION = "3.8.2";
+const APP_VERSION = "3.8.3";
 
 /*
   PUBLISHING NOTES
@@ -2058,6 +2058,7 @@ function registerServiceWorker(){
 
 
     applyBrandConfig();
+    if (STATE_SCOPE === "demo-preview") clearTransientOrderState();
     document.documentElement.dataset.theme=S.theme;if(!S.lang){S.lang="tr";setLang("tr");openLang(true)}else setLang(S.lang);
     setupSearchToggle();
     setupFixedMenuDock();
