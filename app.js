@@ -1,8 +1,8 @@
 /* QUPPA QR Menu - App Logic
    Stage 1: Split from single-file index.html
-   Version: 3.2.2
+   Version: 3.3.0
 */
-const APP_VERSION = "3.2.2";
+const APP_VERSION = "3.3.0";
 
 /*
   PUBLISHING NOTES
@@ -1588,7 +1588,62 @@ async function loadExternalBrandConfig(){
   }
 }
 
+
+const PREVIEW_MENU_KEY = "quppa-admin-preview-menu";
+
+function isLocalMenuPreviewMode() {
+  return getUrlFlag("preview") === "local";
+}
+
+function readLocalPreviewMenu() {
+  try {
+    const raw = window.localStorage.getItem(PREVIEW_MENU_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch (error) {
+    console.warn("[QUPPA] Local preview menu okunamadı:", error);
+    return null;
+  }
+}
+
+function applyRawMenuData(raw, sourceLabel) {
+  const normalized = normalizeMenuData(raw);
+  if (!normalized.length) throw new Error(`${sourceLabel || "menu"} boş veya geçersiz.`);
+
+  const warnings = validateMenuData(normalized);
+  menuData = normalized;
+  rebuildProductIndex();
+
+  if (!menuData.some(category => category.id === S.active)) {
+    S.active = menuData[0]?.id || "";
+  }
+
+  let cartChanged = false;
+  Object.keys(S.cart || {}).forEach(id => {
+    if (!find(id)) {
+      delete S.cart[id];
+      cartChanged = true;
+    }
+  });
+  if (cartChanged) save();
+
+  return warnings;
+}
+
 async function loadExternalMenuData(){
+  if (isLocalMenuPreviewMode()) {
+    try {
+      const raw = readLocalPreviewMenu();
+      if (!raw) throw new Error("Local preview menü bulunamadı.");
+
+      const warnings = applyRawMenuData(raw, "local preview menu");
+      if(!__quppaExternalBatchMode) renderAll();
+      console.info("[QUPPA] Local preview menu loaded", warnings.length ? `${warnings.length} warning` : "ok");
+      return true;
+    } catch(error) {
+      console.warn("[QUPPA] Local preview menu kullanılamadı, normal menüye dönülüyor:", error.message || error);
+    }
+  }
+
   if(!cfg("enableExternalMenu", true)) return false;
 
   const path = cfg("menuPath", "./menu.json");
@@ -1606,26 +1661,7 @@ async function loadExternalMenuData(){
     if(!response.ok) throw new Error(`menu.json yüklenemedi: ${response.status}`);
 
     const raw = await response.json();
-    const normalized = normalizeMenuData(raw);
-
-    if(!normalized.length) throw new Error("menu.json boş veya geçersiz.");
-
-    const warnings = validateMenuData(normalized);
-    menuData = normalized;
-    rebuildProductIndex();
-
-    if(!menuData.some(category => category.id === S.active)){
-      S.active = menuData[0]?.id || "";
-    }
-
-    let cartChanged = false;
-    Object.keys(S.cart || {}).forEach(id=>{
-      if(!find(id)){
-        delete S.cart[id];
-        cartChanged = true;
-      }
-    });
-    if(cartChanged) save();
+    const warnings = applyRawMenuData(raw, "menu.json");
 
     if(!__quppaExternalBatchMode) renderAll();
     console.info("[QUPPA] External menu loaded:", path, warnings.length ? `${warnings.length} warning` : "ok");
@@ -1635,29 +1671,6 @@ async function loadExternalMenuData(){
       console.info("[QUPPA] menu.json kullanılamadı, gömülü menüyle devam ediliyor:", error.message || error);
     }
     return false;
-  }
-}
-
-
-async function bootstrapExternalData(){
-  __quppaExternalBatchMode = true;
-  let brandLoaded = false;
-  let menuLoaded = false;
-
-  try {
-    brandLoaded = await loadExternalBrandConfig();
-    menuLoaded = await loadExternalMenuData();
-  } finally {
-    __quppaExternalBatchMode = false;
-  }
-
-  if(brandLoaded || menuLoaded){
-    applyRuntimeConfig();
-    normalizeSavedThemeId();
-    applyBrandConfig();
-    document.documentElement.dataset.theme = S.theme;
-    applyTexts();
-    renderAll();
   }
 }
 

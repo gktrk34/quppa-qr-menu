@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="robots" content="noindex,nofollow" />
+  <meta name="theme-color" content="#2a160d" />
+  <title>QUPPA Admin Editor</title>
+  <link rel="stylesheet" href="./admin.css?v=3.3.0" />
+</head>
+<body>
+  <header class="adminTop">
+    <div>
+      <small>QUPPA Ops Tool</small>
+      <h1>Menu JSON Editor</h1>
+      <p>Menüyü düzenle, local preview ile anında gör, onaylı JSON'u indir.</p>
+    </div>
+    <div class="topActions">
+      <button id="loadCurrentBtn" class="btn ghost">Mevcut menu.json yükle</button>
+      <label class="btn ghost fileBtn">JSON içe aktar<input id="fileInput" type="file" accept="application/json,.json" hidden /></label>
+      <button id="previewBtn" class="btn primary">Canlı Önizle</button>
+      <button id="downloadBtn" class="btn success">menu.json indir</button>
+    </div>
+  </header>
+  <main class="layout">
+    <aside class="side">
+      <div class="panel"><div class="panelHead"><strong>Kategoriler</strong><button id="addCategoryBtn" class="mini">+ Kategori</button></div><div id="categoryList" class="categoryList"></div></div>
+      <div class="panel statusPanel"><strong>Durum</strong><div id="status" class="status">Hazır.</div><div id="validation" class="validation"></div></div>
+    </aside>
+    <section class="work">
+      <div class="toolbar"><div><small id="currentCategoryMeta">Kategori seçilmedi</small><h2 id="currentCategoryTitle">Ürünler</h2></div><button id="addProductBtn" class="btn primary">+ Ürün ekle</button></div>
+      <div id="productList" class="productList"></div>
+      <form id="editorForm" class="editor hidden">
+        <div class="editorHead"><div><small>Ürün Düzenle</small><h3 id="editorTitle">Ürün</h3></div><button type="button" id="deleteProductBtn" class="btn danger">Ürünü sil</button></div>
+        <div class="grid"><label>ID <input id="p_id" autocomplete="off" /></label><label>Fiyat <input id="p_price" type="number" min="0" step="1" /></label><label>Remote görsel URL <input id="p_image" autocomplete="off" /></label><label>Local görsel yolu <input id="p_localImage" autocomplete="off" placeholder="coffee/example.webp" /></label></div>
+        <div class="grid four"><label>TR Ad <input id="p_name_tr" /></label><label>EN Name <input id="p_name_en" /></label><label>RU Name <input id="p_name_ru" /></label><label>AR Name <input id="p_name_ar" /></label></div>
+        <div class="grid four"><label>TR Açıklama <textarea id="p_desc_tr"></textarea></label><label>EN Description <textarea id="p_desc_en"></textarea></label><label>RU Description <textarea id="p_desc_ru"></textarea></label><label>AR Description <textarea id="p_desc_ar"></textarea></label></div>
+        <div class="grid four"><label>TR Badge <input id="p_badge_tr" /></label><label>EN Badge <input id="p_badge_en" /></label><label>RU Badge <input id="p_badge_ru" /></label><label>AR Badge <input id="p_badge_ar" /></label></div>
+        <div class="grid"><label>Taglar <input id="p_tags" placeholder="soğuk, tatlı, popüler" /></label><label>FontAwesome ikonları <input id="p_icons" placeholder="fa-snowflake, fa-cookie-bite" /></label></div>
+        <div class="toggles"><label><input id="p_available" type="checkbox" /> Aktif / stokta</label><label><input id="p_featured" type="checkbox" /> Öne çıkan</label><label><input id="p_signature" type="checkbox" /> İmza</label></div>
+        <div class="formActions"><button type="submit" class="btn success">Kaydet</button><button type="button" id="duplicateProductBtn" class="btn ghost">Kopyala</button></div>
+      </form>
+    </section>
+  </main>
+  <script src="./admin.js?v=3.3.0"></script>
+</body>
+</html>
