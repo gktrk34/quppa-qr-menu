@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="tr" dir="ltr" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#f6efe6" />
+  <meta name="description" content="QUPPA için hızlı, mobil uyumlu ve çevrimdışı destekli akıllı QR menü." />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="QUPPA" />
+  <meta name="format-detection" content="telephone=no" />
+  <title>QUPPA QR Menü</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'%3E%3Cdefs%3E%3ClinearGradient id='bg' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23d99c5f'/%3E%3Cstop offset='0.52' stop-color='%23a86e37'/%3E%3Cstop offset='1' stop-color='%232f725f'/%3E%3C/linearGradient%3E%3CradialGradient id='glow' cx='34%25' cy='24%25' r='72%25'%3E%3Cstop offset='0' stop-color='%23fffaf4' stop-opacity='0.55'/%3E%3Cstop offset='0.48' stop-color='%23fffaf4' stop-opacity='0.14'/%3E%3Cstop offset='1' stop-color='%23fffaf4' stop-opacity='0'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='128' height='128' rx='34' fill='url(%23bg)'/%3E%3Crect width='128' height='128' rx='34' fill='url(%23glow)'/%3E%3Ccircle cx='64' cy='64' r='42' fill='none' stroke='%23fffaf4' stroke-opacity='0.28' stroke-width='6'/%3E%3Ctext x='64' y='82' text-anchor='middle' font-family='Arial, Helvetica, sans-serif' font-size='72' font-weight='900' fill='%23fffaf4' letter-spacing='-8'%3EQ%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="./style.css?v=2.6.3" />
+</head>
+<body>
+  <main class="wrap">
+    <div class="stickyShell" id="stickyShell">
+      <div class="top"><div class="topin">
+        <div class="brand"><div class="logo">Q</div><div><strong>QUPPA</strong><span id="brandSub">QR Menü</span></div></div>
+      
+        <div class="actions">
+          <a class="modeBadge" id="modeBadge" href="?mode=live" aria-label="Live preview"><span class="modeBadgeText">
+              <strong id="modeBadgeTitle">Demo Mode</strong>
+              <small id="modeBadgeSub">İşletme sunumu aktif</small>
+            </span>
+            <span class="modeBadgeState" id="modeBadgeState">Live</span>
+          </a>
+          <button class="pillbtn" id="langBtn"><i class="fa-solid fa-globe"></i><span id="langCode">TR</span></button>
+          <button class="pillbtn cartbtn" id="topCart"><i class="fa-solid fa-clipboard-list"></i><span id="listText">Listem</span><span class="count" id="topCount">0</span></button>
+          <div class="themebox"><button class="pillbtn" id="themeBtn" type="button"><i class="fa-solid fa-palette"></i><span id="themeText">Tema</span><i class="fa-solid fa-chevron-down"></i></button></div>
+        </div>
+      </div></div>
+
+      <div class="menuDock" id="menuDock">
+            <section class="search is-collapsed" id="searchPanel">
+              <button class="searchToggle" id="searchToggle" type="button" aria-expanded="false" aria-controls="searchInput">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <span id="searchToggleText">Ara</span>
+              </button>
+              <div class="searchbox">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input id="searchInput" type="search" autocomplete="off">
+                <button class="clear" id="clearBtn"><i class="fa-solid fa-xmark"></i></button>
+              </div>
+            </section>
+            <section class="catSwitch" id="catSwitch" aria-label="Kategori geçişi"></section>
+          </div>
+    </div>
+    <div class="shellSpacer" id="shellSpacer" aria-hidden="true"></div>
+
+    <header class="hero">
+      <div class="kicker"><i class="fa-solid fa-qrcode"></i><span id="heroKicker">QR Menü Deneyimi</span></div>
+      <h1>QUPPA</h1>
+      <p id="heroDesc">Butik kahve, seçili atıştırmalıklar ve modern bar atmosferini birleştiren premium QR menü deneyimi.</p>
+      <div class="suggest">
+        <div class="sico"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+        <div><small id="todayLabel">Bugünün önerisi</small><strong id="todayText">Lotus Cold Brew & San Sebastian</strong></div>
+        <b>₺285</b>
+      </div>
+    </header>
+
+    <div class="menuTools" id="menuTools">
+      <nav class="catnav"><div class="catlist" id="catList"></div></nav>
+      <section class="filters" id="filters"></section>
+    </div>
+    <div class="menuDockSpacer" id="menuDockSpacer" aria-hidden="true"></div>
+
+    <section class="featuredSec">
+      <div class="head"><div><h2 id="featuredTitle">Öne Çıkanlar</h2><p id="featuredDesc">İşletmenin vitrin ürünleri için hızlı gösterim alanı.</p></div></div>
+      <div class="featured" id="featured"></div>
+    </section>
+
+    <section class="empty" id="empty"><i class="fa-solid fa-magnifying-glass"></i><h3 id="emptyTitle">Sonuç bulunamadı</h3><p id="emptyText">Aradığın ürün menümüzde görünmüyor. Daha genel bir kelimeyle tekrar deneyebilirsin.</p></section>
+    <section id="menu"></section>
+
+    <footer class="foot"><div class="footgrid">
+      <div class="footitem"><i class="fa-solid fa-receipt"></i><span id="taxText">Fiyatlarımıza KDV dahildir.</span></div>
+      <div class="footitem"><i class="fa-solid fa-wifi"></i><span id="wifiText">Wi-Fi: <span data-wifi-name>QUPPA Guest</span> / Şifre: <span data-wifi-pass>quppa2025</span></span><button class="copyWifi" id="copyWifi" type="button" aria-label="Wi-Fi şifresini kopyala"><i class="fa-solid fa-copy"></i></button></div>
+    </div></footer>
+  </main>
+
+
+
+  <div class="themeBack" id="themeBack" aria-hidden="true"></div>
+  <div class="thememenu" id="themeMenu" role="dialog" aria-modal="true" aria-label="Theme Studio" aria-hidden="true"></div>
+
+  <div class="upsell" id="upsell" aria-live="polite" aria-hidden="true">
+    <div class="upsellImg" id="upsellImg"></div>
+    <div class="upsellContent">
+      <strong id="upsellTitle">Mükemmel eşleşme</strong>
+      <span id="upsellDesc">San Sebastian, seçtiğin kahvenin aromasını güzel dengeler.</span>
+    </div>
+    <div class="upsellActions">
+      <button class="upsellAdd" id="upsellAdd">Sepete ekle</button>
+      <button class="upsellDismiss" id="upsellDismiss">Şimdilik kalsın</button>
+    </div>
+  </div>
+
+  <div class="float" id="float"><div class="floatin"><button class="floatbtn" id="floatBtn"><span class="floatico"><i class="fa-solid fa-basket-shopping"></i></span><span class="floattext"><strong id="floatTitle">Sipariş listende ürün var</strong><span id="floatSub">Listeyi aç ve garsona göster</span></span><span class="ftotal" id="floatTotal">₺0</span></button></div></div>
+
+  <div class="back sheetBack" id="sheetBack"></div>
+  <aside class="sheet" id="sheet" aria-hidden="true" inert>
+    <div><div class="handleWrap"><div class="handle"></div></div><header class="sheetHead"><div class="sheetTitle"><div><h2 id="sheetTitle">Sipariş Özeti</h2><p id="sheetDesc">Bu ekranı garsona gösterebilirsin. Ürünler kategoriye göre gruplanır.</p></div><button class="x" id="closeSheet"><i class="fa-solid fa-xmark"></i></button></div></header></div>
+    <section class="sheetBody">
+      <div class="cartEmpty" id="cartEmpty"><i class="fa-solid fa-clipboard-list"></i><h3 id="cartEmptyTitle">Listen henüz boş</h3><p id="cartEmptyText">Menüden ürün eklediğinde burada sade bir sipariş özeti oluşacak.</p></div>
+      <div class="accord" id="cartAccord"></div>
+      <div class="note" id="noteBox"><label for="note"><i class="fa-solid fa-pen"></i><span id="noteLabel">Garsona Not</span></label><textarea id="note"></textarea></div>
+    </section>
+    <footer class="sheetFoot"><div class="sum"><span id="sumText">0 kalem · 0 adet</span><strong id="sumTotal">₺0</strong></div><div class="sheetActions"><button class="secondary" id="copyBtn" disabled><i class="fa-solid fa-copy"></i><span id="copyText">Garsona göster</span></button><button class="secondary" id="clearCart" disabled><i class="fa-solid fa-trash-can"></i><span id="clearText">Listeyi Temizle</span></button></div></footer>
+  </aside>
+
+  <div class="back detailBack" id="detailBack"></div>
+  <aside class="detail" id="detail" aria-hidden="true" inert>
+    <div><div class="handleWrap"><div class="handle"></div></div><header class="sheetHead"><div class="sheetTitle"><div><h2 id="detailTitle">Ürün Detayı</h2><p id="detailSub">Ürün bilgisi ve hızlı ekleme.</p></div><button class="x" id="closeDetail"><i class="fa-solid fa-xmark"></i></button></div></header></div>
+    <section class="detailBody" id="detailBody"></section>
+  </aside>
+
+  <div class="back langBack" id="langBack"></div>
+  <section class="modal" id="langModal" aria-hidden="true"><div class="modalHead"><div><h2 id="pickTitle">Menü dilini seç</h2><p id="pickText">Devam etmek için bir dil seç.</p></div><button class="x closeLang" id="closeLang"><i class="fa-solid fa-xmark"></i></button></div><div class="langs" id="langs"></div></section>
+
+  <div class="toast" id="toast"><i class="fa-solid fa-check"></i><div><strong id="toastTitle"></strong><span id="toastMsg"></span></div></div>
+
+  <script defer src="./app.js?v=2.6.3"></script>
+</body>
+</html>
