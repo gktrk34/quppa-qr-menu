@@ -1,8 +1,8 @@
 /* QUPPA QR Menu - App Logic
    Stage 1: Split from single-file index.html
-   Version: 3.2.0
+   Version: 3.2.1
 */
-const APP_VERSION = "3.2.0";
+const APP_VERSION = "3.2.1";
 
 /*
   PUBLISHING NOTES

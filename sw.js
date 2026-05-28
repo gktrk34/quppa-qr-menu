@@ -1,9 +1,9 @@
 /* QUPPA QR Menu - Service Worker
    Stage 3: Offline/PWA cache strategy
-   Version: 3.2.0
+   Version: 3.2.1
 */
 
-const APP_VERSION = "3.2.0";
+const APP_VERSION = "3.2.1";
 const STATIC_CACHE = `quppa-static-${APP_VERSION}`;
 const IMAGE_CACHE = `quppa-images-${APP_VERSION}`;
 const RUNTIME_CACHE = `quppa-runtime-${APP_VERSION}`;
@@ -11,8 +11,8 @@ const RUNTIME_CACHE = `quppa-runtime-${APP_VERSION}`;
 const CORE_ASSETS = [
   "./",
   "./index.html",
-  "./style.css?v=3.2.0",
-  "./app.js?v=3.2.0",
+  "./style.css?v=3.2.1",
+  "./app.js?v=3.2.1",
   "./manifest.json",
   "./menu.json",
   "./brand.json"
@@ -80,20 +80,20 @@ self.addEventListener("fetch", event => {
 
 async function networkFirstMenuData(request) {
   const cache = await caches.open(RUNTIME_CACHE);
+  const url = new URL(request.url);
+  const fallbackKey = url.pathname.endsWith("brand.json") ? "./brand.json" : "./menu.json";
 
   try {
     const response = await fetch(request, { cache: "no-cache" });
 
     if (response && response.ok) {
-      cache.put(request, response.clone());
-      cache.put("./menu.json",
-  "./brand.json", response.clone());
+      await cache.put(request, response.clone());
+      await cache.put(fallbackKey, response.clone());
     }
 
     return response;
   } catch (error) {
-    const cached = await cache.match(request) || await cache.match("./menu.json",
-  "./brand.json");
+    const cached = await cache.match(request) || await cache.match(fallbackKey);
     return cached || Response.error();
   }
 }
