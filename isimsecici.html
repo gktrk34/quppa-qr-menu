@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Mekân İsmi Seçici</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#14110f; --bg2:#1c1714; --card:#221c18; --card2:#2a221d;
+  --line:#3a2f27; --ink:#f3ece2; --muted:#a89580; --faint:#6f5f4f;
+  --gold:#e0b170; --gold-soft:#c79a5a; --green:#7fb685; --green-bg:#1e2f22;
+  --red:#d98873; --red-bg:#2f1f1c; --shadow:0 18px 50px rgba(0,0,0,.55);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{
+  font-family:'Manrope',sans-serif;background:var(--bg);color:var(--ink);
+  overscroll-behavior:none;
+  background-image:radial-gradient(120% 80% at 50% -10%, #2a211b 0%, var(--bg) 55%);
+}
+.serif{font-family:'Fraunces',serif}
+
+/* ---- HEADER ---- */
+header{
+  position:sticky;top:0;z-index:50;padding:14px 18px 12px;
+  padding-top:max(14px,env(safe-area-inset-top));
+  background:rgba(20,17,15,.86);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.h-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.brand{display:flex;align-items:center;gap:9px;font-family:'Fraunces',serif;font-size:1.12rem;font-weight:600}
+.moon{width:18px;height:18px;border-radius:50%;
+  background:radial-gradient(circle at 32% 32%, #f6e4c0, var(--gold) 70%);
+  box-shadow:0 0 14px rgba(224,177,112,.55)}
+.counts{display:flex;gap:6px;font-size:.72rem;font-weight:600}
+.pill{padding:4px 9px;border-radius:20px;border:1px solid var(--line)}
+.pill.lk{color:var(--green);border-color:#334a37}
+.pill.dk{color:var(--red);border-color:#4a302a}
+
+/* ---- MODE SWITCH ---- */
+.modes{display:flex;gap:6px;margin-top:12px;background:var(--bg2);padding:4px;border-radius:13px;border:1px solid var(--line)}
+.mode{flex:1;padding:9px;border:none;background:transparent;color:var(--muted);
+  font-family:'Manrope';font-weight:700;font-size:.84rem;border-radius:10px;cursor:pointer;transition:.25s}
+.mode.on{background:linear-gradient(180deg,var(--card2),var(--card));color:var(--gold);box-shadow:0 2px 8px rgba(0,0,0,.4)}
+
+.wrap{max-width:560px;margin:0 auto}
+
+/* ---- SWIPE VIEW ---- */
+#swipe{padding:18px 18px 0}
+.prog{height:5px;background:var(--bg2);border-radius:10px;overflow:hidden;margin-bottom:6px}
+.prog>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold-soft),var(--gold));transition:width .3s}
+.prog-txt{font-size:.72rem;color:var(--faint);text-align:center;margin-bottom:14px;letter-spacing:.3px}
+.deck{position:relative;height:clamp(380px,62vh,520px)}
+.swipe-card{
+  position:absolute;inset:0;background:linear-gradient(165deg,var(--card2),var(--card));
+  border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);
+  padding:30px 26px;display:flex;flex-direction:column;justify-content:center;
+  touch-action:pan-y;cursor:grab;will-change:transform;
+}
+.swipe-card .cat-tag{position:absolute;top:20px;left:24px;right:24px;
+  font-size:.7rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--faint)}
+.swipe-card .nm{font-family:'Fraunces',serif;font-weight:600;font-size:2.5rem;line-height:1.05;color:var(--ink);margin-bottom:14px}
+.swipe-card .pr{font-size:1.05rem;color:var(--gold);font-style:italic;font-family:'Fraunces',serif;margin-bottom:18px}
+.swipe-card .pr::before{content:'◞ '}
+.swipe-card .ds{font-size:1rem;line-height:1.6;color:var(--muted)}
+.stamp{position:absolute;top:26px;font-family:'Fraunces',serif;font-weight:700;font-size:1.6rem;
+  padding:5px 16px;border-radius:12px;border:3px solid;opacity:0;transform:rotate(-12deg);transition:opacity .1s}
+.stamp.yes{right:24px;color:var(--green);border-color:var(--green);transform:rotate(12deg)}
+.stamp.no{left:24px;color:var(--red);border-color:var(--red)}
+.deck-done{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:14px;padding:30px}
+.deck-done .serif{font-size:1.8rem}
+.deck-done p{color:var(--muted);font-size:.95rem;line-height:1.5}
+.mini-btn{margin-top:6px;padding:11px 22px;border-radius:12px;border:1px solid var(--line);background:var(--card2);color:var(--gold);font-weight:700;font-family:'Manrope';cursor:pointer}
+
+.swipe-actions{display:flex;gap:14px;justify-content:center;align-items:center;padding:20px 0 14px}
+.sb{width:62px;height:62px;border-radius:50%;border:1px solid var(--line);background:var(--card);
+  font-size:1.5rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.18s;box-shadow:0 6px 16px rgba(0,0,0,.35)}
+.sb:active{transform:scale(.9)}
+.sb.no{color:var(--red)}.sb.no:active{background:var(--red-bg)}
+.sb.yes{color:var(--green)}.sb.yes:active{background:var(--green-bg)}
+.sb.undo{width:50px;height:50px;font-size:1.05rem;color:var(--muted)}
+.sb.fav{width:50px;height:50px;font-size:1.15rem;color:var(--gold)}
+.hint{text-align:center;font-size:.74rem;color:var(--faint);padding-bottom:16px}
+
+/* ---- LIST VIEW ---- */
+#list{padding:14px 16px 30px;display:none}
+.lfilter{display:flex;gap:7px;margin-bottom:14px;overflow-x:auto;padding-bottom:3px;scrollbar-width:none}
+.lfilter::-webkit-scrollbar{display:none}
+.chip{flex:0 0 auto;padding:8px 15px;border-radius:22px;border:1px solid var(--line);background:var(--bg2);
+  color:var(--muted);font-weight:600;font-size:.82rem;white-space:nowrap;cursor:pointer;transition:.2s}
+.chip.on{background:var(--gold);color:#1a140d;border-color:var(--gold)}
+.acc{background:var(--card);border:1px solid var(--line);border-radius:16px;margin-bottom:11px;overflow:hidden}
+.acc-h{padding:15px 17px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;font-family:'Fraunces',serif;font-weight:600;font-size:1.02rem}
+.acc-h .ct{font-size:.74rem;color:var(--faint);font-family:'Manrope';font-weight:600;background:var(--bg2);padding:2px 9px;border-radius:12px}
+.acc-h .arr{margin-left:10px;color:var(--faint);transition:.3s;font-size:.7rem}
+.acc.open .arr{transform:rotate(180deg)}
+.acc-b{display:none;padding:4px 11px 11px;border-top:1px solid var(--line)}
+.acc.open .acc-b{display:block}
+.row{display:flex;align-items:center;gap:11px;padding:12px 7px;border-bottom:1px solid rgba(58,47,39,.5);transition:.25s}
+.row:last-child{border-bottom:none}
+.row.liked{background:linear-gradient(90deg,rgba(127,182,133,.09),transparent)}
+.row.disliked{opacity:.4}
+.row.disliked .r-nm{text-decoration:line-through}
+.r-info{flex:1;min-width:0}
+.r-nm{font-family:'Fraunces',serif;font-weight:600;font-size:1.12rem;color:var(--ink)}
+.r-pr{font-size:.8rem;color:var(--gold);font-style:italic}
+.r-ds{font-size:.8rem;color:var(--muted);margin-top:3px;line-height:1.4}
+.r-acts{display:flex;gap:7px;flex:0 0 auto}
+.rb{width:38px;height:38px;border-radius:11px;border:1px solid var(--line);background:var(--bg2);
+  font-size:1.05rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.15s}
+.rb.no.on{background:var(--red);border-color:var(--red)}
+.rb.yes.on{background:var(--green);border-color:var(--green)}
+.empty{text-align:center;color:var(--faint);padding:50px 20px;font-size:.95rem}
+.empty .serif{display:block;font-size:1.3rem;color:var(--muted);margin-bottom:8px}
+
+/* ---- SHARE BAR ---- */
+.sharebar{position:sticky;bottom:0;z-index:40;padding:12px 16px;
+  padding-bottom:max(12px,env(safe-area-inset-bottom));
+  background:linear-gradient(180deg,transparent,var(--bg) 30%);display:flex;gap:9px;max-width:560px;margin:0 auto}
+.share{flex:1;padding:15px;border-radius:14px;border:none;font-family:'Manrope';font-weight:700;font-size:.92rem;cursor:pointer;transition:.2s;display:flex;align-items:center;justify-content:center;gap:8px}
+.share.wa{background:#1f3d2e;color:#7fd6a0;border:1px solid #2c5440}
+.share.cp{background:var(--card2);color:var(--gold);border:1px solid var(--line)}
+.share:active{transform:scale(.97)}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%) translateY(20px);
+  background:var(--gold);color:#1a140d;padding:12px 22px;border-radius:30px;font-weight:700;font-size:.88rem;
+  opacity:0;pointer-events:none;transition:.3s;z-index:99;box-shadow:0 8px 30px rgba(0,0,0,.5)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="h-top">
+      <div class="brand"><span class="moon"></span>Mekân İsmi Seçici</div>
+      <div class="counts">
+        <span class="pill lk">♥ <span id="cLike">0</span></span>
+        <span class="pill dk">✕ <span id="cDis">0</span></span>
+      </div>
+    </div>
+    <div class="modes">
+      <button class="mode on" id="mSwipe" onclick="setMode('swipe')">⚡ Hızlı Tara</button>
+      <button class="mode" id="mList" onclick="setMode('list')">☰ Liste & Ele</button>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- SWIPE -->
+  <section id="swipe">
+    <div class="prog"><i id="progBar"></i></div>
+    <div class="prog-txt" id="progTxt"></div>
+    <div class="deck" id="deck"></div>
+    <div class="swipe-actions">
+      <button class="sb undo" onclick="undo()" title="Geri al">↶</button>
+      <button class="sb no" onclick="swipeBtn('dislike')" title="Elendi">✕</button>
+      <button class="sb fav" onclick="swipeBtn('skip')" title="Pas geç">⤳</button>
+      <button class="sb yes" onclick="swipeBtn('like')" title="Beğendim">♥</button>
+    </div>
+    <div class="hint">Sağa kaydır → beğen · Sola kaydır → ele · ⤳ pas geç</div>
+  </section>
+
+  <!-- LIST -->
+  <section id="list">
+    <div class="lfilter" id="lfilter">
+      <button class="chip on" onclick="setFilter('all',this)">Tümü</button>
+      <button class="chip" onclick="setFilter('liked',this)">♥ Beğendiklerim</button>
+      <button class="chip" onclick="setFilter('disliked',this)">✕ Elediklerim</button>
+      <button class="chip" onclick="setFilter('undecided',this)">○ Kararsız</button>
+    </div>
+    <div id="accs"></div>
+  </section>
+
+</div>
+
+<div class="sharebar">
+  <button class="share wa" onclick="shareWA()">↗ WhatsApp'ta Paylaş</button>
+  <button class="share cp" onclick="copyList()">⧉ Kopyala</button>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const DATA = [
+{cat:"Moon · Luna · Kiss · Garden", items:[
+{n:"Moonkiss Cafe",p:"Mun-kis Kafe",d:"Ay ışığı, romantik teras ve akılda kalıcı kafe hissi."},
+{n:"Moonkiss",p:"Mun-kis",d:"Kısa, vurucu, genç ve sosyal medya dostu marka adı."},
+{n:"Luna Kiss",p:"Lu-na Kis",d:"Zarif, romantik, premium ve tabelada şık duran isim."},
+{n:"Moonkissed Garden",p:"Mun-kist Gar-dın",d:"Ay ışığıyla öpülmüş bahçe hissi verir."},
+{n:"Kiss the Moon",p:"Kis dı Mun",d:"Şiirsel, dikkat çekici ve biraz iddialı."},
+{n:"Midnight Kiss",p:"Mid-nayt Kis",d:"Gece, loş ışık, akşam oturması ve çekici atmosfer."},
+{n:"Garden Kiss",p:"Gar-dın Kis",d:"Bahçe, romantizm ve sıcak teras hissi."},
+{n:"The Kissing Garden",p:"Dı Kis-sing Gar-dın",d:"Romantik, fotoğraf çekimlerine uygun, konsept bahçe adı."},
+{n:"Luna Garden",p:"Lu-na Gar-dın",d:"Ay, bahçe, zarafet ve teras atmosferini birleştirir."},
+{n:"Moon Garden",p:"Mun Gar-dın",d:"Direkt, anlaşılır, gece bahçesi hissi."},
+{n:"Moon Terrace",p:"Mun Te-ras",d:"Ay ışıklı teras konseptini sade anlatır."},
+{n:"Luna Terrace",p:"Lu-na Te-ras",d:"Zarif ve güvenli bir teras-kafe adı."},
+{n:"Lunar Yard",p:"Lu-nar Yard",d:"Modern, avlu/teras hissi veren minimalist isim."},
+{n:"Hidden Garden",p:"Hid-dın Gar-dın",d:"Saklı üst kat bahçesi, keşif ve özel alan hissi."},
+{n:"Secret Garden Cafe",p:"Sik-rıt Gar-dın Kafe",d:"Gizli bahçe, romantik ve masalsı kafe hissi."},
+{n:"Urban Garden",p:"Ör-bın Gar-dın",d:"Şehrin içinde yeşil kaçış noktası."},
+{n:"Velvet Garden",p:"Vel-vıt Gar-dın",d:"Loş, şık, akşam, premium bahçe-lounge atmosferi."},
+{n:"Mellow Garden",p:"Mel-lo Gar-dın",d:"Sakin, soft, huzurlu bahçe kafe havası."},
+{n:"Bloom Garden",p:"Blum Gar-dın",d:"Çiçekli, ferah, canlı ve Instagram dostu."},
+{n:"Gardenia Cafe",p:"Gar-de-nia Kafe",d:"Çiçeksi, butik, tatlı/kahve konseptine uygun."},
+{n:"Lunaria Cafe",p:"Lu-na-ria Kafe",d:"Ay, çiçek, ışık ve zarafet çağrışımı."},
+{n:"Lunessa",p:"Lu-nes-sa",d:"Luna kökünden gelen, uydurma ama premium marka hissi."},
+{n:"Lunova",p:"Lu-no-va",d:"Luna + nova hissi; modern, kısa, marka gibi."},
+{n:"Lunea",p:"Lu-ne-a",d:"Ay ışığı ve zarif kafe havası."},
+{n:"Moonelle",p:"Mun-el",d:"Butik, kadınsı, ay temalı tatlı/kafe hissi."},
+{n:"Moonga",p:"Mun-ga",d:"Moon + Garden birleşimi gibi eğlenceli ve akılda kalıcı."},
+{n:"Kismo",p:"Kis-mo",d:"Kiss + Moon etkisi; kısa, modern, dinamik."},
+{n:"LuGa",p:"Lu-ga",d:"Luna + Garden; minimalist ve tabela dostu."},
+{n:"Gardelia",p:"Gar-de-lia",d:"Garden kökünden çiçeksi, yumuşak marka adı."},
+{n:"Kissara",p:"Kis-sa-ra",d:"Kiss kökünden egzotik, dikkat çekici marka adı."},
+{n:"Mooria",p:"Mu-ria",d:"Moon/aria etkisiyle hafif fantastik, romantik isim."},
+{n:"Luna Haven",p:"Lu-na Hey-vın",d:"Ay ışıklı güvenli alan, huzurlu teras hissi."},
+{n:"Moon Haven",p:"Mun Hey-vın",d:"Gece kaçış noktası ve sıcak buluşma alanı."},
+{n:"Hidden Haven",p:"Hid-dın Hey-vın",d:"Saklı, özel, korunaklı üst kat atmosferi."},
+{n:"Luna Leaf",p:"Lu-na Lif",d:"Ay ve yaprak; doğa ile geceyi birleştirir."},
+{n:"Moon Leaf",p:"Mun Lif",d:"Minimal, gece, doğa ve bahçe hissi."},
+{n:"Lumi Garden",p:"Lu-mi Gar-dın",d:"Işık ve bahçe birleşimi; akşam terasına uygun."},
+{n:"Lumi Terrace",p:"Lu-mi Te-ras",d:"Işıklı modern teras-kafe hissi."},
+{n:"Midnight Garden",p:"Mid-nayt Gar-dın",d:"Gece bahçesi, akşam servisleri ve loş ışık atmosferi."},
+{n:"Velvet Haven",p:"Vel-vıt Hey-vın",d:"Premium, loş, saklı ve sıcak oturma alanı."},
+{n:"Mellow Haven",p:"Mel-lo Hey-vın",d:"Yumuşak, sakin, huzurlu kafe alanı."},
+{n:"Moon Yard",p:"Mun Yard",d:"Modern avlu/teras hissi taşıyan kısa isim."},
+{n:"Luna Yard",p:"Lu-na Yard",d:"Ay ışıklı avlu veya üst kat bahçesi çağrışımı."},
+{n:"Kiss Garden",p:"Kis Gar-dın",d:"Basit, romantik ve dikkat çekici."},
+{n:"Garden Moon",p:"Gar-dın Mun",d:"Bahçe ve ay ışığını ters düzende birleştirir."},
+{n:"Moon Bloom",p:"Mun Blum",d:"Ay ışığında çiçeklenme, estetik ve yumuşak isim."},
+{n:"Luna Bloom",p:"Lu-na Blum",d:"Zarif, çiçekli, gece bahçesi havası."},
+{n:"Moon & Garden",p:"Mun end Gar-dın",d:"Direkt, konsepti açık anlatan isim."},
+{n:"Kiss & Coffee",p:"Kis end Kofi",d:"Genç, sıcak, sosyal medya dostu kafe adı."},
+{n:"Coffee Kiss",p:"Kofi Kis",d:"Kahve ve romantik dokunuş hissi."},
+{n:"First Kiss Cafe",p:"Först Kis Kafe",d:"Akılda kalıcı, romantik ve biraz tematik."},
+{n:"Sweet Kiss Cafe",p:"Svit Kis Kafe",d:"Tatlı, kahve ve soft romantizm çağrışımı."}
+]},
+{cat:"Asya · Japon · Kore · Modern Kafe", items:[
+{n:"Sora Terrace",p:"So-ra Te-ras",d:"Gökyüzü ve teras bağlantısı güçlü, modern Asya hissi."},
+{n:"Sora Cafe",p:"So-ra Kafe",d:"Kısa, sade, Japon tınılı kafe adı."},
+{n:"Akari Terrace",p:"A-ka-ri Te-ras",d:"Işık, akşam atmosferi ve sıcak tabela hissi."},
+{n:"Akari Cafe",p:"A-ka-ri Kafe",d:"Zarif, ışıklı, modern Asya kafe havası."},
+{n:"Kumo Terrace",p:"Ku-mo Te-ras",d:"Bulut, üst kat, gökyüzü ve teras çağrışımı."},
+{n:"Kumo Cafe",p:"Ku-mo Kafe",d:"Sevimli, kısa ve modern Japon tınılı isim."},
+{n:"Tsuki Cafe",p:"Tsu-ki Kafe",d:"Ay temalı, Japon tınılı, geceyle uyumlu isim."},
+{n:"Tsuki Terrace",p:"Tsu-ki Te-ras",d:"Ay ve teras fikrini birleştirir."},
+{n:"Yoru Cafe",p:"Yo-ru Kafe",d:"Gece çağrışımı; akşam servisine uygun."},
+{n:"Yoru Terrace",p:"Yo-ru Te-ras",d:"Gece terası, loş ışık, lounge hissi."},
+{n:"Hikari Cafe",p:"Hi-ka-ri Kafe",d:"Işık, parlaklık ve zarif Asya atmosferi."},
+{n:"Hikari Terrace",p:"Hi-ka-ri Te-ras",d:"Aydınlık teras, sıcak tabela ve gece ışıkları."},
+{n:"Mizu Cafe",p:"Mi-zu Kafe",d:"Su, temizlik, sakinlik ve minimal kafe hissi."},
+{n:"Mizu Terrace",p:"Mi-zu Te-ras",d:"Sakin, ferah, modern teras adı."},
+{n:"Nami Terrace",p:"Na-mi Te-ras",d:"Dalga; Asya ve Akdeniz arasında köprü kurar."},
+{n:"Nami Cafe",p:"Na-mi Kafe",d:"Kısa, yumuşak, modern ve sıcak."},
+{n:"Kissa",p:"Kis-sa",d:"Japon kafe kültürü “kissaten” çağrışımı."},
+{n:"Kissa Cafe",p:"Kis-sa Kafe",d:"Niş, kültürlü, sade Japon kafe hissi."},
+{n:"Kohi Cafe",p:"Ko-hi Kafe",d:"Japonca kahve çağrışımı; doğrudan kafe uyumlu."},
+{n:"Izumi Terrace",p:"İ-zu-mi Te-ras",d:"Pınar/kaynak hissi; sakin ve zarif."},
+{n:"Izumi Cafe",p:"İ-zu-mi Kafe",d:"Soft, temiz, modern Asya kafe adı."},
+{n:"Hana Cafe",p:"Ha-na Kafe",d:"Çiçek çağrışımı; butik ve zarif."},
+{n:"Hana Garden",p:"Ha-na Gar-dın",d:"Çiçek bahçesi, soft ve sıcak."},
+{n:"Bao Cafe",p:"Bao Kafe",d:"Asya sokak lezzeti ve modern kafe hissi."},
+{n:"Bao Garden",p:"Bao Gar-dın",d:"Asya yemeği + bahçe/kafe atmosferi."},
+{n:"Momo Cafe",p:"Mo-mo Kafe",d:"Sevimli, kısa, Asya tatlı/yemek çağrışımı."},
+{n:"Lotus Terrace",p:"Lo-tus Te-ras",d:"Asya teması, su, çiçek ve huzur hissi."},
+{n:"Lotus Garden",p:"Lo-tus Gar-dın",d:"Doğu estetiği ve bahçe atmosferi."},
+{n:"Jade Terrace",p:"Ceyd Te-ras",d:"Yeşim taşı, premium Asya lounge havası."},
+{n:"Jade Garden",p:"Ceyd Gar-dın",d:"Yeşil, zarif, değerli taş ve bahçe hissi."},
+{n:"Red Lantern",p:"Red Len-tırn",d:"Asya sokak ışıkları, akşam ve sıcak atmosfer."},
+{n:"Mandarin Terrace",p:"Man-da-rin Te-ras",d:"Doğu Asya, turunçgil ve sıcak teras hissi."},
+{n:"Luna Bao",p:"Lu-na Bao",d:"Ay + Asya yemek kültürü; modern ve dikkat çekici."},
+{n:"Matcha Terrace",p:"Ma-ça Te-ras",d:"Matcha, yeşil çay, modern Asya içecek kültürü."},
+{n:"Matcha Garden",p:"Ma-ça Gar-dın",d:"Yeşil çay, doğa, bahçe ve sakinlik hissi."},
+{n:"Zen Terrace",p:"Zen Te-ras",d:"Minimal, sakin, dingin, Asya konseptine uygun."},
+{n:"Zen Garden Cafe",p:"Zen Gar-dın Kafe",d:"Meditatif bahçe ve sakin kafe hissi."},
+{n:"Koi Garden",p:"Koy Gar-dın",d:"Japon koi balığı, su, bahçe ve huzur çağrışımı."},
+{n:"Koi Terrace",p:"Koy Te-ras",d:"Sakin, dekoratif, su ve teras hissi."},
+{n:"Shoji Cafe",p:"Şo-ci Kafe",d:"Japon shoji panelleri, minimal iç mekân çağrışımı."},
+{n:"Shoji Terrace",p:"Şo-ci Te-ras",d:"Japon mimarisi ve teras atmosferi."},
+{n:"Nori Cafe",p:"No-ri Kafe",d:"Asya mutfağı çağrışımı; kısa ve sevimli."},
+{n:"Macha Moon",p:"Ma-ça Mun",d:"Matcha + ay; modern içecek ve gece konsepti."},
+{n:"Kissa Moon",p:"Kis-sa Mun",d:"Japon kafe ruhu + ay/gece atmosferi."},
+{n:"Akari Garden",p:"A-ka-ri Gar-dın",d:"Işık ve bahçe birlikteliği."},
+{n:"Sora Garden",p:"So-ra Gar-dın",d:"Gökyüzü ve bahçe temasını birleştirir."},
+{n:"Tsuki Garden",p:"Tsu-ki Gar-dın",d:"Ay bahçesi, Japon tınılı romantik isim."},
+{n:"Hikari Garden",p:"Hi-ka-ri Gar-dın",d:"Işıklı bahçe, sıcak akşam atmosferi."}
+]},
+{cat:"Uygur · İpek Yolu · Orta Asya", items:[
+{n:"Kashgar Cafe",p:"Kaş-gar Kafe",d:"Uygur, İpek Yolu ve tarihî şehir çağrışımı."},
+{n:"Kashgar Terrace",p:"Kaş-gar Te-ras",d:"İpek Yolu, teras ve tarihî atmosferi birleştirir."},
+{n:"Silk Terrace",p:"Silk Te-ras",d:"İpek Yolu’nu kısa ve modern anlatır."},
+{n:"Silk Road Terrace",p:"Silk Rod Te-ras",d:"İpek Yolu temasını doğrudan taşır."},
+{n:"Kervan Terrace",p:"Ker-van Te-ras",d:"Yolculuk, ticaret, baharat ve Orta Asya hissi."},
+{n:"Tarim Cafe",p:"Ta-rim Kafe",d:"Tarım Havzası, Uygur coğrafyası ve farklılık hissi."},
+{n:"Altai Terrace",p:"Al-tay Te-ras",d:"Altay, dağ, kök, güç ve tarihî bağ çağrışımı."},
+{n:"Samarqand Cafe",p:"Sa-mar-kand Kafe",d:"Semerkand, baharat, taş, mavi seramik ve tarih."},
+{n:"Bukhara Terrace",p:"Bu-ha-ra Te-ras",d:"Buhara, mistik şehir ve premium doğu atmosferi."},
+{n:"Silk Garden",p:"Silk Gar-dın",d:"İpek, bahçe ve yumuşak doğu estetiği."},
+{n:"Kashgar Garden",p:"Kaş-gar Gar-dın",d:"Uygur esintili bahçe-kafe adı."},
+{n:"Altai Garden",p:"Al-tay Gar-dın",d:"Doğal, köklü ve güçlü bahçe hissi."},
+{n:"Tarim Garden",p:"Ta-rim Gar-dın",d:"Vadi, su, yeşil alan ve Orta Asya çağrışımı."},
+{n:"Kervan Garden",p:"Ker-van Gar-dın",d:"Yolculuk sonrası mola, sıcak bahçe ve sofra hissi."},
+{n:"Samark Garden",p:"Sa-mark Gar-dın",d:"Semerkand’dan sadeleşmiş, daha modern marka ismi."},
+{n:"Bukhara Moon",p:"Bu-ha-ra Mun",d:"Doğu, gece, mistik şehir ve ay ışığı atmosferi."},
+{n:"Silk Moon",p:"Silk Mun",d:"İpek Yolu ve ay ışığı birleşimi."},
+{n:"Caravan Moon",p:"Ka-ra-van Mun",d:"Yolculuk, gece, mola ve hikâye hissi."}
+]},
+{cat:"Roma · Bizans · İstanbul · Hipodrom", items:[
+{n:"Aurea Terrace",p:"Au-re-a Te-ras",d:"Altın ışık, Roma zarafeti ve premium teras hissi."},
+{n:"Aurea Cafe",p:"Au-re-a Kafe",d:"Parlak, altın, zarif ve tarihî kafe adı."},
+{n:"Quadriga",p:"Kuad-ri-ga",d:"Roma dört atlı yarış arabası; hipodrom bağlantısı güçlü."},
+{n:"Quadriga Terrace",p:"Kuad-ri-ga Te-ras",d:"Veliefendi/hipodrom ile tarihî hikâye kurar."},
+{n:"Byza Cafe",p:"Bi-za Kafe",d:"Byzantion/Byzas’tan modern, kısa ve tabela dostu."},
+{n:"Byzas",p:"Bi-zas",d:"Byzantion kurucusu çağrışımı; tarihî ve maskülen."},
+{n:"Nova Roma",p:"No-va Ro-ma",d:"İstanbul’un Yeni Roma kimliğiyle güçlü ve büyük isim."},
+{n:"Augusta Cafe",p:"Au-gus-ta Kafe",d:"Roma/Bizans imparatoriçe zarafeti."},
+{n:"Theodora",p:"Te-o-do-ra",d:"Bizans İmparatoriçesi; güçlü, zarif, unutulmaz."},
+{n:"Valens Terrace",p:"Va-lens Te-ras",d:"Valens su kemeri, İstanbul tarihi ve güçlü mimari hissi."},
+{n:"Palatina",p:"Pa-la-ti-na",d:"Saray tepesi, aristokratik ve premium çağrışım."},
+{n:"Auriga",p:"Au-ri-ga",d:"Roma yarış arabası sürücüsü; hipodromla bağlantılı."},
+{n:"Mosaica",p:"Mo-za-i-ka",d:"Bizans mozaikleri, sanat ve dekor hissi."},
+{n:"Basilea",p:"Ba-si-le-a",d:"İmparatorluk, Bizans ve güçlü tarihî hava."},
+{n:"Velia Terrace",p:"Ve-li-a Te-ras",d:"Veliefendi’den yumuşatılmış, yerel bağlantılı isim."},
+{n:"Palio Terrace",p:"Pa-lio Te-ras",d:"At yarışı, gelenek, Akdeniz ve yarış atmosferi."},
+{n:"Corsa Cafe",p:"Kor-sa Kafe",d:"Yarış/koşu çağrışımı; kısa ve modern."},
+{n:"Equus Terrace",p:"E-ku-us Te-ras",d:"Latince at; maskülen ve güçlü."},
+{n:"Justinia",p:"Jus-ti-nia",d:"Justinianus’tan yumuşatılmış, zarif tarihî isim."},
+{n:"Porphyra",p:"Por-fi-ra",d:"Bizans moru, imparatorluk ve lüks çağrışımı."},
+{n:"Nika Terrace",p:"Ni-ka Te-ras",d:"Bizans Nika çağrışımı; kısa, sert, tarihî."},
+{n:"Marmara Aurea",p:"Mar-ma-ra Au-re-a",d:"Marmara + altın ışık; İstanbul ve premium atmosfer."},
+{n:"Byzantia Cafe",p:"Bi-zan-tia Kafe",d:"Byzantion’dan türetilmiş tarihî-modern isim."},
+{n:"Roma Garden",p:"Ro-ma Gar-dın",d:"Roma etkili bahçe/kafe atmosferi."},
+{n:"Aurea Garden",p:"Au-re-a Gar-dın",d:"Altın ışıklı bahçe ve premium akşam hissi."},
+{n:"Theodora Garden",p:"Te-o-do-ra Gar-dın",d:"Zarif, tarihî, kadınsı ve güçlü bahçe markası."},
+{n:"Valens Garden",p:"Va-lens Gar-dın",d:"İstanbul tarihi ve yeşil teras birleşimi."},
+{n:"Byzant Garden",p:"Bi-zant Gar-dın",d:"Bizans atmosferini modern bahçe diliyle taşır."},
+{n:"Velia Garden",p:"Ve-li-a Gar-dın",d:"Yerel, zarif, yumuşak ve semte bağlı isim."},
+{n:"Corsa Terrace",p:"Kor-sa Te-ras",d:"Yarış, hareket, Veliefendi ve modern teras hissi."},
+{n:"Auriga Garden",p:"Au-ri-ga Gar-dın",d:"Yarış arabası sürücüsü çağrışımıyla bahçe atmosferi."},
+{n:"Spina Cafe",p:"Spi-na Kafe",d:"Antik hipodrom ortasındaki yapıdan gelen niş isim."},
+{n:"Spina Terrace",p:"Spi-na Te-ras",d:"Hipodrom temasını sofistike şekilde taşır."}
+]},
+{cat:"Mısır Mitolojisi · Antik Mistik", items:[
+{n:"Amun Terrace",p:"A-mun Te-ras",d:"Mısır mitolojisinde güçlü tanrı; kısa ve karizmatik."},
+{n:"Amon Cafe",p:"A-mon Kafe",d:"Amun’un daha kolay okunan versiyonu."},
+{n:"Ra Terrace",p:"Ra Te-ras",d:"Güneş tanrısı; çok kısa ve güçlü."},
+{n:"Aten Terrace",p:"A-ten Te-ras",d:"Güneş diski, ışık ve sofistike mitoloji hissi."},
+{n:"Horus Terrace",p:"Ho-rus Te-ras",d:"Şahin, gökyüzü, koruyucu göz ve güçlü logo imkânı."},
+{n:"Anubis",p:"A-nu-bis",d:"Karanlık, güçlü, gece/lounge tarafına yakın."},
+{n:"Osiris",p:"O-si-ris",d:"Mitolojik ağırlık, büyük ve iddialı marka hissi."},
+{n:"Bastet Cafe",p:"Bas-tet Kafe",d:"Kedi tanrıça; sıcak, sosyal medya ve maskot dostu."},
+{n:"Sekhmet",p:"Sek-met",d:"Aslan başlı tanrıça; güçlü ve karizmatik."},
+{n:"Nefertari Terrace",p:"Ne-fer-ta-ri Te-ras",d:"Kraliçe zarafeti; uzun ama premium."},
+{n:"Nefertem Cafe",p:"Ne-fer-tem Kafe",d:"Lotus, güzellik, koku ve zarafet çağrışımı."},
+{n:"Kemet Cafe",p:"Ke-met Kafe",d:"Antik Mısır’ın kendi adı; kültürlü ve güçlü."},
+{n:"Kemet Terrace",p:"Ke-met Te-ras",d:"Antik Mısır + teras + premium konsept."},
+{n:"Nile Cafe",p:"Nayl Kafe",d:"Nil Nehri; sakin, akışkan ve yumuşak."},
+{n:"Nil Terrace",p:"Nil Te-ras",d:"Türkçe kullanıma uygun, su ve ferahlık hissi."},
+{n:"Luxor Terrace",p:"Luk-sor Te-ras",d:"Antik şehir, taş, tarih ve lüks atmosfer."},
+{n:"Memphis Cafe",p:"Mem-fis Kafe",d:"Antik Mısır başkenti, marka gibi güçlü."},
+{n:"Sahara Terrace",p:"Sa-ha-ra Te-ras",d:"Çöl, sıcaklık, kum rengi ve gün batımı."},
+{n:"Oasis Terrace",p:"O-a-sis Te-ras",d:"Şehir içinde vaha, rahatlama ve kaçış noktası."},
+{n:"Ankh Terrace",p:"Ank Te-ras",d:"Yaşam sembolü; logo ve tabela için güçlü."},
+{n:"Papyrus Cafe",p:"Pa-pi-rus Kafe",d:"Papirüs, menü, yazı, sıcak antik dekor hissi."},
+{n:"Obelisk Terrace",p:"O-be-lisk Te-ras",d:"Mısır Dikilitaşı, İstanbul Hipodromu ve tarih bağlantısı."},
+{n:"Nura Terrace",p:"Nu-ra Te-ras",d:"Işık, sıcaklık ve modern doğu hissi."},
+{n:"Ankh Garden",p:"Ank Gar-dın",d:"Yaşam sembolü ve bahçe konsepti."},
+{n:"Aten Garden",p:"A-ten Gar-dın",d:"Güneş ışığı, bahçe ve sıcak teras atmosferi."},
+{n:"Ra Garden",p:"Ra Gar-dın",d:"Güneş bahçesi, sıcak ve sade."},
+{n:"Horus Garden",p:"Ho-rus Gar-dın",d:"Gökyüzü, şahin sembolü ve güçlü bahçe adı."},
+{n:"Kemet Garden",p:"Ke-met Gar-dın",d:"Antik Mısır + doğal bahçe konsepti."},
+{n:"Oasis Garden",p:"O-a-sis Gar-dın",d:"Vaha bahçesi, rahatlama ve huzur."},
+{n:"Nile Garden",p:"Nayl Gar-dın",d:"Nil kıyısı, yeşillik ve sakin akış hissi."},
+{n:"Bastet Garden",p:"Bas-tet Gar-dın",d:"Kedi, zarafet, sıcak ve eğlenceli bahçe teması."},
+{n:"Lotus Nile",p:"Lo-tus Nayl",d:"Nil ve lotus birleşimi; Mısır + doğa."},
+{n:"Golden Ankh",p:"Gol-dın Ank",d:"Altın yaşam sembolü, premium ve mistik."},
+{n:"Ra Moon",p:"Ra Mun",d:"Güneş ve ay kontrastı; dikkat çekici."},
+{n:"Aten Moon",p:"A-ten Mun",d:"Güneş diski ve ay ışığı birleşimi."}
+]},
+{cat:"Akdeniz · Yunan · İspanyol · Taverna", items:[
+{n:"Marea",p:"Ma-re-a",d:"Deniz, dalga, kıyı ve Akdeniz zarafeti."},
+{n:"Marea Terrace",p:"Ma-re-a Te-ras",d:"Deniz/dalga hissini terasla birleştirir."},
+{n:"Thalassa",p:"Ta-las-sa",d:"Yunanca deniz çağrışımı; mitolojik ve güçlü."},
+{n:"Agora Terrace",p:"A-go-ra Te-ras",d:"Antik meydan, buluşma ve sosyal mekân hissi."},
+{n:"Nisos Cafe",p:"Ni-sos Kafe",d:"Ada çağrışımı; kısa ve maskülen."},
+{n:"Asteria Terrace",p:"As-te-ria Te-ras",d:"Yıldız, gece ve mitoloji hissi."},
+{n:"Selene Terrace",p:"Se-le-ne Te-ras",d:"Ay tanrıçası, zarif ve romantik teras adı."},
+{n:"Helios Cafe",p:"He-li-os Kafe",d:"Güneş tanrısı; sıcak, enerjik ve parlak."},
+{n:"Milos Cafe",p:"Mi-los Kafe",d:"Yunan adası, kısa ve kolay hatırlanır."},
+{n:"Kalimera Cafe",p:"Ka-li-me-ra Kafe",d:"Yunanca günaydın; kahvaltı/brunch için sıcak."},
+{n:"Olea Terrace",p:"O-le-a Te-ras",d:"Zeytin ağacı, Akdeniz mutfağı ve doğal ürün hissi."},
+{n:"Casa Luna",p:"Ka-sa Lu-na",d:"Ay evi, romantik ve sıcak Akdeniz havası."},
+{n:"La Terraza",p:"La Te-ra-za",d:"İspanyolca teras; doğrudan ve güçlü."},
+{n:"Solera",p:"So-le-ra",d:"İspanyol şarap/olgunlaşma kültürü; gastronomik ve şık."},
+{n:"Brisa",p:"Bri-sa",d:"Esinti, teras ferahlığı ve yaz akşamı hissi."},
+{n:"Marisol",p:"Ma-ri-sol",d:"Deniz + güneş; sıcak ve neşeli."},
+{n:"Luzia",p:"Lu-zia",d:"Işık çağrışımı; zarif ve Akdenizli."},
+{n:"Noches",p:"No-çes",d:"İspanyolca geceler; akşam konseptine uygun."},
+{n:"Cielo Terrace",p:"Si-e-lo Te-ras",d:"Gökyüzü ve teras fikrini birleştirir."},
+{n:"Azul",p:"A-zul",d:"Mavi, deniz, Ege ve ferahlık hissi."},
+{n:"Calma",p:"Kal-ma",d:"Sakinlik, huzur ve soft premium kafe havası."},
+{n:"Elysia",p:"E-li-zia",d:"Mitolojik, cennetimsi ve premium."},
+{n:"Ilios",p:"İ-li-os",d:"Güneş çağrışımı; yumuşak ve sıcak."},
+{n:"Kyma",p:"Ki-ma",d:"Dalga; kısa, modern ve güçlü."},
+{n:"Lykia",p:"Lik-ya",d:"Likya bölgesi, yerel Akdeniz ve tarihî bağ."},
+{n:"Minoa",p:"Mi-no-a",d:"Girit/Minoan uygarlığı, taş, seramik ve taverna hissi."},
+{n:"Aegea",p:"E-ce-a",d:"Ege çağrışımı; modern ve uluslararası."},
+{n:"Nera",p:"Ne-ra",d:"Su/akış hissi; kısa ve marka gibi."},
+{n:"Zorba",p:"Zor-ba",d:"Yunan kültürü, eğlence ve taverna çağrışımı."},
+{n:"Sirtaki",p:"Sir-ta-ki",d:"Yunan dansı, taverna ve eğlence hissi."},
+{n:"Ambrosia",p:"Am-bro-zia",d:"Tanrıların yiyeceği; gastronomi ve tatlı için güçlü."},
+{n:"Nectar",p:"Nek-tar",d:"Tanrıların içeceği; kahve/kokteyl hibritine uygun."},
+{n:"Dion",p:"Di-on",d:"Dionysos’tan kısa, gece ve eğlence çağrışımlı."},
+{n:"Dionysia",p:"Di-o-ni-zia",d:"Festival, şenlik, müzik ve taverna ruhu."},
+{n:"Orion",p:"O-ri-on",d:"Yıldız, gece, gökyüzü ve teras bağlantısı."},
+{n:"Calypso",p:"Ka-lip-so",d:"Deniz, ada, müzik ve mitoloji."},
+{n:"Iris",p:"İ-ris",d:"Gökkuşağı, zarafet ve kısa marka hissi."},
+{n:"Gaia",p:"Ga-ya",d:"Toprak ana, doğa ve organik ürün çağrışımı."},
+{n:"Terra Luna",p:"Te-ra Lu-na",d:"Toprak ve ay; sıcak, doğal, romantik."},
+{n:"Luna Marea",p:"Lu-na Ma-re-a",d:"Ay ve deniz; şiirsel Akdeniz adı."},
+{n:"Selene Garden",p:"Se-le-ne Gar-dın",d:"Ay tanrıçası + bahçe konsepti."},
+{n:"Cielo Garden",p:"Si-e-lo Gar-dın",d:"Gökyüzü bahçesi, teras ve ferahlık."},
+{n:"Brisa Garden",p:"Bri-sa Gar-dın",d:"Esintili bahçe, yaz akşamı hissi."},
+{n:"Olea Garden",p:"O-le-a Gar-dın",d:"Zeytin ağaçlı bahçe, Akdeniz doğallığı."},
+{n:"Kyma Garden",p:"Ki-ma Gar-dın",d:"Dalga ve bahçe; denizsiz bile Ege hissi."},
+{n:"Casa Garden",p:"Ka-sa Gar-dın",d:"Ev sıcaklığı ve bahçe atmosferi."},
+{n:"Casa Moon",p:"Ka-sa Mun",d:"Ay evi, sıcak ve romantik."}
+]},
+{cat:"Vietnam · Konsept Kahve", items:[
+{n:"Di Lac",p:"Di Lak",d:"Zarif, Avrupaî duyulan; Vietnamca çağrışımı olan isim."},
+{n:"Dilac",p:"Di-lak",d:"Di Lac’ın Türkçe tabela için sadeleştirilmiş hali."},
+{n:"Dapen",p:"Da-pen",d:"Kısa, modern, minimalist ve marka gibi."},
+{n:"Dappen",p:"Dap-pen",d:"Daha tok, güçlü ve tabela dostu versiyon."},
+{n:"Palmera",p:"Pal-me-ra",d:"Palmiye, tropik teras ve sıcak bahçe hissi."},
+{n:"Hi Haven",p:"Hay Hey-vın",d:"Güvenli alan, sığınak, sakin kafe atmosferi."},
+{n:"Soil Coffee",p:"Soyl Kofi",d:"Toprak, doğallık, kahve ve organik his."},
+{n:"Sita",p:"Si-ta",d:"Kısa, sıcak, sakin ve kültürel çağrışımlı."},
+{n:"Hia",p:"Hi-a",d:"Minimal, kısa, sade ve farklı."},
+{n:"Lumi Lab",p:"Lu-mi Leb",d:"Işık, modernlik, deneysel kafe havası."},
+{n:"Lia Coffee",p:"Li-a Kofi",d:"Yumuşak, zarif ve butik kafe ismi."},
+{n:"Namto",p:"Nam-to",d:"Farklı, kısa, marka gibi."},
+{n:"Kam Kafe",p:"Kam Kafe",d:"Kısa, yerel, tok ve akılda kalıcı."},
+{n:"Tabiji",p:"Ta-bi-ci",d:"Yolculuk, Japon minimalizmi ve rota hissi."},
+{n:"Tabiji Coffee",p:"Ta-bi-ci Kofi",d:"Japon esintili, sakin ve modern kafe adı."},
+{n:"Gapella",p:"Ga-pel-la",d:"Gösterişli, marka gibi, mimari çağrışımlı."},
+{n:"Yen Cafe",p:"Yen Kafe",d:"Huzur ve sakinlik çağrışımı."},
+{n:"Mie Space",p:"Mi Speys",d:"Modern, yaratıcı, stüdyo-kafe hissi."},
+{n:"Lapin",p:"La-pen",d:"Fransızca tavşan çağrışımı; butik ve tatlı."},
+{n:"Arte Cafe",p:"Ar-te Kafe",d:"Sanat, galeri ve estetik kafe hissi."},
+{n:"Blooming Peony",p:"Blu-ming Pi-o-ni",d:"Şakayık, Asya çiçek estetiği ve bahar hissi."},
+{n:"Dechiu",p:"De-çi-u",d:"Sanatsal, huzurlu, ahşap ve deniz kenarı sığınak hissi."},
+{n:"Hill Village",p:"Hil Vilıc",d:"Köy evi, ahşap, sıcak ve doğal atmosfer."},
+{n:"LimDim",p:"Lim-dim",d:"Rüya gibi, nostaljik ve indie kafe hissi."},
+{n:"Mo Cafe",p:"Mo Kafe",d:"Rüya çağrışımı, kısa ve soft."},
+{n:"Nien Coffee",p:"Nien Kofi",d:"Eski zaman, retro ve sıcak toprak tonları."},
+{n:"Cheri Lady",p:"Şe-ri Ley-di",d:"Kadınsı, butik, tatlı ve bistro hissi."},
+{n:"Soil Garden",p:"Soyl Gar-dın",d:"Toprak ve bahçe; doğal kafe atmosferi."},
+{n:"Beep Cafe",p:"Bip Kafe",d:"Genç, çalışma alanı ve modern kafe havası."},
+{n:"Emmin Kafe",p:"Em-min Kafe",d:"Minimal, modern, sade cepheli kafe hissi."},
+{n:"Hia Hill",p:"Hi-a Hil",d:"Tepe, doğa, inziva ve romantik manzara."},
+{n:"Las Cafe",p:"Las Kafe",d:"Sade, kısa, Avrupaî kafe hissi."},
+{n:"Camino Beach",p:"Ka-mi-no Biç",d:"Yolculuk, sahil ve rahat yaz atmosferi."},
+{n:"Cen Coffee",p:"Sen Kofi",d:"Deneyim/kahve birleşimi; sadeleştirilmiş hali."},
+{n:"Tmore",p:"Ti-mor",d:"7/24 modern kafe/durak hissi."},
+{n:"Xine Bistro",p:"Zi-ne Bistro",d:"Sinema, jazz, kültür ve akşam bistrosu hissi."},
+{n:"Secret Cafe",p:"Sik-rıt Kafe",d:"Gizli kafe, keşif ve özel alan hissi."},
+{n:"Berries Croffle",p:"Be-riz Krofıl",d:"Tatlı, croffle, renkli ve genç kafe hissi."},
+{n:"Boulevard Cafe",p:"Bu-le-var Kafe",d:"Avrupaî cadde kafe ve premium vitrin hissi."},
+{n:"HangArt",p:"Heng-art",d:"Sanat galerisi ve kafe birleşimi."},
+{n:"GrooV Haus",p:"Gruv Haus",d:"Müzik, gençlik, hareket ve modern ev hissi."},
+{n:"TUI Cafe Space",p:"Tu-i Kafe Speys",d:"Modern, stüdyo ve esnek kafe alanı."},
+{n:"Sala Coffee",p:"Sa-la Kofi",d:"Tropik, sarı ışıklı ve ferah sıcak iklim kafe."},
+{n:"Cosmos Corner",p:"Koz-mos Kor-nır",d:"Şehir köşesi, nostalji ve akşam ışığı hissi."},
+{n:"Our Lok",p:"Aur Lok",d:"Yerel buluşma noktası, genç ve farklı."},
+{n:"Rustic Tea",p:"Ras-tik Ti",d:"Ahşap, doğal, çay ve sakinlik."},
+{n:"Chill Chill La",p:"Çil Çil La",d:"Rahat, eğlenceli, sıcak ve genç."},
+{n:"Noi Cafe",p:"Noy Kafe",d:"Bağ, bağlantı, sakin minimal kafe hissi."},
+{n:"Lavie Concept",p:"La-vi Konsept",d:"Hayat, yaşam tarzı ve konsept kafe hissi."},
+{n:"Myfa House",p:"May-fa Haus",d:"Ev sıcaklığı, butik ve yumuşak marka."},
+{n:"Daily Garden",p:"Dey-li Gar-dın",d:"Günlük uğrak bahçe kafe."},
+{n:"Arte Garden",p:"Ar-te Gar-dın",d:"Sanat ve bahçe temasını birleştirir."},
+{n:"Drink Talk",p:"Drink Tok",d:"Sohbet, içecek ve sosyal buluşma hissi."},
+{n:"Gear Chapter",p:"Gir Çep-tır",d:"Endüstriyel, genç ve bölüm/konsept hissi."},
+{n:"Cavalry Coffee",p:"Ke-vıl-ri Kofi",d:"Atlı birlik, hipodrom ve güçlü kahve markası hissi."},
+{n:"Kafe de June",p:"Kafe de Cun",d:"Yaz, Haziran, soft ve butik kafe havası."},
+{n:"Ge Cafe",p:"Je Kafe",d:"Kısa, zarif, minimal ve Avrupaî."},
+{n:"Indigo No.04",p:"İn-di-go No Dört",d:"Renk, tasarım, butik ve modern kafe hissi."},
+{n:"Papis",p:"Pa-pis",d:"Kısa, akılda kalıcı ve farklı."},
+{n:"Sense Coffee",p:"Sens Kofi",d:"Duyusal kahve deneyimi, sakin ve modern."},
+{n:"Lumi Lab Garden",p:"Lu-mi Leb Gar-dın",d:"Işık laboratuvarı + bahçe konsepti."},
+{n:"Merry Village",p:"Me-ri Vilıc",d:"Neşeli köy, sıcak ve samimi atmosfer."},
+{n:"Tan Cafe",p:"Tan Kafe",d:"Minimal, ham, modern ve sade."},
+{n:"Hulala Coffee",p:"Hu-la-la Kofi",d:"Eğlenceli, tropik ve akılda kalıcı."},
+{n:"Lia Retreat",p:"Li-a Ri-trit",d:"İnziva, sakinlik, yumuşak premium his."},
+{n:"Bom Coffee",p:"Bom Kofi",d:"Sevimli, kısa, genç ve kolay hatırlanır."},
+{n:"Magic Zenbar",p:"Ma-cik Zen-bar",d:"Matcha, zen ve özel içecek barı hissi."},
+{n:"Gan Cafe",p:"Gan Kafe",d:"Yakınlık, mahalle ve samimi kafe algısı."},
+{n:"Chupchip",p:"Çap-çip",d:"Eğlenceli, renkli, genç ve pop marka hissi."},
+{n:"Leaf Cafe",p:"Lif Kafe",d:"Yaprak, doğa, ahşap ve ferah atmosfer."},
+{n:"Namto House",p:"Nam-to Haus",d:"Farklı, sıcak ev-kafe markası."},
+{n:"Vintage House",p:"Vintıc Haus",d:"Retro ev, antika mobilya ve nostaljik dekor."},
+{n:"Aweik",p:"A-veyk",d:"Uyanış, sabah kahvesi ve genç marka hissi."},
+{n:"Laph Cafe",p:"Laf Kafe",d:"Kısa, modern, soyut ve marka gibi."},
+{n:"Son Studio",p:"Son Stüdyo",d:"Müzik, ses sistemi ve stüdyo-kafe atmosferi."},
+{n:"Talent Coffee",p:"Ta-lent Kofi",d:"Profesyonel, eğitimli, modern kahve markası."},
+{n:"Lizzy Coffee",p:"Li-zi Kofi",d:"Genç, tatlı, milk tea/kahve hissi."},
+{n:"Gapella Coffee",p:"Ga-pel-la Kofi",d:"Gösterişli, mimari ve premium kafe havası."},
+{n:"Ngoi Coffee",p:"Ngoi Kofi",d:"Çatı/kiremit, dokulu ve konsept iç mekân hissi."}
+]},
+{cat:"Modern · Uydurma · Marka Gibi", items:[
+{n:"Chulo Caffe",p:"Çu-lo Kafe",d:"Havalı, Latin/şehirli ve dikkat çekici."},
+{n:"Chula Caffe",p:"Çu-la Kafe",d:"Daha yumuşak, butik ve zarif."},
+{n:"Psycho Caffe",p:"Say-ko Kafe",d:"Çok akılda kalıcı, sert ve genç kitleye dönük."},
+{n:"Lacuna Caffe",p:"La-ku-na Kafe",d:"Saklı alan, boşluk, kaçış ve sofistike his."},
+{n:"Terraza Caffe",p:"Te-ra-za Kafe",d:"Teras vurgusu net, İspanyol tınılı."},
+{n:"Quattro Caffe",p:"Ku-at-tro Kafe",d:"4 katlı yapıdan gelen hikâyeli isim."},
+{n:"Nivora Caffe",p:"Ni-vo-ra Kafe",d:"Uydurma, temiz, modern ve marka gibi."},
+{n:"Veyra Caffe",p:"Vey-ra Kafe",d:"Kısa, zarif, premium ve yumuşak."},
+{n:"Lunera Caffe",p:"Lu-ne-ra Kafe",d:"Ay/gece/ışık çağrışımı; romantik."},
+{n:"Marelle Caffe",p:"Ma-rel Kafe",d:"Avrupaî, butik, tatlı/kahve uyumlu."},
+{n:"Solenne Caffe",p:"So-len Kafe",d:"Ciddi, şık, premium ve sakin."},
+{n:"Noiré Caffe",p:"Nua-re Kafe",d:"Koyu, sofistike, gece konseptli."},
+{n:"Atelier Caffe",p:"A-tö-lye Kafe",d:"Sanat, üretim, zanaat ve özen hissi."},
+{n:"The Fourth Caffe",p:"Dı Fort Kafe",d:"Dördüncü kat ve teras hikâyesini taşır."},
+{n:"Fourth Terrace",p:"Fort Te-ras",d:"Son kat terasını doğrudan vurgular."},
+{n:"Kat Dört",p:"Kat Dört",d:"Yerel, sade, net ve kolay."},
+{n:"Dördüncü Kat",p:"Dör-dün-cü Kat",d:"Hikâyeli, konum odaklı ve anlaşılır."},
+{n:"Teras Dört",p:"Te-ras Dört",d:"Net, yerel ve teras avantajını anlatır."},
+{n:"Roofline Caffe",p:"Ruf-layn Kafe",d:"Rooftop, çizgi, şehir ve yükseklik hissi."},
+{n:"Upper Caffe",p:"Ap-pır Kafe",d:"Üst kat, yükseklik ve modern kafe algısı."},
+{n:"Vivilyan",p:"Vi-vil-yan",d:"Romantik, butik, Avrupaî ve hafif fantastik."},
+{n:"Vivilyan Terrace",p:"Vi-vil-yan Te-ras",d:"Zarif marka + teras atmosferi."},
+{n:"Dapella",p:"Da-pel-la",d:"Dappen + Gapella hissi; gösterişli ve modern."},
+{n:"Dapora",p:"Da-po-ra",d:"Kısa, modern, tok ve marka gibi."},
+{n:"Luvora",p:"Lu-vo-ra",d:"Luna/Veyra etkili zarif uydurma isim."},
+{n:"Viora",p:"Vi-o-ra",d:"Çiçeksi, zarif, premium marka hissi."},
+{n:"Nivella",p:"Ni-vel-la",d:"Yumuşak, butik, modern kafe adı."},
+{n:"Veyluna",p:"Vey-lu-na",d:"Veyra + Luna, gece ve zarafet birleşimi."},
+{n:"Lunivra",p:"Lu-niv-ra",d:"Luna + Nivora hissi; özgün ve premium."},
+{n:"Marevia",p:"Ma-re-vi-a",d:"Marea + Veyra etkili, Akdenizli marka adı."},
+{n:"Solvian",p:"Sol-vi-an",d:"Sol/güneş köküyle modern, maskülen marka."},
+{n:"Veloria",p:"Ve-lo-ria",d:"Velvet/Aurea hissi; premium ve sıcak."},
+{n:"Auralis",p:"Au-ra-lis",d:"Aura, ışık ve zarafet çağrışımı."},
+{n:"Aurena",p:"Au-re-na",d:"Aurea’dan türeyen, yumuşak ve kadınsı."},
+{n:"Moriva",p:"Mo-ri-va",d:"Modern, soyut, şık ve tabela dostu."},
+{n:"Lioria",p:"Li-o-ria",d:"Işık, yumuşaklık ve butik marka hissi."},
+{n:"Caluna",p:"Ka-lu-na",d:"Calma + Luna; sakin ay ışığı hissi."},
+{n:"Lunora",p:"Lu-no-ra",d:"Luna kökünden modern, sade ve güçlü."},
+{n:"Havena",p:"Ha-ve-na",d:"Haven’dan türetilmiş, yumuşak ve güvenli alan hissi."},
+{n:"Gardiva",p:"Gar-di-va",d:"Garden + diva; bahçe ve gösterişli marka hissi."},
+{n:"Dapora Garden",p:"Da-po-ra Gar-dın",d:"Modern marka + bahçe konsepti."},
+{n:"Veyra Garden",p:"Vey-ra Gar-dın",d:"Zarif, soft ve yeşil teras hissi."},
+{n:"Lunora Terrace",p:"Lu-no-ra Te-ras",d:"Ay ışığı ve teras konsepti."},
+{n:"Auralis Garden",p:"Au-ra-lis Gar-dın",d:"Işık, aura, bahçe ve premium atmosfer."},
+{n:"Veloria Garden",p:"Ve-lo-ria Gar-dın",d:"Loş, sıcak, premium bahçe ismi."},
+{n:"Caluna Garden",p:"Ka-lu-na Gar-dın",d:"Sakin ay bahçesi hissi."},
+{n:"Havena Terrace",p:"Ha-ve-na Te-ras",d:"Güvenli, sıcak, üst kat kaçış noktası."}
+]},
+{cat:"Bahçe · Teras · Rooftop Odaklı", items:[
+{n:"Roof Garden",p:"Ruf Gar-dın",d:"Üst kat bahçesi fikrini doğrudan anlatır."},
+{n:"Rooftop Garden",p:"Ruf-top Gar-dın",d:"Teras bahçe konsepti net ve anlaşılır."},
+{n:"Garden Roof",p:"Gar-dın Ruf",d:"Bahçe ve rooftop birleşimi."},
+{n:"Terrace Garden",p:"Te-ras Gar-dın",d:"Terasın bahçe gibi kurgulandığını anlatır."},
+{n:"Garden Terrace",p:"Gar-dın Te-ras",d:"Klasik, sade ve doğrudan."},
+{n:"Upper Garden",p:"Ap-pır Gar-dın",d:"Üst kat bahçesi, şehirden yükselme hissi."},
+{n:"Upper Moon",p:"Ap-pır Mun",d:"Üst kat + ay ışığı atmosferi."},
+{n:"Upper Haven",p:"Ap-pır Hey-vın",d:"Üst katta güvenli kaçış noktası."},
+{n:"Fourth Garden",p:"Fort Gar-dın",d:"Dördüncü katta bahçe fikri."},
+{n:"Fourth Moon",p:"Fort Mun",d:"Dördüncü kat + gece/ay konsepti."},
+{n:"Fourth Haven",p:"Fort Hey-vın",d:"Üst kat sığınağı, sakin alan hissi."},
+{n:"The Garden Floor",p:"Dı Gar-dın Flor",d:"Kat konseptiyle bahçe hissini birleştirir."},
+{n:"Kat Garden",p:"Kat Gar-dın",d:"Yerel + İngilizce hibrit, modern ve direkt."},
+{n:"Kat Moon",p:"Kat Mun",d:"Katlı yapı ve gece atmosferi."},
+{n:"Kat Luna",p:"Kat Lu-na",d:"Türkçe kat + zarif Luna teması."},
+{n:"Sky Garden",p:"Skay Gar-dın",d:"Gökyüzü bahçesi, rooftop hissi."},
+{n:"Sky Terrace",p:"Skay Te-ras",d:"Yüksek kat, açık hava ve modernlik."},
+{n:"Sky Kiss",p:"Skay Kis",d:"Gökyüzü ve romantik marka etkisi."},
+{n:"Sky Luna",p:"Skay Lu-na",d:"Gökyüzü + ay; premium teras adı."},
+{n:"Sky Haven",p:"Skay Hey-vın",d:"Gökyüzünde saklı alan, huzurlu teras."},
+{n:"Above Garden",p:"A-bav Gar-dın",d:"Yukarıda, üst katta saklı bahçe hissi."},
+{n:"Above Cafe",p:"A-bav Kafe",d:"Yüksek kat kafe ve şehir manzarası."},
+{n:"Above Moon",p:"A-bav Mun",d:"Ayın altında, şehrin üstünde hissi."},
+{n:"Garden Above",p:"Gar-dın A-bav",d:"Üstteki bahçe fikrini şiirsel verir."},
+{n:"High Garden",p:"Hay Gar-dın",d:"Yüksek kat bahçesi."},
+{n:"High Moon",p:"Hay Mun",d:"Yüksekten ay/gece atmosferi."},
+{n:"High Terrace",p:"Hay Te-ras",d:"Yüksek teras, şehir manzarası."},
+{n:"The Upper Yard",p:"Dı Ap-pır Yard",d:"Üst kat avlusu, modern ve samimi."},
+{n:"The Hidden Roof",p:"Dı Hid-dın Ruf",d:"Saklı çatı/teras hissi."},
+{n:"The Moon Roof",p:"Dı Mun Ruf",d:"Ay ışıklı çatı/teras."},
+{n:"Rooftop Kiss",p:"Ruf-top Kis",d:"Genç, romantik, akılda kalıcı rooftop adı."},
+{n:"Garden Loft",p:"Gar-dın Loft",d:"Loft + bahçe; modern iç mekân hissi."},
+{n:"Moon Loft",p:"Mun Loft",d:"Gece, loş ışık ve modern kat hissi."},
+{n:"Luna Loft",p:"Lu-na Loft",d:"Zarif, üst kat ve butik atmosfer."},
+{n:"Green Loft",p:"Grin Loft",d:"Yeşil iç mekân, teras ve modern tasarım."},
+{n:"Loft Garden",p:"Loft Gar-dın",d:"Endüstriyel + bahçe karışımı."},
+{n:"Loft Luna",p:"Loft Lu-na",d:"Modern kat + ay ışığı."},
+{n:"Terrace Loft",p:"Te-ras Loft",d:"Teras ve modern mimariyi birleştirir."}
+]},
+{cat:"Karma Konsept İsimler", items:[
+{n:"Luna Dappen",p:"Lu-na Dap-pen",d:"Ay teması + modern marka hissi."},
+{n:"Dappen Moon",p:"Dap-pen Mun",d:"Dappen’in gece/teras versiyonu."},
+{n:"Dappen Garden",p:"Dap-pen Gar-dın",d:"Modern kısa marka + bahçe konsepti."},
+{n:"Dappen Terrace",p:"Dap-pen Te-ras",d:"Minimal, tabela dostu ve teras uyumlu."},
+{n:"Dilac Garden",p:"Di-lak Gar-dın",d:"Zarif, romantik ve soft bahçe kafe."},
+{n:"Dilac Terrace",p:"Di-lak Te-ras",d:"Di Lac’ı daha premium teras markasına çevirir."},
+{n:"Dilac Moon",p:"Di-lak Mun",d:"Di Lac + ay ışığı, romantik ve zarif."},
+{n:"Palmera Garden",p:"Pal-me-ra Gar-dın",d:"Tropik, palmiye, teras ve bahçe hissi."},
+{n:"Palmera Terrace",p:"Pal-me-ra Te-ras",d:"Yazlık, sıcak, rooftop ve tropik."},
+{n:"Tabiji Garden",p:"Ta-bi-ci Gar-dın",d:"Yolculuk, Asya esintisi ve bahçe atmosferi."},
+{n:"Tabiji Terrace",p:"Ta-bi-ci Te-ras",d:"Rota, seyahat, üst kat ve sakinlik."},
+{n:"Cavalry Terrace",p:"Ke-vıl-ri Te-ras",d:"Hipodrom/at teması ve premium teras."},
+{n:"Cavalry Garden",p:"Ke-vıl-ri Gar-dın",d:"Atlı birlik estetiği + bahçe kafe."},
+{n:"Indigo Garden",p:"İn-di-go Gar-dın",d:"Gece, renk, loş ışık ve modern bahçe."},
+{n:"Indigo Terrace",p:"İn-di-go Te-ras",d:"Lacivert gece, rooftop ve premium ışık."},
+{n:"Laph Garden",p:"Laf Gar-dın",d:"Kısa, modern, soyut ve bahçe konseptli."},
+{n:"Laph Terrace",p:"Laf Te-ras",d:"Minimal ve tabela dostu teras ismi."},
+{n:"Lumi Moon",p:"Lu-mi Mun",d:"Işık + ay; gece atmosferi güçlü."},
+{n:"Lumi Kiss",p:"Lu-mi Kis",d:"Işık + romantik dokunuş, genç ve dikkat çekici."},
+{n:"Lumi Haven",p:"Lu-mi Hey-vın",d:"Işıklı güvenli alan ve sakin teras."},
+{n:"Lumi Leaf",p:"Lu-mi Lif",d:"Işık ve doğa birleşimi."},
+{n:"Akari Moon",p:"A-ka-ri Mun",d:"Japonca ışık + ay teması."},
+{n:"Sora Moon",p:"So-ra Mun",d:"Gökyüzü + ay; yüksek katla uyumlu."},
+{n:"Kissa Garden",p:"Kis-sa Gar-dın",d:"Japon kafe kültürü + bahçe hissi."},
+{n:"Jade Moon",p:"Ceyd Mun",d:"Yeşim taşı + ay, premium Asya-gece adı."},
+{n:"Sora Haven",p:"So-ra Hey-vın",d:"Gökyüzünde güvenli alan, teras konsepti."},
+{n:"Akari Haven",p:"A-ka-ri Hey-vın",d:"Işıklı sığınak, akşam kafe atmosferi."},
+{n:"Nami Garden",p:"Na-mi Gar-dın",d:"Dalga ve bahçe; ferah ve modern."},
+{n:"Nami Moon",p:"Na-mi Mun",d:"Dalga + ay; sakin ve romantik."},
+{n:"Tsuki Kiss",p:"Tsu-ki Kis",d:"Japonca ay + romantik marka hissi."},
+{n:"Kumo Garden",p:"Ku-mo Gar-dın",d:"Bulut bahçesi, üst kat ve ferahlık."},
+{n:"Kumo Moon",p:"Ku-mo Mun",d:"Bulut ve ay, yumuşak gece atmosferi."},
+{n:"Amun Garden",p:"A-mun Gar-dın",d:"Mısır mitolojisi + bahçe."},
+{n:"Oasis Moon",p:"O-a-sis Mun",d:"Gece vahası, şehir içinde kaçış."},
+{n:"Aurea Moon",p:"Au-re-a Mun",d:"Altın ışık + ay, premium gece havası."},
+{n:"Byza Garden",p:"Bi-za Gar-dın",d:"İstanbul tarihi + modern bahçe."},
+{n:"Byza Terrace",p:"Bi-za Te-ras",d:"Byzantion etkili kısa teras ismi."},
+{n:"Velia Moon",p:"Ve-li-a Mun",d:"Veliefendi’den yumuşatılmış gece/teras adı."},
+{n:"Quadriga Garden",p:"Kuad-ri-ga Gar-dın",d:"Hipodrom hikâyesi + bahçe."},
+{n:"Quadriga Moon",p:"Kuad-ri-ga Mun",d:"Roma yarış arabası + gece atmosferi."},
+{n:"Cielo Moon",p:"Si-e-lo Mun",d:"Gökyüzü + ay; şiirsel ve premium."},
+{n:"Marea Moon",p:"Ma-re-a Mun",d:"Deniz/dalga + ay, romantik Akdeniz."},
+{n:"Marea Garden",p:"Ma-re-a Gar-dın",d:"Akdeniz dalgası + bahçe hissi."},
+{n:"Selene Kiss",p:"Se-le-ne Kis",d:"Mitolojik ay + romantik dokunuş."},
+{n:"Calypso Garden",p:"Ka-lip-so Gar-dın",d:"Ada, müzik, deniz ve bahçe."},
+{n:"Kyma Moon",p:"Ki-ma Mun",d:"Dalga + ay; kısa ve modern."},
+{n:"Olea Moon",p:"O-le-a Mun",d:"Zeytin + ay ışığı, Akdeniz gecesi."},
+{n:"Solera Garden",p:"So-le-ra Gar-dın",d:"İspanyol sıcaklığı + bahçe."},
+{n:"Brisa Moon",p:"Bri-sa Mun",d:"Esinti + ay, ferah gece terası."},
+{n:"Casa Luna Garden",p:"Ka-sa Lu-na Gar-dın",d:"Ay evi ve bahçe birleşimi."}
+]}
+];
+</script>
+<script>
+/* ---------- STATE ---------- */
+// her isme benzersiz id ver
+let ID=0; const FLAT=[];
+DATA.forEach((c,ci)=>c.items.forEach(it=>{it.id='n'+(ID++);it.cat=c.cat;it.ci=ci;FLAT.push(it);}));
+const TOTAL=FLAT.length;
+
+let votes={};
+try{votes=JSON.parse(localStorage.getItem('cafeVotes_v2'))||{};}catch(e){votes={};}
+function save(){try{localStorage.setItem('cafeVotes_v2',JSON.stringify(votes));}catch(e){}}
+
+function counts(){
+  let l=0,d=0; for(const k in votes){if(votes[k]==='like')l++;else if(votes[k]==='dislike')d++;}
+  return {l,d};
+}
+function refreshCounts(){
+  const c=counts();
+  document.getElementById('cLike').textContent=c.l;
+  document.getElementById('cDis').textContent=c.d;
+}
+
+/* ---------- MODE ---------- */
+let mode='swipe';
+function setMode(m){
+  mode=m;
+  document.getElementById('swipe').style.display = m==='swipe'?'block':'none';
+  document.getElementById('list').style.display  = m==='list' ?'block':'none';
+  document.getElementById('mSwipe').classList.toggle('on',m==='swipe');
+  document.getElementById('mList').classList.toggle('on',m==='list');
+  if(m==='swipe')buildDeck();
+  if(m==='list')renderList();
+}
+
+/* ---------- SWIPE DECK ---------- */
+let queue=[];        // henüz oylanmamış id'ler
+let history=[];      // {id,vote} geri-al için
+function rebuildQueue(){ queue=FLAT.filter(it=>!votes[it.id]).map(it=>it.id); }
+
+function buildDeck(){
+  rebuildQueue();
+  const deck=document.getElementById('deck');
+  deck.innerHTML='';
+  if(queue.length===0){ showDone(); updateProg(); return; }
+  // en üstteki 2 kartı göster (derinlik hissi)
+  const top=queue.slice(0,2).reverse();
+  top.forEach((id,i)=>{
+    const it=FLAT.find(x=>x.id===id);
+    const isTop = (i===top.length-1);
+    const card=document.createElement('div');
+    card.className='swipe-card';
+    card.dataset.id=id;
+    card.style.transform = isTop?'scale(1)':'scale(.94) translateY(14px)';
+    card.style.opacity = isTop?'1':'.6';
+    card.style.zIndex = i;
+    card.innerHTML=`
+      <div class="cat-tag">${it.cat}</div>
+      <div class="stamp yes">BEĞEN</div>
+      <div class="stamp no">ELE</div>
+      <div class="nm">${it.n}</div>
+      <div class="pr">${it.p}</div>
+      <div class="ds">${it.d}</div>`;
+    deck.appendChild(card);
+    if(isTop) attachDrag(card);
+  });
+  updateProg();
+}
+function showDone(){
+  const c=counts();
+  document.getElementById('deck').innerHTML=`
+    <div class="deck-done">
+      <div class="serif">Tarama bitti ✦</div>
+      <p>${c.l} isim beğendin, ${c.d} isim eledin.<br>Şimdi <b style="color:var(--gold)">Liste & Ele</b> sekmesinden beğendiklerini ince eleyebilirsin.</p>
+      <button class="mini-btn" onclick="setMode('list');setFilter('liked',document.querySelectorAll('.chip')[1])">♥ Beğendiklerime Geç</button>
+      <button class="mini-btn" style="color:var(--muted)" onclick="resetAll()">↺ Baştan Başla</button>
+    </div>`;
+}
+function updateProg(){
+  const done=TOTAL-queue.length;
+  document.getElementById('progBar').style.width=(done/TOTAL*100)+'%';
+  document.getElementById('progTxt').textContent=
+    queue.length>0 ? `${done} / ${TOTAL} değerlendirildi · ${queue.length} kaldı` : `${TOTAL} / ${TOTAL} tamamlandı`;
+}
+
+/* drag/swipe */
+function attachDrag(card){
+  let sx=0,sy=0,dx=0,dy=0,drag=false;
+  const yes=card.querySelector('.stamp.yes'), no=card.querySelector('.stamp.no');
+  const start=(x,y)=>{sx=x;sy=y;drag=true;card.style.transition='none';};
+  const move=(x,y)=>{
+    if(!drag)return; dx=x-sx;dy=y-sy;
+    const rot=dx/18;
+    card.style.transform=`translate(${dx}px,${dy}px) rotate(${rot}deg)`;
+    yes.style.opacity=dx>30?Math.min(dx/120,1):0;
+    no.style.opacity =dx<-30?Math.min(-dx/120,1):0;
+  };
+  const end=()=>{
+    if(!drag)return; drag=false;
+    card.style.transition='transform .35s ease, opacity .35s';
+    if(dx>95){ fly(card,1,'like'); }
+    else if(dx<-95){ fly(card,-1,'dislike'); }
+    else{ card.style.transform='scale(1)'; yes.style.opacity=0; no.style.opacity=0; }
+    dx=dy=0;
+  };
+  card.addEventListener('touchstart',e=>start(e.touches[0].clientX,e.touches[0].clientY),{passive:true});
+  card.addEventListener('touchmove', e=>move(e.touches[0].clientX,e.touches[0].clientY),{passive:true});
+  card.addEventListener('touchend', end);
+  card.addEventListener('mousedown',e=>{start(e.clientX,e.clientY);
+    const mm=ev=>move(ev.clientX,ev.clientY), mu=()=>{end();document.removeEventListener('mousemove',mm);document.removeEventListener('mouseup',mu);};
+    document.addEventListener('mousemove',mm);document.addEventListener('mouseup',mu);});
+}
+function fly(card,dir,vote){
+  const id=card.dataset.id;
+  card.style.transform=`translate(${dir*window.innerWidth}px,40px) rotate(${dir*25}deg)`;
+  card.style.opacity='0';
+  setTimeout(()=>{ commitVote(id,vote); buildDeck(); },230);
+}
+function commitVote(id,vote){
+  votes[id]=vote; history.push({id,vote}); save(); refreshCounts();
+}
+
+function swipeBtn(kind){
+  if(queue.length===0)return;
+  const id=queue[0];
+  const card=document.querySelector(`.swipe-card[data-id="${id}"]`);
+  if(kind==='skip'){ // pas: sona at, oy verme
+    queue.push(queue.shift());
+    if(card){card.style.transition='transform .3s, opacity .3s';card.style.transform='translateY(-40px) scale(.9)';card.style.opacity='0';}
+    setTimeout(buildDeck,160); return;
+  }
+  if(card){ fly(card, kind==='like'?1:-1, kind); }
+  else { commitVote(id,kind); buildDeck(); }
+}
+function undo(){
+  if(history.length===0){toast('Geri alınacak işlem yok');return;}
+  const last=history.pop();
+  delete votes[last.id]; save(); refreshCounts(); buildDeck();
+}
+function resetAll(){
+  if(!confirm('Tüm oylar silinsin ve baştan başlasın mı?'))return;
+  votes={};history=[];save();refreshCounts();buildDeck();
+}
+
+/* ---------- LIST VIEW ---------- */
+let filter='all';
+let openCats=new Set();
+function setFilter(f,el){
+  filter=f;
+  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));
+  if(el)el.classList.add('on');
+  renderList();
+}
+function match(it){
+  if(filter==='all')return true;
+  if(filter==='liked')return votes[it.id]==='like';
+  if(filter==='disliked')return votes[it.id]==='dislike';
+  if(filter==='undecided')return !votes[it.id];
+}
+function renderList(){
+  const wrap=document.getElementById('accs');
+  wrap.innerHTML='';
+  let any=false;
+  // filtre uygulanınca ilgili kategorileri otomatik aç
+  const autoOpen = filter!=='all';
+  DATA.forEach((cat,ci)=>{
+    const items=cat.items.filter(match);
+    if(items.length===0)return;
+    any=true;
+    const open = autoOpen || openCats.has(ci);
+    const acc=document.createElement('div');
+    acc.className='acc'+(open?' open':'');
+    acc.innerHTML=`
+      <div class="acc-h" onclick="toggleAcc(${ci},this)">
+        <span>${cat.cat}</span>
+        <span style="display:flex;align-items:center"><span class="ct">${items.length}</span><span class="arr">▼</span></span>
+      </div>
+      <div class="acc-b">${items.map(rowHTML).join('')}</div>`;
+    wrap.appendChild(acc);
+  });
+  if(!any){
+    wrap.innerHTML=`<div class="empty"><span class="serif">Liste boş</span>${
+      filter==='liked'?'Henüz isim beğenmedin. Hızlı Tara’dan başla.':
+      filter==='disliked'?'Henüz isim elemedin.':
+      'Bu filtrede isim yok.'}</div>`;
+  }
+}
+function rowHTML(it){
+  const v=votes[it.id]||'';
+  return `<div class="row ${v==='like'?'liked':v==='dislike'?'disliked':''}" id="row_${it.id}">
+    <div class="r-info">
+      <div class="r-nm">${it.n}</div>
+      <div class="r-pr">${it.p}</div>
+      <div class="r-ds">${it.d}</div>
+    </div>
+    <div class="r-acts">
+      <button class="rb no ${v==='dislike'?'on':''}" onclick="rowVote('${it.id}','dislike')">✕</button>
+      <button class="rb yes ${v==='like'?'on':''}" onclick="rowVote('${it.id}','like')">♥</button>
+    </div>
+  </div>`;
+}
+function rowVote(id,vote){
+  if(votes[id]===vote){delete votes[id];}else{votes[id]=vote;}
+  save();refreshCounts();
+  const it=FLAT.find(x=>x.id===id);
+  const row=document.getElementById('row_'+id);
+  const v=votes[id]||'';
+  // sadece bu satırı güncelle (liste kapanmasın)
+  row.className='row '+(v==='like'?'liked':v==='dislike'?'disliked':'');
+  row.querySelector('.rb.no').classList.toggle('on',v==='dislike');
+  row.querySelector('.rb.yes').classList.toggle('on',v==='like');
+  // filtreli görünümde artık eşleşmiyorsa yumuşakça gizle
+  if(filter!=='all' && !match(it)){
+    row.style.transition='opacity .3s,transform .3s,height .3s';
+    row.style.opacity='0';row.style.transform='translateX(20px)';
+    setTimeout(()=>{row.style.display='none';},300);
+  }
+}
+function toggleAcc(ci,el){
+  const acc=el.parentElement;
+  acc.classList.toggle('open');
+  if(acc.classList.contains('open'))openCats.add(ci);else openCats.delete(ci);
+}
+
+/* ---------- SHARE ---------- */
+function buildText(){
+  const liked=FLAT.filter(it=>votes[it.id]==='like');
+  if(liked.length===0)return null;
+  let t='☕ Beğendiğim Kafe İsimleri\n\n';
+  liked.forEach((it,i)=>{ t+=`${i+1}. ${it.n}  (${it.p})\n`; });
+  t+=`\nToplam ${liked.length} isim.`;
+  return t;
+}
+function shareWA(){
+  const t=buildText();
+  if(!t){toast('Önce birkaç isim beğen 🙂');return;}
+  window.open('https://wa.me/?text='+encodeURIComponent(t),'_blank');
+}
+function copyList(){
+  const t=buildText();
+  if(!t){toast('Önce birkaç isim beğen 🙂');return;}
+  navigator.clipboard.writeText(t).then(()=>toast('Kopyalandı ✓')).catch(()=>{
+    // fallback
+    const ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();
+    try{document.execCommand('copy');toast('Kopyalandı ✓');}catch(e){toast('Kopyalanamadı');}
+    document.body.removeChild(ta);
+  });
+}
+let tt;
+function toast(msg){
+  const el=document.getElementById('toast');
+  el.textContent=msg;el.classList.add('show');
+  clearTimeout(tt);tt=setTimeout(()=>el.classList.remove('show'),2200);
+}
+
+/* ---------- INIT ---------- */
+refreshCounts();
+buildDeck();
+</script>
+</body>
+</html>
