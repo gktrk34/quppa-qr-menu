@@ -11,7 +11,7 @@
             --card-bg: #ffffff;
             --text-main: #2c3e50;
             --accent-name: #1a252f;
-            --accent-pronounce: #e67e22; /* Turuncu okunuş rengi */
+            --accent-pronounce: #e67e22;
             --desc-color: #5a6c7d;
             --btn-like: #27ae60;
             --btn-like-bg: #eafaf1;
@@ -22,10 +22,8 @@
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
-        
-        body { background-color: var(--bg-color); color: var(--text-main); padding-bottom: 80px; }
+        body { background-color: var(--bg-color); color: var(--text-main); padding-bottom: 90px; }
 
-        /* HEADER & TABS */
         header { background: #fff; padding: 20px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100; }
         header h1 { font-size: 1.4rem; color: var(--accent-name); }
         header p { font-size: 0.85rem; color: var(--desc-color); margin-top: 5px; }
@@ -34,44 +32,51 @@
         .tab-btn { flex: 1; padding: 10px; border: none; background: var(--btn-neutral); border-radius: 8px; font-weight: 600; font-size: 0.9rem; color: #7f8c8d; cursor: pointer; transition: 0.2s; }
         .tab-btn.active { background: var(--primary-blue); color: white; }
 
-        /* ACCORDION */
         .container { max-width: 600px; margin: 20px auto; padding: 0 15px; }
         .accordion { background: white; border-radius: 12px; margin-bottom: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.03); overflow: hidden; }
-        .accordion-header { padding: 18px; font-weight: 600; color: var(--accent-name); display: flex; justify-content: space-between; align-items: center; cursor: pointer; background: #fff; border-bottom: 1px solid transparent; }
+        .accordion-header { padding: 18px; font-weight: 600; color: var(--accent-name); display: flex; justify-content: space-between; align-items: center; cursor: pointer; background: #fff; border-bottom: 1px solid transparent; user-select: none; }
         .accordion-header.active { border-bottom: 1px solid #eee; background: #fafafa; }
         .accordion-content { padding: 0 15px; display: none; background: #fafafa; }
         .accordion-header::after { content: '▼'; font-size: 0.8rem; color: #95a5a6; transition: 0.3s; }
         .accordion-header.active::after { transform: rotate(180deg); }
 
-        /* CARDS */
-        .card { background: var(--card-bg); border-radius: 10px; padding: 16px; margin: 15px 0; box-shadow: 0 3px 10px rgba(0,0,0,0.06); border: 1px solid #eee; transition: 0.3s; }
-        .card.liked { border-color: var(--btn-like); box-shadow: 0 0 0 2px rgba(39, 174, 96, 0.2); }
-        .card.disliked { opacity: 0.5; filter: grayscale(1); }
+        /* KART TASARIMI VE ANİMASYONLAR */
+        .card { background: var(--card-bg); border-radius: 10px; padding: 16px; margin: 15px 0; box-shadow: 0 3px 10px rgba(0,0,0,0.06); border: 2px solid transparent; transition: all 0.3s ease; }
         
-        .c-name { font-size: 1.3rem; font-weight: 700; color: var(--accent-name); line-height: 1.2; }
+        /* BEĞENİLEN KART */
+        .card.liked { border-color: var(--btn-like); box-shadow: 0 4px 15px rgba(39, 174, 96, 0.15); transform: translateY(-2px); }
+        
+        /* ELENEN KART */
+        .card.disliked { opacity: 0.45; filter: grayscale(1); transform: scale(0.97); border-color: #e0e0e0; box-shadow: none; }
+        
+        .c-name { font-size: 1.3rem; font-weight: 700; color: var(--accent-name); line-height: 1.2; transition: 0.3s; }
         .c-pronounce { font-size: 0.95rem; font-weight: 500; color: var(--accent-pronounce); font-style: italic; margin-top: 4px; margin-bottom: 8px; }
         .c-desc { font-size: 0.9rem; color: var(--desc-color); line-height: 1.5; margin-bottom: 15px; }
 
-        /* CARD BUTTONS */
+        .card.disliked .c-name { text-decoration: line-through; color: #7f8c8d; }
+
+        /* BUTONLAR */
         .card-actions { display: flex; gap: 10px; }
         .action-btn { flex: 1; padding: 12px; border: none; border-radius: 8px; font-weight: 600; font-size: 0.95rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: 0.2s; }
-        .action-btn.btn-like { background: var(--btn-like-bg); color: var(--btn-like); }
-        .action-btn.btn-dislike { background: var(--btn-dislike-bg); color: var(--btn-dislike); }
-        .action-btn.btn-like.active { background: var(--btn-like); color: white; }
-        .action-btn.btn-dislike.active { background: var(--btn-dislike); color: white; }
-
-        /* SHARE BUTTON (Sticky Bottom) */
-        .share-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; padding: 15px; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); display: flex; justify-content: center; z-index: 100; }
-        .btn-share { max-width: 600px; width: 100%; background: var(--primary-blue); color: white; border: none; padding: 15px; border-radius: 10px; font-size: 1rem; font-weight: 600; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 10px; }
+        .action-btn.btn-like { background: var(--btn-like-bg); color: var(--btn-like); border: 1px solid transparent; }
+        .action-btn.btn-dislike { background: var(--btn-dislike-bg); color: var(--btn-dislike); border: 1px solid transparent; }
         
-        .empty-state { text-align: center; padding: 40px 20px; color: #95a5a6; font-size: 1rem; }
+        /* AKTİF BUTON DURUMLARI */
+        .action-btn.btn-like.active { background: var(--btn-like); color: white; box-shadow: 0 4px 10px rgba(39, 174, 96, 0.3); }
+        .action-btn.btn-dislike.active { background: var(--btn-dislike); color: white; box-shadow: 0 4px 10px rgba(231, 76, 60, 0.3); }
+
+        .share-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; padding: 15px; box-shadow: 0 -4px 15px rgba(0,0,0,0.08); display: flex; justify-content: center; z-index: 100; }
+        .btn-share { max-width: 600px; width: 100%; background: var(--primary-blue); color: white; border: none; padding: 15px; border-radius: 10px; font-size: 1rem; font-weight: 600; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 10px; transition: 0.3s; }
+        .btn-share:hover { background: #2980b9; }
+        
+        .empty-state { text-align: center; padding: 40px 20px; color: #95a5a6; font-size: 1rem; font-weight: 500; }
     </style>
 </head>
 <body>
 
     <header>
         <h1>Mekân İsmi Seçici</h1>
-        <p>İsimleri oylayın, favorilerinizi WhatsApp'tan paylaşın.</p>
+        <p>İsimleri oylayın, eledikleriniz silikleşsin, sevdikleriniz öne çıksın.</p>
         <div class="tabs">
             <button class="tab-btn active" onclick="setFilter('all')">Tümü</button>
             <button class="tab-btn" onclick="setFilter('liked')">👍 Beğendiklerim</button>
@@ -90,7 +95,7 @@
     </div>
 
 <script>
-    // Veritabanı
+    // Veritabanı (İsimler aynı)
     const nameData = [
         { cat: "1. Moon / Luna / Kiss / Garden", items: [
             {n:"Moonkiss Cafe", p:"Mun-kis Kafe", d:"Ay ışığı, romantik teras ve akılda kalıcı kafe hissi."},
@@ -228,58 +233,85 @@
         ]}
     ];
 
-    // LocalStorage'dan oylamaları çek
     let votes = JSON.parse(localStorage.getItem('cafeVotes')) || {};
     let currentFilter = 'all';
-
-    function saveVotes() {
-        localStorage.setItem('cafeVotes', JSON.stringify(votes));
-        updateCounter();
-    }
 
     function updateCounter() {
         let count = Object.values(votes).filter(v => v === 'like').length;
         document.getElementById('liked-count').innerText = count;
     }
 
-    function toggleVote(name, type) {
+    // SAYFAYI YENİLEMEDEN SADECE KARTI GÜNCELLEYEN YENİ FONKSİYON
+    function toggleVote(buttonElement, name, type) {
+        const card = buttonElement.closest('.card');
+        const btnLike = card.querySelector('.btn-like');
+        const btnDislike = card.querySelector('.btn-dislike');
+
         if (votes[name] === type) {
-            delete votes[name]; // Tıklanan butona tekrar basılırsa iptal et
+            // Zaten basılı olan butona tekrar basıldıysa OYU İPTAL ET
+            delete votes[name];
+            card.classList.remove('liked', 'disliked');
+            btnLike.classList.remove('active');
+            btnDislike.classList.remove('active');
+            
+            // Eğer filtrelenmiş sayfadaysak (Beğendiklerim/Elediklerim) ve oyu iptal ettiysek, kartı usulca gizle
+            if (currentFilter !== 'all') {
+                setTimeout(() => { card.style.display = 'none'; }, 300);
+            }
         } else {
+            // YENİ OY VERİLDİ (veya değiştirildi)
             votes[name] = type;
+            
+            // Sınıfları temizle ve yenisini ekle
+            card.classList.remove('liked', 'disliked');
+            card.classList.add(type === 'like' ? 'liked' : 'disliked');
+            
+            // Buton durumlarını güncelle
+            if (type === 'like') {
+                btnLike.classList.add('active');
+                btnDislike.classList.remove('active');
+            } else {
+                btnDislike.classList.add('active');
+                btnLike.classList.remove('active');
+            }
+            
+            // Eğer "Beğendiklerim" sayfasındayken "Eledim"e basarsa gizle (veya tam tersi)
+            if ((currentFilter === 'liked' && type !== 'like') || 
+                (currentFilter === 'disliked' && type !== 'dislike')) {
+                setTimeout(() => { card.style.display = 'none'; }, 300);
+            }
         }
-        saveVotes();
-        renderApp();
+
+        localStorage.setItem('cafeVotes', JSON.stringify(votes));
+        updateCounter();
     }
 
     function setFilter(filterType) {
         currentFilter = filterType;
         document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
         event.target.classList.add('active');
-        renderApp();
+        renderApp(); // Sadece sekmeler arası geçişte listeyi yeniden çiziyoruz
     }
 
+    // LİSTEYİ OLUŞTURMA İŞLEMİ (Sadece sekme değişince veya ilk açılışta çalışır)
     function renderApp() {
         const app = document.getElementById('app');
         app.innerHTML = '';
         let hasVisibleCards = false;
 
         nameData.forEach((category, index) => {
-            // Filtrelemeye göre bu kategoride gösterilecek kartları belirle
             const visibleItems = category.items.filter(item => {
                 if (currentFilter === 'all') return true;
                 if (currentFilter === 'liked') return votes[item.n] === 'like';
                 if (currentFilter === 'disliked') return votes[item.n] === 'dislike';
             });
 
-            if (visibleItems.length === 0) return; // Bu kategoride gösterilecek eleman yoksa kategoriyi çizme
+            if (visibleItems.length === 0) return; 
             hasVisibleCards = true;
 
-            // Kategori Akordiyonu
             const accordion = document.createElement('div');
             accordion.className = 'accordion';
             
-            // Eğer "Tümü" görünümünde değilsek, kategoriler otomatik açık gelsin
             const isExpanded = currentFilter !== 'all' ? 'active' : '';
             const isContentVisible = currentFilter !== 'all' ? 'style="display:block;"' : '';
 
@@ -289,16 +321,17 @@
                 let btnLikeClass = status === 'like' ? 'active' : '';
                 let btnDislikeClass = status === 'dislike' ? 'active' : '';
 
+                // onclick içine "this" ekleyerek DOM elementini doğrudan iletiyoruz
                 return `
                     <div class="card ${cardClass}">
                         <div class="c-name">${item.n}</div>
                         <div class="c-pronounce">"${item.p}"</div>
                         <div class="c-desc">${item.d}</div>
                         <div class="card-actions">
-                            <button class="action-btn btn-like ${btnLikeClass}" onclick="toggleVote('${item.n.replace(/'/g, "\\'")}', 'like')">
+                            <button class="action-btn btn-like ${btnLikeClass}" onclick="toggleVote(this, '${item.n.replace(/'/g, "\\'")}', 'like')">
                                 👍 Beğendim
                             </button>
-                            <button class="action-btn btn-dislike ${btnDislikeClass}" onclick="toggleVote('${item.n.replace(/'/g, "\\'")}', 'dislike')">
+                            <button class="action-btn btn-dislike ${btnDislikeClass}" onclick="toggleVote(this, '${item.n.replace(/'/g, "\\'")}', 'dislike')">
                                 👎 Eledim
                             </button>
                         </div>
@@ -318,7 +351,7 @@
         });
 
         if (!hasVisibleCards) {
-            app.innerHTML = `<div class="empty-state">Bu filtrede gösterilecek isim bulunamadı.</div>`;
+            app.innerHTML = `<div class="empty-state">Bu listede gösterilecek isim bulunamadı.</div>`;
         }
         
         updateCounter();
